@@ -1,0 +1,12 @@
+
+package package1;
+
+option java_package = "test.java.package1";
+
+option cc_generic_services = false;     // auto-added
+option java_generic_services = false;   // auto-added
+option py_generic_services = false;
+
+message MessageImport1 {
+
+}

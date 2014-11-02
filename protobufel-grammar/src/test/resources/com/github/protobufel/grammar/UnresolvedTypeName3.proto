@@ -1,0 +1,10 @@
+package my.package1;
+
+message Message1 {
+	optional string good1 = 1;
+
+	extend Message1 {
+		optional Message2 bad1 = 1;
+		optional Message2 bad2 = 2;
+	}
+}

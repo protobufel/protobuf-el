@@ -1,0 +1,21 @@
+package test.field.enumType.defaults;
+
+message FileOptions {
+	enum Enum1 {
+		SPEED = 1;
+		CODE_SIZE = 2;
+		LITE_RUNTIME = 3;
+	}
+
+	optional Enum1 enum_field1 = 1 [default = SPEED];
+	optional Enum2 enum_field2 = 2 [default = VALUE1] ;
+	optional fixed32 scalar_field1 = 3 [default = 123];
+	repeated Enum1 rep_enum_field_good1 = 4 [default.h = SPEED];
+	repeated Enum1 rep_enum_field_bad1 = 5 [default = SPEED];
+
+}
+
+enum Enum2 {
+	VALUE1 = 1;
+	VALUE2 = 2;
+}

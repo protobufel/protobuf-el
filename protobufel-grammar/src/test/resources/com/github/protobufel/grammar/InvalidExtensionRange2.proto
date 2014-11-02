@@ -1,0 +1,8 @@
+package hi.message.extendee1;
+
+message Message1 {
+	optional string field1 = 1;
+
+	// min > max
+	extensions 1003 to 1001;
+}

@@ -1,0 +1,34 @@
+import "google/protobuf/descriptor.proto";
+
+import "import1.proto";
+import public "publicImport1.proto";
+import "import2.proto";
+
+package package1;
+
+option (file_opt1) = 123;
+option (file_opt2).opt1 = "hello";
+
+option (file_opt3) = {
+	opt1 : 'hello1'
+	opt2 : 12345
+};
+
+option java_package = "test.java.package1";
+// option optimize_for = SPEED; // protoc BUG: it skips this FileDescriptorProto generation!
+
+option cc_generic_services = false;     // auto-added
+option java_generic_services = false;   // auto-added
+option py_generic_services = false;
+
+extend google.protobuf.FileOptions {
+  optional uint64 file_opt1 = 7736974;
+  optional Message1 file_opt2 = 1001;
+  optional Message1 file_opt3 = 1002;
+}
+
+
+message Message1 {
+	optional string opt1 = 1;
+	optional uint64 opt2 = 2;
+}

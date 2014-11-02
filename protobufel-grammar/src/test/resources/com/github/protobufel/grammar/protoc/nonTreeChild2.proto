@@ -1,0 +1,10 @@
+
+package common.child.sub1.sub2;
+//package common;
+
+option java_package = "test.java.package1";
+
+
+message Child2 {
+	optional string field1 = 1;
+}

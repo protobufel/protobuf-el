@@ -1,0 +1,9 @@
+package my.package1;
+
+message Message1 {
+	optional string good1 = 1;
+
+	extend Message2 {
+		optional string bad1 = 1;
+	}
+}

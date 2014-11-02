@@ -1,0 +1,25 @@
+package test.type.duplicates1;
+
+message Message1 {
+	repeated string some_field1 = 1;
+	optional Type1 field1 = 2;
+	repeated Type1 field2 = 3;
+
+	message Type2 {
+		optional bool f1 = 1;
+	}
+
+	enum Type2 {
+		VALUE1 = 1;
+		VALUE2 = 2;
+	}
+}
+
+message Type1 {
+	optional bool f1 = 1;
+}
+
+enum Type1 {
+	VALUE1 = 1;
+	VALUE2 = 2;
+}

@@ -1,0 +1,12 @@
+package hi.message.extendee1;
+
+message Message1 {
+  optional string good1 = 1;
+
+  extensions 1000 to 1010;
+}
+
+extend Message1 {
+  optional uint64 ext_duplicate1 = 1000;
+  optional bool ext_duplicate1 = 1001;
+}

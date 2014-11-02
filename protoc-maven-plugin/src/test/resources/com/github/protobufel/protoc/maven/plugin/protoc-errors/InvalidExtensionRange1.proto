@@ -1,0 +1,8 @@
+package hi.message.extendee1;
+
+message Message1 {
+	optional string field1 = 1;
+
+	// in reserved range
+	extensions 19001 to 19003;
+}

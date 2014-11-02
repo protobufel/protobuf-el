@@ -1,0 +1,15 @@
+package ognl.test.proto;
+
+option java_package = "com.fictional.test";
+option java_outer_classname = "SubMessageStandaloneOneProto";
+
+message SubMessageStandaloneOne {
+	required SimpleMessage msg = 1;
+
+}
+
+message SimpleMessage {
+	required string name = 1;
+	optional int32 id = 2;
+}
+
