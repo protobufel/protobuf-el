@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 	<name>protobufel-parent</name>
 	<description>The parent project of Google ProtoBuf enhancements and EL 3.0</description>
-	<url>https://github.com/protobufel/protobuf-el</url>
+	<url>https://github.com/protobufel/protobuf-el/</url>
 	<inceptionYear>2014</inceptionYear>
 	<licenses>
 		<license>
@@ -25,17 +25,20 @@
 	<scm>
 		<connection>scm:git:git@github.com:protobufel/protobuf-el.git</connection>
 		<developerConnection>scm:git:git@github.com:protobufel/protobuf-el.git</developerConnection>
-		<url>git@github.com:protobufel/protobuf-el.git</url>
+<!-- 		<url>git@github.com:protobufel/protobuf-el.git</url> -->
+		<url>https://github.com/protobufel/protobuf-el</url>
+		<tag>HEAD</tag>
 	</scm>
   <issueManagement>
-      <system>GitHub Issues</system>
-      <url>https://github.com/protobufel/protobuf-el/issues</url>
+    <system>GitHub Issues</system>
+    <url>https://github.com/protobufel/protobuf-el/issues</url>
   </issueManagement>
 	<developers>
 		<developer>
 			<id>protobufel</id>
 			<name>David Tesler</name>
 			<url>https://github.com/protobufel</url>
+			<email>protobufel@gmail.com</email>
 			<roles>
 				<role>owner</role>
 				<role>developer</role>
@@ -53,7 +56,8 @@
 		<site>
 			<id>github</id>
 			<name>Site of ${project.groupId}:${project.artifactId}:${project.version}</name>
-			<url>http://protobufel.github.io/protobuf-el/</url>
+<!-- 			<url>https://protobufel.github.io/protobuf-el/</url> -->
+			<url>https://github.com/protobufel/protobuf-el</url>
 		</site>
 	</distributionManagement>
 	<dependencyManagement>
@@ -314,8 +318,8 @@
 					<version>2.9.1</version>
 					<configuration>
 						<docfilessubdirs>true</docfilessubdirs>
-						<detectLinks>true</detectLinks>
-						<linksource>true</linksource>
+						<detectLinks>false</detectLinks>
+						<linksource>false</linksource>
 					</configuration>
 					<executions>
 						<execution>
@@ -588,13 +592,22 @@
 				<plugin>
 					<groupId>com.github.github</groupId>
 					<artifactId>site-maven-plugin</artifactId>
-					<version>0.9</version>
+					<version>0.10</version>
 					<configuration>
 						<message>Creating Maven site for ${project.artifactId}:${project.version}</message>
-						<dryRun>true</dryRun>
+<!-- 						<dryRun>true</dryRun> -->
 						<lineLength>100</lineLength>
-						<merge>false</merge>
 						<noJekyll>true</noJekyll>
+						<server>github</server>
+<!-- 						<path>${site.path}</path> -->
+<!--             <path>${project.distributionManagement.site.url}</path> -->
+						<repositoryOwner>protobufel</repositoryOwner>
+						<repositoryName>protobuf-el</repositoryName>
+            <merge>true</merge>
+            <excludes>
+              <exclude>xref-test/**</exclude>
+              <exclude>testapidocs/**</exclude>
+            </excludes>
 					</configuration>
 					<executions>
 						<execution>
@@ -702,18 +715,32 @@
 				<artifactId>maven-javadoc-plugin</artifactId>
 				<version>2.9.1</version>
 				<configuration>
-					<detectLinks>true</detectLinks>
+					<detectLinks>false</detectLinks>
 					<docfilessubdirs>true</docfilessubdirs>
-					<linksource>true</linksource>
+					<linksource>false</linksource>
 					<quiet>true</quiet>
+					<show>protected</show>
+					<source>1.5</source>
 					<links>
 						<link>http://docs.oracle.com/javase/7/docs/api/</link>
 					</links>
+<!-- 					<subpackages>com.github.protobufel</subpackages> -->
+<!-- 					<excludePackageNames>com.github.protobufel.util:com.github.protobufel.test.util</excludePackageNames> -->
+					<sourceFileIncludes>
+						<sourceFileInclude>com/github/protobufel/**/*</sourceFileInclude>
+					</sourceFileIncludes>	
+					<sourceFileExcludes>
+						<sourceFileExclude>com/github/protobufel/benchmarks/**/*</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/util/**/*</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/test/util/**/*</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/grammar/ProtoParser.java</sourceFileExclude>
+					</sourceFileExcludes>
 				</configuration>
 				<reportSets>
 					<reportSet>
-						<!-- <reports> <report>javadoc</report> <report>test-javadoc</report> 
-							</reports> -->
+						<reports>
+							<report>javadoc</report>
+						</reports>
 					</reportSet>
 					<reportSet>
 						<id>aggregate</id>
@@ -728,13 +755,24 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-jxr-plugin</artifactId>
 				<version>2.4</version>
+				<configuration>
+					<linkJavadoc>true</linkJavadoc>
+					<includes>
+						<include>com/github/protobufel/**/*</include>
+					</includes>	
+					<excludes>
+						<exclude>com/github/protobufel/benchmarks/**/*</exclude>
+						<exclude>com/github/protobufel/util/**/*</exclude>
+						<exclude>com/github/protobufel/test/util/**/*</exclude>
+						<exclude>com/github/protobufel/grammar/ProtoParser.java</exclude>
+					</excludes>
+				</configuration>
 				<reportSets>
 					<reportSet>
 						<id>aggregate</id>
 						<inherited>false</inherited>
 						<reports>
 							<report>aggregate</report>
-<!-- 							<report>test-aggregate</report> -->
 						</reports>
 					</reportSet>
 				</reportSets>
@@ -743,10 +781,12 @@
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
 				<version>1.7</version>
-				<inherited></inherited>
 				<reportSets>
 					<reportSet>
 						<inherited>false</inherited>
+						<reports>
+							<report>aggregate-add-third-party</report>
+						</reports>
 					</reportSet>
 				</reportSets>
 			</plugin>

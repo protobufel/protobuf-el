@@ -25,7 +25,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-package com.github.protobufel;
+package com.github.protobufel.benchmarks;
 
 import static com.github.protobufel.test.util.ProtoUtils.cityName;
 import static com.github.protobufel.test.util.ProtoUtils.countryCity;
@@ -68,6 +68,8 @@ import com.fictional.test.GalaxyProto.Galaxy.Color;
 import com.fictional.test.GalaxyProto.Galaxy.Star;
 import com.fictional.test.GalaxyProto.Planet;
 import com.fictional.test.GalaxyProto.Tag;
+import com.github.protobufel.DynamicMessage;
+import com.github.protobufel.MessageAdapter;
 import com.github.protobufel.DynamicMessage.Builder;
 import com.github.protobufel.test.util.ProtoUtils;
 import com.google.protobuf.Message;
