@@ -7,7 +7,7 @@
 		<version>0.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>protobufel-test-util</artifactId>
-	<name>Utilities for testing</name>
+	<name>Common Test Utilities</name>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>

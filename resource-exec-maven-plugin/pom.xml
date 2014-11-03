@@ -7,10 +7,17 @@
 		<artifactId>protobufel-parent</artifactId>
 		<version>0.6-SNAPSHOT</version>
 	</parent>
-	<artifactId>protoc-maven-plugin</artifactId>
+	<artifactId>resource-exec-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<name>protoc-maven-plugin Maven Plugin</name>
-	<url>https://github.com/protobufel/protobuf-el</url>
+	<name>Resource Friendly Exec Plugin</name>
+	<url>https://github.com/protobufel/protobuf-el/resource-exec-maven-plugin/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>Resource Friendly Exec Plugin</name>
+			<url>https://github.com/protobufel/protobuf-el/resource-exec-maven-plugin/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>javax.inject</groupId>

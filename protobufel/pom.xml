@@ -7,10 +7,19 @@
 		<version>0.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>protobufel</artifactId>
-	<!-- <version>${project.version}</version> -->
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
+	<name>Enhanced ProtoBuf DynamicMessage</name>
+	<description>Enhanced ProtoBuf DynamicMessage mirroring GeneratedMessage capabilities</description>
+	<url>https://github.com/protobufel/protobuf-el/protobufel/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>Enhanced ProtoBuf DynamicMessage</name>
+			<url>https://github.com/protobufel/protobuf-el/protobufel/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

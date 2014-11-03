@@ -8,9 +8,15 @@
 		<version>0.6-SNAPSHOT</version>
 	</parent>
 	<artifactId>regex-support-interfaces</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
-	<name>Regex Support Interfaces </name>
-	<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces</url>
+	<name>Extended Regex Support Interfaces</name>
+	<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>Extended Regex Support Interfaces</name>
+			<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

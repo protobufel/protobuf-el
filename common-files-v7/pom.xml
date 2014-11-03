@@ -8,7 +8,15 @@
 	</parent>
 	<artifactId>common-files-v7</artifactId>
 	<name>Common Directory Scanning Utilities</name>
-	<description>Common file and directory scanning utilities </description>
+	<description>Common file and directory scanning utilities</description>
+	<url>https://github.com/protobufel/protobuf-el/common-files-v7/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>Common Directory Scanning Utilities</name>
+			<url>https://github.com/protobufel/protobuf-el/common-files-v7/</url>
+		</site>
+	</distributionManagement>
 	<licenses>
 		<license>
 			<name>The BSD 2-Clause License</name>

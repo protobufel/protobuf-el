@@ -6,12 +6,18 @@
 		<version>0.6-SNAPSHOT</version>
 	</parent>
   <artifactId>regex-support</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
   <name>Regex utilities based on OpenJDK 7 java.util.regex.Matcher and java.util.regex.ASCII</name>
 	<description>Regex utilities based on OpenJDK 7 java.util.regex.Matcher and java.util.regex.ASCII. 
 		Needed mainly due to lack of access to Matcher#lastAppendPosition, and to not reinvent the wheel.
 	</description>
-	<url>https://github.com/protobufel/protobuf-el/regex-support</url>
+	<url>https://github.com/protobufel/protobuf-el/regex-support/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+		  <name>Regex utilities based on OpenJDK 7 java.util.regex.Matcher and java.util.regex.ASCII</name>
+			<url>https://github.com/protobufel/protobuf-el/regex-support/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

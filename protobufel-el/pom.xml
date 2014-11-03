@@ -8,6 +8,14 @@
 	</parent>
 	<artifactId>protobufel-el</artifactId>
 	<name>ProtoBuf integration with EL 3.0</name>
+	<url>https://github.com/protobufel/protobuf-el/protobufel-el/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>ProtoBuf integration with EL 3.0</name>
+			<url>https://github.com/protobufel/protobuf-el/protobufel-el/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>

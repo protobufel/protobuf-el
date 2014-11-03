@@ -6,6 +6,8 @@
     <version>0.6-SNAPSHOT</version>
   </parent>
   <artifactId>protobufel-protobuf-test-protos</artifactId>
+	<packaging>jar</packaging>
+  <name>Shared Test Resources - Original ProtoBuf test .proto files</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<my.generated-resources>${project.build.directory}/generated-resources/protoc</my.generated-resources>

@@ -7,6 +7,14 @@
   </parent>
   <artifactId>protobufel-crud</artifactId>
 	<name>ProtoBuf EL 3.0 CRUD Library</name>
+	<url>https://github.com/protobufel/protobuf-el/protobufel-crud/</url>
+	<distributionManagement>
+		<site>
+			<id>github</id>
+			<name>ProtoBuf EL 3.0 CRUD Library</name>
+			<url>https://github.com/protobufel/protobuf-el/protobufel-crud/</url>
+		</site>
+	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>

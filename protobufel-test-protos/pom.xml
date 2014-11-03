@@ -8,6 +8,7 @@
 	</parent>
 	<artifactId>protobufel-test-protos</artifactId>
 	<packaging>jar</packaging>
+	<name>Shared Test Resources - test .proto files</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<my.generated-resources>${project.build.directory}/generated-resources/protoc</my.generated-resources>
@@ -22,7 +23,15 @@
 	</dependencies>
 	<build>
 		<plugins>
- 			<plugin>
+<!-- 			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-site-plugin</artifactId>
+				<configuration>
+					<skip combine.self="override">true</skip>
+					<generateReports>false</generateReports>
+				</configuration>
+			</plugin>
+ -->			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-antrun-plugin</artifactId>
 				<executions>
