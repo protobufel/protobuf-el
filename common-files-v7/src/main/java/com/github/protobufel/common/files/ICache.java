@@ -27,10 +27,8 @@
 
 package com.github.protobufel.common.files;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-@NonNullByDefault
 public interface ICache<K, V> {
   public boolean setCachedValue(K key, V value);
   public @Nullable V getCachedValue(K key);

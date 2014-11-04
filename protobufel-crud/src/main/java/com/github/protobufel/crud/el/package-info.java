@@ -40,10 +40,10 @@
  *     .process(originalCityList);
  * </pre>
  *
- * @see <a href="doc-files/Examples.java">Examples.java</a>
- * @see <a href="doc-files/galaxy.proto">galaxy.proto sample</a>
+ * @see <a href="doc-files/Examples.java.txt">Examples.java</a>
+ * @see <a href="doc-files/galaxy.proto.txt">galaxy.proto sample</a>
  * @see <a href="https://jcp.org/aboutJava/communityprocess/final/jsr341/index.html">JSR-000341 Expression Language 3.0</a>
- * @see <a href="https://github.com/google/protobuf/">Protocol Buffers</a>
+ * @see <a href="https://developers.google.com/protocol-buffers/docs/overview">Protocol Buffers</a>
  *
  * @author protobufel@gmail.com David Tesler
  */

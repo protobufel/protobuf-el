@@ -10,20 +10,6 @@
 	<name>Common Directory Scanning Utilities</name>
 	<description>Common file and directory scanning utilities</description>
 	<url>https://github.com/protobufel/protobuf-el/common-files-v7/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>Common Directory Scanning Utilities</name>
-			<url>https://github.com/protobufel/protobuf-el/common-files-v7/</url>
-		</site>
-	</distributionManagement>
-	<licenses>
-		<license>
-			<name>The BSD 2-Clause License</name>
-			<url>http://opensource.org/licenses/bsd-license.php</url>
-			<distribution>repo</distribution>
-		</license>
-	</licenses>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

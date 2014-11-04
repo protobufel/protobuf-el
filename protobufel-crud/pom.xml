@@ -8,13 +8,7 @@
   <artifactId>protobufel-crud</artifactId>
 	<name>ProtoBuf EL 3.0 CRUD Library</name>
 	<url>https://github.com/protobufel/protobuf-el/protobufel-crud/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>ProtoBuf EL 3.0 CRUD Library</name>
-			<url>https://github.com/protobufel/protobuf-el/protobufel-crud/</url>
-		</site>
-	</distributionManagement>
+	<description>Query CRUD Processing with JSR-341 EL 3.0 Expression Language enabled for Google Protocol Buffers</description>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>

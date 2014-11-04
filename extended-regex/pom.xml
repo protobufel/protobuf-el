@@ -9,13 +9,6 @@
   <name>Extended Regex</name>
 	<description>Extended Regex supporting multiple entries</description>
 	<url>https://github.com/protobufel/protobuf-el/extended-regex/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-		  <name>Extended Regex</name>
-			<url>https://github.com/protobufel/protobuf-el/extended-regex/</url>
-		</site>
-	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

@@ -27,9 +27,6 @@
 
 package com.github.protobufel.common.files;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
-
-@NonNullByDefault
 interface IHistoryCache<K, V> {
   public void clear();
   public void pop();

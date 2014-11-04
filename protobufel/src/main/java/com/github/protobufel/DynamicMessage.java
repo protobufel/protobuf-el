@@ -792,7 +792,7 @@ public final class DynamicMessage implements Message, IMessageEx {
       return FieldHandlerType.getFieldHandler(field).isInitialized(this, field);
     }
 
-    Builder toBuilder(final FieldDescriptor field) {
+    public Builder toBuilder(final FieldDescriptor field) {
       verifyContainingType(field);
       return FieldHandlerType.getFieldHandler(field).toBuilder(this, field);
     }

@@ -27,9 +27,7 @@
 
 package com.github.protobufel.common.files;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 
-@NonNullByDefault
 public enum DirectoryMatchResult {
   NO_MATCH(0),
   NO_MATCH_CONTINUE(1),

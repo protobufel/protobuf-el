@@ -26,14 +26,25 @@
 //
 
 /**
- * Via its {@link ProtoFiles} class, provides the ability to :
- * <ol>
- * <li>parse .proto files off files, URI resources, and texts
- * <li>add FileDescriptorProto(-s) to build FileDecsriptor(-s) from  
- * <li>build the canonical FileDecsriptorProtos and FileDecsriptors based on the above input 
- * </ol>
- *
+ * Provides fast and convenient directory and file system scanning and processing.
+ * <p>
+ * Java 7 and 8 {@link java.nio.file} package provides a basic {@link java.nio.file.PathMatcher}
+ * interface and a bare bone implementation. Unfortunately, the algorithm doesn't filter out
+ * directories, and only works directly on files for globs and regexes, meaning the processing of
+ * <strong>the entire subtree(-s)</strong>!
+ * <p>
+ * In contrast, the classes of this package, while dealing with the same glob or regexes syntax,
+ * will intelligently skip entire directories, if the pattern(-s) are not satisfied. In effect, for
+ * the large file trees, the savings would amount to many orders of magnitude!
+ * <p>
+ * In addition to the efficient processing, there are classes dealing with resources by specifying
+ * multiple blob/regex excludes and/or includes; all while using the same efficient algorithm.
+ * 
  * @see <a href="doc-files/Examples.java.txt">Examples.java</a>
- * @see com.github.protobufel.grammar.ProtoFiles
+ * @see com.github.protobufel.common.files.PathVisitors
+ * @see com.github.protobufel.common.files.resources.Resources
+ * 
+ * @author protobufel@gmail.com David Tesler
  */
-package com.github.protobufel.grammar;
+@org.eclipse.jdt.annotation.NonNullByDefault
+package com.github.protobufel.common.files;

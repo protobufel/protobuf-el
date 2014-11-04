@@ -12,16 +12,15 @@
 	<version>0.6-SNAPSHOT</version>
 	<packaging>pom</packaging>
 	<name>Parent Project of PROTOBUF-EL Repository</name>
-	<description>The parent project of Google ProtoBuf enhancements and EL 3.0, Fast Directory Scanning, and Resource Friendly Exec Plugin</description>
+	<description>The parent project of Google Protocol Buffers enhancements and EL 3.0, Fast Directory Scanning, and Resource Friendly Maven Exec Plugin</description>
 	<url>https://github.com/protobufel/protobuf-el/</url>
 	<inceptionYear>2014</inceptionYear>
 	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>Parent Project of PROTOBUF-EL Repository</name>
-<!-- 			<url>https://protobufel.github.io/protobuf-el/</url> -->
-			<url>https://github.com/protobufel/protobuf-el/</url>
-		</site>
+    <site>
+      <id>gh-pages</id>
+      <name>Deployment through GitHub's site deployment plugin</name>
+      <url>${project.version}/</url>
+    </site>
 	</distributionManagement>
 	<licenses>
 		<license>
@@ -34,12 +33,12 @@
 		<connection>scm:git:git@github.com:protobufel/protobuf-el.git</connection>
 		<developerConnection>scm:git:git@github.com:protobufel/protobuf-el.git</developerConnection>
 <!-- 		<url>git@github.com:protobufel/protobuf-el.git</url> -->
-		<url>https://github.com/protobufel/protobuf-el</url>
+		<url>https://github.com/protobufel/protobuf-el/</url>
 		<tag>HEAD</tag>
 	</scm>
   <issueManagement>
     <system>GitHub Issues</system>
-    <url>https://github.com/protobufel/protobuf-el/issues</url>
+    <url>https://github.com/protobufel/protobuf-el/issues/</url>
   </issueManagement>
 	<developers>
 		<developer>
@@ -56,6 +55,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<legal.owner>David Tesler (https://github.com/protobufel)</legal.owner>
+<!-- 		<github.global.server>github</github.global.server> -->
 		<mavenVersion>3.2.3</mavenVersion>
 		<mavenPluginPluginVersion>3.3</mavenPluginPluginVersion>
 		<powermock.version>1.5.6</powermock.version>
@@ -315,13 +315,11 @@
 							<requireJavaVersion>
 								<version>1.7</version>
 							</requireJavaVersion>
-<!--                <requireNoRepositories> -->
-<!--                  <message>Best Practice is to never define repositories in pom.xml (use a repository manager instead)</message> -->
-<!--                </requireNoRepositories> -->
-<!--                <requirePluginVersions> -->
-<!--                   <message>Best Practice is to always define plugin versions!</message> -->
-<!--                </requirePluginVersions> -->
+               <requirePluginVersions>
+                  <message>Best Practice is to always define plugin versions!</message>
+               </requirePluginVersions>
 <!--                <requireSameVersions> -->
+<!--                   <message>Maven Test Plugins should all have the same versions!</message> -->
 <!--                  <plugins> -->
 <!--                    <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin> -->
 <!--                    <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin> -->
@@ -329,12 +327,13 @@
 <!--                  </plugins> -->
 <!--                </requireSameVersions> -->
 <!--                <requireSameVersions> -->
-<!--                	<dependencies> -->
-<!--                		<dependency>org.antlr:antlr4-runtime</dependency> -->
-<!--                	</dependencies>  -->
-<!--                  <plugins> -->
-<!--                    <plugin>org.antlr:antlr4-maven-plugin</plugin> -->
-<!--                  </plugins> -->
+<!-- 									<message>Antlr4 runtime and plugin should all have the same versions!</message> -->
+<!-- 									<dependencies> -->
+<!-- 										<dependency>org.antlr:antlr4-runtime</dependency> -->
+<!-- 									</dependencies> -->
+<!-- 									<plugins> -->
+<!-- 										<plugin>org.antlr:antlr4-maven-plugin</plugin> -->
+<!-- 									</plugins> -->
 <!--                </requireSameVersions> -->
 						</rules>
 					</configuration>
@@ -518,6 +517,7 @@
 					<version>3.4</version>
 					<configuration>
 						<lineLength>100</lineLength>
+						<topSiteURL>https://github.com/protobufel/protobuf-el/</topSiteURL>
 						<skipDeploy>true</skipDeploy>
 					</configuration>
 					<dependencies>
@@ -654,7 +654,7 @@
 				<plugin>
 					<groupId>org.jacoco</groupId>
 					<artifactId>jacoco-maven-plugin</artifactId>
-					<version>[0.7.2-SNAPSHOT, 1.0.0]</version>
+					<version>0.7.2.201409121644</version>
 				</plugin>
 				<plugin>
 					<groupId>org.assertj</groupId>
@@ -664,7 +664,7 @@
 				<plugin>
 					<groupId>com.github.github</groupId>
 					<artifactId>site-maven-plugin</artifactId>
-					<version>[0.10, 1.0.0]</version>
+					<version>0.10</version>
 					<configuration>
 						<message>Creating Maven site for ${project.artifactId}:${project.version}</message>
 <!-- 						<dryRun>true</dryRun> -->
@@ -672,7 +672,7 @@
 						<noJekyll>true</noJekyll>
 						<server>github</server>
 <!-- 						<path>${site.path}</path> -->
-<!--             <path>${project.distributionManagement.site.url}</path> -->
+            <path>${project.distributionManagement.site.url}</path>
 						<repositoryOwner>protobufel</repositoryOwner>
 						<repositoryName>protobuf-el</repositoryName>
             <merge>true</merge>
@@ -683,6 +683,7 @@
  -->					</configuration>
 					<executions>
 						<execution>
+							<id>github</id>
 							<goals>
 								<goal>site</goal>
 							</goals>
@@ -776,37 +777,37 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jxr-plugin</artifactId>
-				<configuration>
-					<skip>true</skip>
-					<linkJavadoc>true</linkJavadoc>
-					<includes>
-						<include>com/github/protobufel/**/*</include>
-					</includes>	
-					<excludes>
-						<exclude>com/github/protobufel/benchmarks/**/*</exclude>
-						<exclude>com/github/protobufel/util/**/*</exclude>
-						<exclude>com/github/protobufel/test/util/**/*</exclude>
-						<exclude>com/github/protobufel/grammar/ProtoParser*.java</exclude>
-					</excludes>
-				</configuration>
-				<reportSets>
-					<reportSet>
-						<reports>
-							<report>jxr</report>
-						</reports>
-					</reportSet>
-					<reportSet>
-						<id>aggregate</id>
-						<inherited>false</inherited>
-						<reports>
-							<report>aggregate</report>
-						</reports>
-					</reportSet>
-				</reportSets>
-			</plugin>
+<!-- 			<plugin> -->
+<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
+<!-- 				<artifactId>maven-jxr-plugin</artifactId> -->
+<!-- 				<configuration> -->
+<!-- 					<skip>true</skip> -->
+<!-- 					<linkJavadoc>true</linkJavadoc> -->
+<!-- 					<includes> -->
+<!-- 						<include>com/github/protobufel/**/*</include> -->
+<!-- 					</includes>	 -->
+<!-- 					<excludes> -->
+<!-- 						<exclude>com/github/protobufel/benchmarks/**/*</exclude> -->
+<!-- 						<exclude>com/github/protobufel/util/**/*</exclude> -->
+<!-- 						<exclude>com/github/protobufel/test/util/**/*</exclude> -->
+<!-- 						<exclude>com/github/protobufel/grammar/ProtoParser*.java</exclude> -->
+<!-- 					</excludes> -->
+<!-- 				</configuration> -->
+<!-- 				<reportSets> -->
+<!-- 					<reportSet> -->
+<!-- 						<reports> -->
+<!-- 							<report>jxr</report> -->
+<!-- 						</reports> -->
+<!-- 					</reportSet> -->
+<!-- 					<reportSet> -->
+<!-- 						<id>aggregate</id> -->
+<!-- 						<inherited>false</inherited> -->
+<!-- 						<reports> -->
+<!-- 							<report>aggregate</report> -->
+<!-- 						</reports> -->
+<!-- 					</reportSet> -->
+<!-- 				</reportSets> -->
+<!-- 			</plugin> -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-surefire-report-plugin</artifactId>
@@ -898,6 +899,9 @@
 					<value>true</value>
 				</property>
 			</activation>
+<!-- 			<properties> -->
+<!-- 				<project.distributionManagement.site.url>${project.build.directory}/staging/</project.distributionManagement.site.url> -->
+<!-- 			</properties> -->
 			<dependencyManagement>
 				<dependencies>
 					<dependency>
@@ -915,11 +919,35 @@
 			</dependencyManagement>
 			<distributionManagement>
 				<site>
-					<id>site-stage</id>
+		      <id>gh-pages</id>
 					<name>test parent site</name>
-					<url>${project.build.directory}/staging/</url>
+<!-- 					<url>${project.build.directory}/staging/</url> -->
+					<url>${project.url}</url>
 				</site>
 			</distributionManagement>
+			<build>
+				<pluginManagement>
+					<plugins>
+						<plugin>
+							<groupId>org.apache.maven.plugins</groupId>
+							<artifactId>maven-site-plugin</artifactId>
+							<version>3.4</version>
+							<configuration>
+								<lineLength>100</lineLength>
+<!-- 								<topSiteURL>${project.build.directory}/staging/</topSiteURL> -->
+								<skipDeploy>true</skipDeploy>
+							</configuration>
+							<dependencies>
+								<dependency>
+									<groupId>org.apache.maven.doxia</groupId>
+									<artifactId>doxia-module-markdown</artifactId>
+									<version>1.6</version>
+								</dependency>
+							</dependencies>
+						</plugin>
+					</plugins>
+				</pluginManagement>
+			</build>
 		</profile>
 		<profile>
 			<id>dev-profile</id>

@@ -33,10 +33,8 @@ import java.io.File;
 import java.nio.file.Path;
 
 import org.eclipse.jdt.annotation.NonNull;
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-@NonNullByDefault
 public class PathContexts {
   private static final PathContext<Object> EMPTY_PATH_CONTEXT = new PathContext<Object>() {
     @Override

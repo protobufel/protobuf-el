@@ -53,7 +53,6 @@ import com.github.protobufel.common.files.ContextPathMatchers.HierarchicalMatche
 import com.github.protobufel.common.files.PathContexts.PathContext;
 import com.github.protobufel.common.files.HistoryCaches.SimpleHistoryCache;
 
-@NonNullByDefault
 public final class ContextResourcePathMatchers {
   private ContextResourcePathMatchers() {
   }

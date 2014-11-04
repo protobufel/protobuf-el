@@ -59,7 +59,6 @@ import com.github.protobufel.common.files.PathContexts.PathContext;
 import com.github.protobufel.common.files.PathContexts.SimplePathContext;
 import com.github.protobufel.common.files.resources.Resources.IFileSet;
 
-@NonNullByDefault
 public class PathVisitors {
 
   private PathVisitors() {}

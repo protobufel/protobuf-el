@@ -27,9 +27,7 @@
 
 package com.github.protobufel.common.files;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 
-@NonNullByDefault
 public interface IHistoryCacheView<K, V> extends ICache<K, V> {
   public int currentDepth(); // can be used for Matcher's local caching
 }

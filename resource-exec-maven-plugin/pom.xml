@@ -9,15 +9,9 @@
 	</parent>
 	<artifactId>resource-exec-maven-plugin</artifactId>
 	<packaging>maven-plugin</packaging>
-	<name>Resource Friendly Exec Plugin</name>
+	<name>Resource Friendly Maven Exec Plugin</name>
 	<url>https://github.com/protobufel/protobuf-el/resource-exec-maven-plugin/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>Resource Friendly Exec Plugin</name>
-			<url>https://github.com/protobufel/protobuf-el/resource-exec-maven-plugin/</url>
-		</site>
-	</distributionManagement>
+	<description>Maven Exec Plugin allowing resource globs and regexes as its arguments</description>
 	<dependencies>
 		<dependency>
 			<groupId>javax.inject</groupId>

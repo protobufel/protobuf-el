@@ -25,76 +25,21 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-package com.github.protobufel.common.files.regex;
+package com.github.protobufel.resource.exec.maven.plugin;
 
-import java.util.regex.Matcher;
+import javax.inject.Named;
+import javax.inject.Singleton;
 
-/**
- * Extended Matcher for Extended Pattern.
- *  
- * @author protobufel@gmail.com David Tesler
- */
-@org.eclipse.jdt.annotation.NonNullByDefault
-public interface IMatcherSupport {
+@Named
+@Singleton
+class Jsr330Component {
 
-  public CharSequence getInput();
-
-  public IPatternSupport pattern();
-
-  // public IMatcherSupport region(int start, int end);
-
-  // public int regionStart();
-
-  // public int regionEnd();
-
-  // public IMatcherSupport usePattern(IPatternSupport pattern);
-
-  public IMatcherSupport reset();
-
-  // public IMatcherSupport reset(CharSequence input);
-
-  // public MatchResult toMatchResult();
-
-  public int start();
-
-  // public int start(int group);
-
-  public int end();
-
-  // public int end(int group);
-
-  // public String group();
-
-  // public @Nullable String group(int group);
-
-  // public @Nullable String group(String name);
-
-  // public int groupCount();
-
-  // public boolean matches();
-
-  public boolean find();
-
-  // public boolean find(int start);
-
-  // public boolean lookingAt();
-
-  // public String replaceAll(String replacement);
-
-  // public String replaceFirst(String replacement);
-
-  // public boolean hasTransparentBounds();
-
-  // public IMatcherSupport useTransparentBounds(boolean b);
-
-  // public boolean hasAnchoringBounds();
-
-  // public IMatcherSupport useAnchoringBounds(boolean b);
-
-  public Matcher getDelegate();
-
-  public int getLastAppendPosition();
-
-  public IMatcherSupport setLastAppendPosition(int lastAppendPosition);
-
+  public void hello() {
+    System.out.println();
+    System.out.println();
+    System.out.println("Hello! I am a component that is being used via constructor injection! "
+        + "That's right, I'm a JSR330 badass.");
+    System.out.println();
+    System.out.println();
+  }
 }

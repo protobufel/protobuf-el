@@ -27,12 +27,13 @@
 
 package com.github.protobufel.common.files;
 
+import static com.github.protobufel.common.verifications.Verifications.assertNonNull;
+import static com.github.protobufel.common.verifications.Verifications.verifyCondition;
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.startsWith;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.Assume.assumeThat;
-import static com.github.protobufel.common.verifications.Verifications.*;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -41,7 +42,6 @@ import java.nio.file.Paths;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.After;
 import org.junit.Ignore;
 import org.junit.Rule;
@@ -57,7 +57,6 @@ import org.slf4j.LoggerFactory;
 
 import com.github.protobufel.common.files.ContextPathMatchers.SimpleHierarchicalMatcher;
 
-@NonNullByDefault
 @RunWith(Theories.class)
 public class GlobRegexTest {
   @SuppressWarnings({ "unused", "null" })

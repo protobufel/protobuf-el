@@ -10,6 +10,8 @@
 	</parent>
 	<artifactId>protobufel-benchmarks</artifactId>
 	<name>protobufel JMH benchmarks</name>
+	<url>https://github.com/protobufel/protobuf-el/protobufel-benchmarks/</url>
+	<description>Internal DynamicMessage JMH Benchmarks</description>
   <packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

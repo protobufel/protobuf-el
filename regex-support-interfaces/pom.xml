@@ -9,14 +9,8 @@
 	</parent>
 	<artifactId>regex-support-interfaces</artifactId>
 	<name>Extended Regex Support Interfaces</name>
-	<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>Extended Regex Support Interfaces</name>
-			<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces/</url>
-		</site>
-	</distributionManagement>
+	<url>https://github.com/protobufel/protobuf-el/regex-support-interfaces</url>
+	<description>Extended Regex Support Interfaces</description>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

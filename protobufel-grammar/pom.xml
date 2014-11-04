@@ -8,15 +8,8 @@
 	</parent>
 	<artifactId>protobufel-grammar</artifactId>
 	<name>ProtoBuf Java Parser and FileDescriptor Builder</name>
-	<description>High-fidelity ProtoBuf Java Parser and FileDescriptor Builder</description>
 	<url>https://github.com/protobufel/protobuf-el/protobufel-grammar/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>ProtoBuf Java Parser and FileDescriptor Builder</name>
-			<url>https://github.com/protobufel/protobuf-el/protobufel-grammar/</url>
-		</site>
-	</distributionManagement>
+	<description>High-fidelity Google Protocol Buffers Java Parser and FileDescriptor Builder</description>
 	<properties>
 		<grammar-package>${project.groupId}.grammar</grammar-package>
 		<grammar-package-path>com/github/protobufel/grammar</grammar-package-path>

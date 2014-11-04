@@ -10,13 +10,6 @@
 	<name>Common Verification Utilities</name>
 	<description>Common Verification Utilities with null annotations</description>
 	<url>https://github.com/protobufel/protobuf-el/common-verifications/</url>
-	<distributionManagement>
-		<site>
-			<id>github</id>
-			<name>Common Verification Utilities</name>
-			<url>https://github.com/protobufel/protobuf-el/common-verifications/</url>
-		</site>
-	</distributionManagement>
 	<dependencies>
 		<dependency>
 			<groupId>org.eclipse.jdt</groupId>

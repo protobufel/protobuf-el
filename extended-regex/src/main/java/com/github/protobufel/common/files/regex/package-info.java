@@ -26,7 +26,13 @@
 //
 
 /**
- *
+ * Provides Extended Regex with multiple excludes and includes as individual regexes.
+ * <p>Useful for hierarchical resource filtering, or for combining multiple regex
+ * alternatives.
+ * 
+ * @see com.github.protobufel.common.files.regex.Patterns.ExtendedPattern#compile
+ * @see com.github.protobufel.common.files.regex.Patterns.ExtendedPattern#matches
+ * 
  * @author protobufel@gmail.com David Tesler
  */
 @org.eclipse.jdt.annotation.NonNullByDefault

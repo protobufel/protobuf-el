@@ -38,7 +38,6 @@ import org.eclipse.jdt.annotation.Nullable;
 
 import com.github.protobufel.common.files.PathContexts.PathContext;
 
-@NonNullByDefault
 public final class ContextPathMatchers {
   private ContextPathMatchers() {}
 

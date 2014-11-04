@@ -77,7 +77,6 @@ import com.google.common.base.Function;
 import com.google.common.collect.FluentIterable;
 import com.google.common.collect.ImmutableList;
 
-@NonNullByDefault
 @RunWith(Theories.class)
 public class GlobFilterTheoriesTest {
   @SuppressWarnings("null")

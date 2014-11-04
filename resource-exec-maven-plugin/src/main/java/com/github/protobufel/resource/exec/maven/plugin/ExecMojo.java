@@ -25,7 +25,7 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-package com.github.protobufel.protoc.maven.plugin;
+package com.github.protobufel.resource.exec.maven.plugin;
 
 import java.io.File;
 import java.io.IOException;

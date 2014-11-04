@@ -43,6 +43,7 @@ import org.eclipse.jdt.annotation.NonNullByDefault;
 
 @RunWith(JUnit4.class)
 @NonNullByDefault(false)
+//TODO provide additional thorough tests for all Patterns' classes! 
 public class PatternsTest {
   private Pattern expected;
   private int expectedFlags;

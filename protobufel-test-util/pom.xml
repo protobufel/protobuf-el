@@ -8,6 +8,8 @@
 	</parent>
 	<artifactId>protobufel-test-util</artifactId>
 	<name>Common Test Utilities</name>
+	<url>https://github.com/protobufel/protobuf-el/protobufel-test-util/</url>
+	<description>Internal Common Test Utilities</description>
 	<dependencies>
 		<dependency>
 			<groupId>com.google.protobuf</groupId>

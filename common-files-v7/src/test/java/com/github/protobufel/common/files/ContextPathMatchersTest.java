@@ -46,7 +46,6 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
@@ -59,7 +58,6 @@ import org.junit.runner.RunWith;
 
 import com.github.protobufel.common.files.ContextPathMatchers.HierarchicalMatcher;
 
-@NonNullByDefault
 @RunWith(Theories.class)
 public class ContextPathMatchersTest {
 

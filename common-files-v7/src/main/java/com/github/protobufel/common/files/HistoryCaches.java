@@ -42,7 +42,6 @@ import org.eclipse.jdt.annotation.NonNull;
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
 
-@NonNullByDefault
 class HistoryCaches {
   private HistoryCaches() {
   }

@@ -35,10 +35,12 @@ public class Utils {
   private Utils() {
   }
 
+  @SuppressWarnings("null")
   public static Path getCanonicalPath(final Path path) {
     return path.normalize().toAbsolutePath();
   }
 
+  @SuppressWarnings("null")
   public static File getCanonicalFile(final File file) {
     try {
       return file.getCanonicalFile();
@@ -47,6 +49,7 @@ public class Utils {
     }
   }
 
+  @SuppressWarnings("null")
   public static String getCanonicalPath(final String path) {
     try {
       return new File(path).getCanonicalPath();

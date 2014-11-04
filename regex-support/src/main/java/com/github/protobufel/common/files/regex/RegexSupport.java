@@ -38,6 +38,7 @@ import org.eclipse.jdt.annotation.NonNull;
  *
  * @author protobufel@gmail.com David Tesler
  */
+@org.eclipse.jdt.annotation.NonNullByDefault
 public final class RegexSupport {
   private RegexSupport() {}
 
