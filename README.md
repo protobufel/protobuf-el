@@ -34,8 +34,8 @@ builderOne.addFieldBuilder(subMessageField, 0).setField(nameField, "hello ")
 final DynamicMessage message = builderOne.build();      
 
 /**
-* Or you can manipulate DynamicMessage/Builder and/or GeneratedMessage/Builder with 
-* JSR341 EL 3.0 expression language, including in your regular Java client, or your servlet/JSF! 
+* Also, you can manipulate DynamicMessage/Builder and/or GeneratedMessage/Builder with 
+* JSR341 EL 3.0 Expression Language, in your regular Java client, or within any Servlet/JSF! 
 
 * @see com.github.protobufel.el
 * @see com.github.protobufel.crud.el 
