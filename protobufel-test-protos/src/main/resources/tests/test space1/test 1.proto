@@ -1,5 +1,0 @@
-package protobufel1.test1;
-
-message Message111 {
-  repeated string field1 = 1;
-}

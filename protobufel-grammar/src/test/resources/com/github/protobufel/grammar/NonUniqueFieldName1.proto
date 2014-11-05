@@ -1,7 +1,0 @@
-package hi.message.extendee1;
-
-message Message1 {
-  optional string good1 = 1;
-  optional uint64 duplicate1 = 2;
-  optional bool duplicate1 = 3;
-}

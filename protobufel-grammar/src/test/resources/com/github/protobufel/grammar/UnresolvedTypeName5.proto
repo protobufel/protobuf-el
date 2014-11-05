@@ -1,5 +1,0 @@
-package my.package1;
-
-message Message1 {
-	optional .my.package1.Message2 bad1 = 1;
-}

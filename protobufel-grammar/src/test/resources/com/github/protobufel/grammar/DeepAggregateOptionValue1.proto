@@ -1,9 +1,0 @@
-message Message1 {
-  optional string f1 = 1;
-  optional Message2 f2 = 2;
-}
-
-message Message2 {
- optional string f21 = 1;
- optional string f22 = 2;
-}

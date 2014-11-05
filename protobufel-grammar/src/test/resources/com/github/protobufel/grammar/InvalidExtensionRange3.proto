@@ -1,9 +1,0 @@
-package hi.message.extendee1;
-
-message Message1 {
-	optional string field1 = 1;
-
-	// overlap
-	extensions 1001 to 1010;
-	extensions 1005 to 1012;
-}
