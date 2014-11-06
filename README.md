@@ -48,3 +48,5 @@ For more see the documentation at https://protobufel.github.io/protobuf-el/0.6-S
 Happy coding!
 
 David Tesler
+
+[![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
