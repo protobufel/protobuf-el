@@ -1,0 +1,9 @@
+package hi.message.extendee1;
+
+message Message1 {
+	optional string good1 = 1;
+	optional int32 bad1 = 1002;
+	optional int32 bad2 = 1003;
+
+	extensions 1001 to 1010;
+}

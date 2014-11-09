@@ -1,0 +1,4 @@
+NonUniqueExtensionName1/NonUniqueExtensionName1.proto:3:9: "hi.message.extendee1.Message1" is already defined in file "InvalidExtensionRange1/InvalidExtensionRange1.proto".
+NonUniqueExtensionName1/NonUniqueExtensionName1.proto:11:17: "ext_duplicate1" is already defined in "hi.message.extendee1".
+NonUniqueExtensionName1/NonUniqueExtensionName1.proto:9:8: "hi.message.extendee1.Message1" seems to be defined in "InvalidExtensionRange1/InvalidExtensionRange1.proto", which is not imported by "NonUniqueExtensionName1/NonUniqueExtensionName1.proto".  To use it here, please add the necessary import.
+NonUniqueExtensionName1/NonUniqueExtensionName1.proto: "hi.message.extendee1.Message1" seems to be defined in "InvalidExtensionRange1/InvalidExtensionRange1.proto", which is not imported by "NonUniqueExtensionName1/NonUniqueExtensionName1.proto".  To use it here, please add the necessary import.

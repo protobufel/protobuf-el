@@ -130,19 +130,25 @@
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
+				<artifactId>protobufel-test-util</artifactId>
+				<version>${project.version}</version>
+				<scope>test</scope>
+			</dependency>
+			<dependency>
+				<groupId>${project.groupId}</groupId>
 				<artifactId>protobufel-test-protos</artifactId>
 				<version>${project.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>protobufel-protobuf-test-protos</artifactId>
+				<artifactId>protobufel-test-protos2</artifactId>
 				<version>${project.version}</version>
 				<scope>test</scope>
 			</dependency>
 			<dependency>
 				<groupId>${project.groupId}</groupId>
-				<artifactId>protobufel-test-util</artifactId>
+				<artifactId>protobufel-protobuf-test-protos</artifactId>
 				<version>${project.version}</version>
 				<scope>test</scope>
 			</dependency>
@@ -315,9 +321,9 @@
 							<requireJavaVersion>
 								<version>1.7</version>
 							</requireJavaVersion>
-               <requirePluginVersions>
-                  <message>Best Practice is to always define plugin versions!</message>
-               </requirePluginVersions>
+<!--                <requirePluginVersions> -->
+<!--                   <message>Best Practice is to always define plugin versions!</message> -->
+<!--                </requirePluginVersions> -->
 <!--                <requireSameVersions> -->
 <!--                   <message>Maven Test Plugins should all have the same versions!</message> -->
 <!--                  <plugins> -->
@@ -759,7 +765,10 @@
 						<sourceFileExclude>com/github/protobufel/benchmarks/**/*</sourceFileExclude>
 						<sourceFileExclude>com/github/protobufel/util/**/*</sourceFileExclude>
 						<sourceFileExclude>com/github/protobufel/test/util/**/*</sourceFileExclude>
-						<sourceFileExclude>com/github/protobufel/grammar/ProtoParser*.java</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/grammar/ProtoParser.java</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/grammar/ProtoLexer.java</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/grammar/ProtoListener.java</sourceFileExclude>
+						<sourceFileExclude>com/github/protobufel/grammar/ProtoBaseListener.java</sourceFileExclude>
 					</sourceFileExcludes>
 				</configuration>
 				<reportSets>
@@ -836,8 +845,8 @@
 		<module>common-verifications</module>
 		<module>common-files-v7</module>
 		<module>extended-regex</module>
-		<module>resource-exec-maven-plugin</module>
 		<module>protobufel-test-protos</module>
+		<module>protobufel-test-protos2</module>
 		<module>protobufel-protobuf-test-protos</module>
 		<module>protobufel-test-util</module>
 		<module>protobufel-grammar</module>
@@ -845,8 +854,23 @@
 		<module>protobufel-benchmarks</module>
 		<module>protobufel-el</module>
 		<module>protobufel-crud</module>
+		<module>resource-exec-maven-plugin</module>
 	</modules>
 	<profiles>
+		<profile>
+			<id>protoc</id>
+			<activation>
+				<property>
+					<name>activate-protoc</name>
+				</property>
+				<file>
+					<exists>${env.PROTOC_EXEC}</exists>
+				</file>
+			</activation>
+			<properties>
+				<com.google.protobuf.protoc.path>${env.PROTOC_EXEC}</com.google.protobuf.protoc.path>
+			</properties>
+		</profile>
 		<profile>
 			<id>licensing-profile</id>
 			<activation>

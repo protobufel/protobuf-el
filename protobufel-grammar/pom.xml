@@ -51,6 +51,11 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
+			<groupId>${project.groupId}</groupId>
+			<artifactId>protobufel-test-protos2</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>ch.qos.logback</groupId>
 			<artifactId>logback-classic</artifactId>
 			<scope>compile</scope>
@@ -85,6 +90,7 @@
 		<dependency>
 			<groupId>com.github.protobufel</groupId>
 			<artifactId>protobufel-test-util</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.java-diff-utils</groupId>
@@ -136,14 +142,29 @@
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-remote-resources-plugin</artifactId>
         <configuration>
-          <resourceBundles>
-            <resourceBundle>com.github.protobufel:protobufel-protobuf-test-protos:${project.version}</resourceBundle>
-          </resourceBundles>
           <attachToMain>false</attachToMain>
           <attachToTest>true</attachToTest>
         </configuration>
         <executions>
           <execution>
+          	<id>original-protobuf</id>
+		        <configuration>
+		          <resourceBundles>
+		            <resourceBundle>com.github.protobufel:protobufel-protobuf-test-protos:${project.version}</resourceBundle>
+		          </resourceBundles>
+		        </configuration>
+            <goals>
+              <goal>process</goal>
+            </goals>
+          </execution>
+          <execution>
+          	<id>grammar-test-protobuf</id>
+		        <configuration>
+		          <resourceBundles>
+		            <resourceBundle>com.github.protobufel:protobufel-test-protos2:${project.version}</resourceBundle>
+		          </resourceBundles>
+		          <outputDirectory>${project.build.directory}/maven-shared-archive-resources2</outputDirectory>
+		        </configuration>
             <goals>
               <goal>process</goal>
             </goals>
@@ -177,141 +198,40 @@
 					</excludes>
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>add-shared-bundles</id>
+						<phase>generate-test-resources</phase>
+						<goals>
+							<goal>add-test-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<targetPath>${grammar-package-path}/protobuf-original</targetPath>
+									<includes>
+										<include>**/*</include>
+									</includes>
+									<directory>${project.build.directory}/maven-shared-archive-resources/META-INF</directory>
+								</resource>
+								<resource>
+									<targetPath>${grammar-package-path}</targetPath>
+									<includes>
+										<include>**/*</include>
+									</includes>
+									<directory>${project.build.directory}/maven-shared-archive-resources2/META-INF</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
 	<profiles>
-		<profile>
-			<id>profile-generate-protoc-FileDescriptorSet</id>
-			<activation>
-				<file>
-					<exists>${com.google.protobuf.protoc.path}</exists>
-				</file>
-			</activation>
-			<build>
-				<plugins>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-resources-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>copy-protoc-protos</id>
-								<phase>generate-test-resources</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${generated-test-resources}</outputDirectory>
-									<resources>
-										<resource>
-											<targetPath>protoc</targetPath>
-											<directory>${grammar-testResources-path}/protoc</directory>
-										</resource>
-<!-- 										<resource>
-											<targetPath>protobuf-original</targetPath>
-											<directory>${grammar-testResources-path}/protobuf-original</directory>
-										</resource>
- -->									</resources>
-								</configuration>
-							</execution>
-							<execution>
-								<id>copy-protoc-errors-protos</id>
-								<phase>pre-integration-test</phase>
-								<goals>
-									<goal>copy-resources</goal>
-								</goals>
-								<configuration>
-									<outputDirectory>${my.protoc-errors}</outputDirectory>
-									<resources>
-										<resource>
-											<directory>${integration-testResources-path}</directory>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>exec-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>generate-protoc-FileDescriptorSet</id>
-								<phase>generate-test-resources</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<arguments>
-										<argument>--proto_path</argument>
-										<argument>${generated-test-resources}/protoc</argument>
-										<argument>--descriptor_set_out</argument>
-										<argument>${generated-test-resources}/FileDescriptorSet</argument>
-										<argument>--include_imports</argument>
-										<argument>${generated-test-resources}/protoc/*.proto</argument>
-									</arguments>
-								</configuration>
-							</execution>
-							<execution>
-								<id>generate-protoc-FileDescriptorSetWithSourceInfo</id>
-								<phase>generate-test-resources</phase>
-								<goals>
-									<goal>exec</goal>
-								</goals>
-								<configuration>
-									<arguments>
-										<argument>--proto_path</argument>
-										<argument>${generated-test-resources}/protoc</argument>
-										<argument>--descriptor_set_out</argument>
-										<argument>${generated-test-resources}/FileDescriptorSetWithSourceInfo</argument>
-										<argument>--include_source_info</argument>
-										<argument>--include_imports</argument>
-										<argument>${generated-test-resources}/protoc/*.proto</argument>
-									</arguments>
-								</configuration>
-							</execution>
-						</executions>
-						<configuration>
-							<executable>${com.google.protobuf.protoc.path}</executable>
-							<classpathScope>test</classpathScope>
-							<workingDirectory>${project.build.directory}</workingDirectory>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.codehaus.mojo</groupId>
-						<artifactId>build-helper-maven-plugin</artifactId>
-						<executions>
-							<execution>
-								<id>add-generated-FileDescriptorSet</id>
-								<phase>generate-test-resources</phase>
-								<goals>
-									<goal>add-test-resource</goal>
-								</goals>
-								<configuration>
-									<resources>
-										<resource>
-											<targetPath>${grammar-package-path}/protoc</targetPath>
-											<includes>
-												<include>FileDescriptorSet</include>
-												<include>FileDescriptorSetWithSourceInfo</include>
-												<include>FileDescriptorSetOriginal</include>
-											</includes>
-											<directory>${generated-test-resources}</directory>
-										</resource>
-										<resource>
-											<targetPath>${grammar-package-path}/protobuf-original</targetPath>
-											<includes>
-												<include>**/*</include>
-											</includes>
-											<directory>${project.build.directory}/maven-shared-archive-resources/META-INF</directory>
-										</resource>
-									</resources>
-								</configuration>
-							</execution>
-						</executions>
-					</plugin>
-				</plugins>
-			</build>
-		</profile>
 		<profile>
 			<id>TestRigGrammar</id>
 			<build>

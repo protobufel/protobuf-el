@@ -75,7 +75,6 @@ public class CompareWithOriginalsTest {
   private static final Logger log = LoggerFactory.getLogger(CompareWithOriginalsTest.class);
   public static final int MAX_FIELD_NUMBER = 536870912;
   private static final String PROTOBUF_ORIGINAL_SUBDIR = "protobuf-original/";
-
   private static final Pattern ALL_PROTOS_PATTERN = Pattern.compile(".*\\.proto");
   private File baseDir;
   private final Pattern filePattern = ALL_PROTOS_PATTERN;
@@ -91,7 +90,7 @@ public class CompareWithOriginalsTest {
 
   @Rule
   public final TestRule chain = RuleChain.outerRule(expected).around(new MockitoJUnitRule(this))
-  .around(softly);
+      .around(softly);
 
   @SuppressWarnings("null")
   @Before
@@ -128,7 +127,7 @@ public class CompareWithOriginalsTest {
     // given
     final List<FileDescriptorProto> expectedProtoList =
         filesBuilder.setCustomOptionsAsExtensions(false).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
+            .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
 
     for (final FileDescriptorProto expected : expectedProtoList) {
       // when
@@ -148,7 +147,7 @@ public class CompareWithOriginalsTest {
     // when
     final List<FileDescriptorProto> actualProtoList =
         filesBuilder.setCustomOptionsAsExtensions(false).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
+            .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
 
     // then
     // no errors logged!
@@ -159,15 +158,15 @@ public class CompareWithOriginalsTest {
 
     softly.assertThat(actualProtoList).as("check actualProtoList is not null").isNotNull();
     softly.assertThat(actualProtoList).as("check actualProtoList without nulls")
-    .doesNotContainNull();
+        .doesNotContainNull();
     softly.assertThat(actualProtoList).as("check actualProtoList has no duplicates")
-    .extracting("package", "name").doesNotHaveDuplicates();
+        .extracting("package", "name").doesNotHaveDuplicates();
     softly.assertThat(actualProtoList).as("check actualProtoList size")
-    .hasSameSizeAs(expectedProtoList);
+        .hasSameSizeAs(expectedProtoList);
 
     softly.assertThat(actualProtoList).as("check all protos' by name and package")
-    .usingElementComparatorOnFields("package", "name")
-    .containsOnlyElementsOf(expectedProtoList);
+        .usingElementComparatorOnFields("package", "name")
+        .containsOnlyElementsOf(expectedProtoList);
 
     final List<FileDescriptorProto> sortedActualFds =
         FileDescriptorByNameComparator.of().immutableSortedCopy(actualProtoList);
@@ -175,17 +174,17 @@ public class CompareWithOriginalsTest {
         FileDescriptorByNameComparator.of().immutableSortedCopy(expectedProtoList);
 
     softly.assertThat(sortedActualFds).as("check all protos' by filtered content")
-    .usingElementComparator(Misc.getDisregardUnsupportedProtoComparator())
-    .containsExactlyElementsOf(sortedExpectedFds);
+        .usingElementComparator(Misc.getDisregardUnsupportedProtoComparator())
+        .containsExactlyElementsOf(sortedExpectedFds);
   }
 
   @Test
   public void customOptionsAsUnknownEqualsToFullReserialization() throws URISyntaxException,
-  IOException {
+      IOException {
     // given
     final List<FileDescriptorProto> protosWithExtensions =
         ProtoFiles.newBuilder().setCustomOptionsAsExtensions(true).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
+            .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
 
     final List<FileDescriptorProto> expectedProtoList =
         new ArrayList<FileDescriptorProto>(protosWithExtensions.size());
@@ -197,7 +196,7 @@ public class CompareWithOriginalsTest {
     // when
     final List<FileDescriptorProto> actualProtoList =
         filesBuilder.setCustomOptionsAsExtensions(false).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
+            .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
 
     // then
     // no errors logged!
@@ -208,15 +207,15 @@ public class CompareWithOriginalsTest {
 
     softly.assertThat(actualProtoList).as("check actualProtoList is not null").isNotNull();
     softly.assertThat(actualProtoList).as("check actualProtoList without nulls")
-    .doesNotContainNull();
+        .doesNotContainNull();
     softly.assertThat(actualProtoList).as("check actualProtoList has no duplicates")
-    .extracting("package", "name").doesNotHaveDuplicates();
+        .extracting("package", "name").doesNotHaveDuplicates();
     softly.assertThat(actualProtoList).as("check actualProtoList size")
-    .hasSameSizeAs(expectedProtoList);
+        .hasSameSizeAs(expectedProtoList);
 
     softly.assertThat(actualProtoList).as("check all protos' by name and package")
-    .usingElementComparatorOnFields("package", "name")
-    .containsOnlyElementsOf(expectedProtoList);
+        .usingElementComparatorOnFields("package", "name")
+        .containsOnlyElementsOf(expectedProtoList);
 
     final List<FileDescriptorProto> sortedActualFds =
         FileDescriptorByNameComparator.of().immutableSortedCopy(actualProtoList);
@@ -224,7 +223,7 @@ public class CompareWithOriginalsTest {
         FileDescriptorByNameComparator.of().immutableSortedCopy(expectedProtoList);
 
     softly.assertThat(sortedActualFds).as("proto equlity unfiltered")
-    .containsExactlyElementsOf(sortedExpectedFds);
+        .containsExactlyElementsOf(sortedExpectedFds);
   }
 
   @Test
@@ -232,12 +231,12 @@ public class CompareWithOriginalsTest {
     // given
     final List<FileDescriptorProto> expectedProtoList =
         ProtoFiles.newBuilder(errorListener).setCustomOptionsAsExtensions(true)
-        .addProtos(protocFdProtos).buildProtos(false);
+            .addProtos(protocFdProtos).buildProtos(false);
 
     // when
     final List<FileDescriptorProto> actualProtoList =
         filesBuilder.setCustomOptionsAsExtensions(true).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
+            .addFilesByGlob(baseDir, "**/*.proto").buildProtos(false);
 
     // then
     // no errors logged!
@@ -248,15 +247,15 @@ public class CompareWithOriginalsTest {
 
     softly.assertThat(actualProtoList).as("check actualProtoList is not null").isNotNull();
     softly.assertThat(actualProtoList).as("check actualProtoList without nulls")
-    .doesNotContainNull();
+        .doesNotContainNull();
     softly.assertThat(actualProtoList).as("check actualProtoList has no duplicates")
-    .extracting("package", "name").doesNotHaveDuplicates();
+        .extracting("package", "name").doesNotHaveDuplicates();
     softly.assertThat(actualProtoList).as("check actualProtoList size")
-    .hasSameSizeAs(expectedProtoList);
+        .hasSameSizeAs(expectedProtoList);
 
     softly.assertThat(actualProtoList).as("check all protos' by name and package")
-    .usingElementComparatorOnFields("package", "name")
-    .containsOnlyElementsOf(expectedProtoList);
+        .usingElementComparatorOnFields("package", "name")
+        .containsOnlyElementsOf(expectedProtoList);
 
     final List<FileDescriptorProto> sortedActualFds =
         FileDescriptorByNameComparator.of().immutableSortedCopy(actualProtoList);
@@ -264,8 +263,8 @@ public class CompareWithOriginalsTest {
         FileDescriptorByNameComparator.of().immutableSortedCopy(expectedProtoList);
 
     softly.assertThat(sortedActualFds).as("check all protos' by filtered content")
-    .usingElementComparator(Misc.getDisregardUnsupportedProtoComparator())
-    .containsExactlyElementsOf(sortedExpectedFds);
+        .usingElementComparator(Misc.getDisregardUnsupportedProtoComparator())
+        .containsExactlyElementsOf(sortedExpectedFds);
   }
 
   /**
@@ -276,11 +275,11 @@ public class CompareWithOriginalsTest {
    */
   @Test
   public void unknownToExtensionsToUnknownShouldBeEqualProtoc() throws URISyntaxException,
-  IOException {
+      IOException {
     // when
     final Collection<FileDescriptor> files =
         filesBuilder.setCustomOptionsAsExtensions(false).setProtocCompatible(false)
-        .addProtos(protocFdProtos).build(false).values();
+            .addProtos(protocFdProtos).build(false).values();
 
     // then
     // no errors logged!
@@ -301,7 +300,7 @@ public class CompareWithOriginalsTest {
     // when
     final Collection<FileDescriptor> files =
         filesBuilder.setCustomOptionsAsExtensions(false).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").build(false).values();
+            .addFilesByGlob(baseDir, "**/*.proto").build(false).values();
 
     // then
     // no errors logged!
@@ -331,23 +330,23 @@ public class CompareWithOriginalsTest {
         FileDescriptorProto.parseFrom(actualProtoWithExtensions.toByteString());
 
     softly
-    .assertThat(actualProtoWithUnknownFields.toString())
-    .as("check reserialization invariant textual equality for %s",
-        fileWithUnknownFieldsProto.getName())
+        .assertThat(actualProtoWithUnknownFields.toString())
+        .as("check reserialization invariant textual equality for %s",
+            fileWithUnknownFieldsProto.getName())
         .isEqualTo(expectedProtoWithUnknownFields.toString());
 
     softly.assertThat(actualProtoWithUnknownFields)
-    .as("check reserialization invariant for %s", fileWithUnknownFieldsProto.getName())
-    .isEqualTo(expectedProtoWithUnknownFields);
+        .as("check reserialization invariant for %s", fileWithUnknownFieldsProto.getName())
+        .isEqualTo(expectedProtoWithUnknownFields);
   }
 
   @Test
   public void extensionsToUnknownToExtensionsShouldBeEqualProtoc() throws URISyntaxException,
-  IOException {
+      IOException {
     // when
     final Collection<FileDescriptor> files =
         filesBuilder.setCustomOptionsAsExtensions(true).setProtocCompatible(false)
-        .addProtos(protocFdProtos).build(false).values();
+            .addProtos(protocFdProtos).build(false).values();
 
     // then
     // no errors logged!
@@ -366,7 +365,7 @@ public class CompareWithOriginalsTest {
     // when
     final Collection<FileDescriptor> files =
         filesBuilder.setCustomOptionsAsExtensions(true).setProtocCompatible(false)
-        .addFilesByGlob(baseDir, "**/*.proto").build(false).values();
+            .addFilesByGlob(baseDir, "**/*.proto").build(false).values();
 
     // then
     // no errors logged!
@@ -396,7 +395,7 @@ public class CompareWithOriginalsTest {
         FileDescriptorProto.parseFrom(actualProtoWithUnknownFields.toByteString(), registry);
 
     softly.assertThat(actualProtoWithExtensions)
-    .as("check reserialization invariant2 for %s", fileWithExtensionsProto.getName())
-    .isEqualTo(expectedProtoWithExtensions);
+        .as("check reserialization invariant2 for %s", fileWithExtensionsProto.getName())
+        .isEqualTo(expectedProtoWithExtensions);
   }
 }

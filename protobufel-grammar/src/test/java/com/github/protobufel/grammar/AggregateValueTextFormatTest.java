@@ -62,7 +62,7 @@ public class AggregateValueTextFormatTest {
     final Map<String, FileDescriptor> info1 =
         ProtoFiles
             .newBuilder()
-            .addFiles(new File(getClass().getResource("").toURI()),
+            .addFiles(new File(getClass().getResource("protoc-misc/").toURI()),
                 "DeepAggregateOptionValue1.proto").build();
 
     final String protoSource =

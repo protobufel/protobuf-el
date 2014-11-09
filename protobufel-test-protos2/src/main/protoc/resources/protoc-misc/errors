@@ -1,0 +1,2 @@
+FieldOfEnumTypeDefaults1.proto:13:60: Repeated fields can't have default values.
+FieldOfEnumTypeDefaults1.proto:14:59: Repeated fields can't have default values.

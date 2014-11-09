@@ -8,10 +8,8 @@
 # Eclipse 
 /src-gen
 /bin
-/target
 *.jpage
 .settings/
 .classpath/
 .project
-/target/
 /target/

@@ -29,8 +29,11 @@ package com.github.protobufel.grammar;
 
 import static com.github.protobufel.grammar.AbstractMessageUtils.compareProto;
 
+import com.google.protobuf.Message;
+import com.google.protobuf.MessageOrBuilder;
+import com.google.protobuf.TextFormat;
+
 import java.io.File;
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URI;
@@ -49,10 +52,6 @@ import java.util.Map.Entry;
 import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Pattern;
-
-import com.google.protobuf.Message;
-import com.google.protobuf.MessageOrBuilder;
-import com.google.protobuf.TextFormat;
 
 import org.eclipse.jdt.annotation.NonNullByDefault;
 import org.eclipse.jdt.annotation.Nullable;
@@ -110,7 +109,7 @@ public final class Misc {
 
   public static boolean isValidProtoPath(final String path) {
     final Pattern pattern = Pattern.compile("(?:)");
-    return path != null && !path.isEmpty() && pattern.matcher(path).matches();
+    return (path != null) && !path.isEmpty() && pattern.matcher(path).matches();
   }
 
   @SuppressWarnings("null")
@@ -167,7 +166,7 @@ public final class Misc {
     final List<FileDescriptorProto> fdProtos =
         getFileDescriptorProtos(protoNamePattern, fileDescriptorSetPath, baseResourceClass);
 
-    if (!includeSourceInfo && fieldTypeRefsMode != FieldTypeRefsMode.AS_IS) {
+    if (!includeSourceInfo && (fieldTypeRefsMode != FieldTypeRefsMode.AS_IS)) {
       for (final ListIterator<FileDescriptorProto> iterator = fdProtos.listIterator(); iterator
           .hasNext();) {
         final FileDescriptorProto fd = iterator.next();
@@ -180,15 +179,9 @@ public final class Misc {
 
   private static List<FileDescriptorProto> getFileDescriptorProtos(final Pattern protoNamePattern,
       final String fileDescriptorSetPath, final @Nullable Class<?> baseResourceClass) {
-    InputStream is = null;
-
-    try {
-      if (baseResourceClass == null) {
-        is = new File(fileDescriptorSetPath).toURI().toURL().openStream();
-      } else {
-        is = baseResourceClass.getResourceAsStream(fileDescriptorSetPath);
-      }
-
+    try (final InputStream is =
+        (baseResourceClass == null) ? new File(fileDescriptorSetPath).toURI().toURL().openStream()
+            : baseResourceClass.getResourceAsStream(fileDescriptorSetPath)) {
       final FileDescriptorSet fdSet = FileDescriptorSet.parseFrom(is);
       final List<String> fdProtoNames = new ArrayList<String>();
 
@@ -212,14 +205,6 @@ public final class Misc {
       return result;
     } catch (final Exception e) {
       throw new RuntimeException(e);
-    } finally {
-      if (is != null) {
-        try {
-          is.close();
-        } catch (final IOException e) {
-          throw new RuntimeException(e);
-        }
-      }
     }
   }
 
@@ -324,7 +309,7 @@ public final class Misc {
     do {
       oldPos = pos + sepLen;
       pos = one.indexOf(separator, oldPos);
-    } while (pos != -1 && one.regionMatches(oldPos, two, oldPos, pos - oldPos + 1));
+    } while ((pos != -1) && one.regionMatches(oldPos, two, oldPos, (pos - oldPos) + 1));
 
     return oldPos;
   }

@@ -1,0 +1,166 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+
+    Copyright © 2014, David Tesler (https://github.com/protobufel)
+    All rights reserved.
+
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are met:
+        * Redistributions of source code must retain the above copyright
+          notice, this list of conditions and the following disclaimer.
+        * Redistributions in binary form must reproduce the above copyright
+          notice, this list of conditions and the following disclaimer in the
+          documentation and/or other materials provided with the distribution.
+        * Neither the name of the <organization> nor the
+          names of its contributors may be used to endorse or promote products
+          derived from this software without specific prior written permission.
+
+    THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+    ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+    WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+    DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+    DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+    (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+    LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+    ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+    (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+    SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+-->
+<project name="maven-antrun-proto-generator" default="generate.protos" xmlns:if="ant:if" xmlns:unless="ant:unless">
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: process-error          
+         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="process-error">
+		<attribute name="error.message" />
+		<attribute name="error.file" default="" />
+		<attribute name="result.code" />
+		<attribute name="log.error" default="true" />
+		<sequential>
+			<local name="log.to.file" />
+			<condition property="log.to.file">
+				<and>
+					<isfailure code="${result.code}" />
+					<length string="@{error.file}" trim="true" when="greater" length="0"/>
+					<length string="@{error.message}" trim="true" when="greater" length="0"/>
+				</and>
+			</condition>
+			<echo file="@{error.file}" message="@{error.message}" level="error" if:set="log.to.file" />
+			<local name="log.message" />
+			<condition property="log.message">
+				<and>
+					<istrue value="@{log.error}" />
+					<isfailure code="${result.code}" />
+					<length string="@{error.message}" trim="true" when="greater" length="0"/>
+				</and>
+			</condition>
+			<echo message="@{error.message}" level="error" if:set="log.message" />
+		</sequential>
+	</macrodef>
+
+	<!-- = = = = = = = = = = = = = = = = =
+          macrodef: process.proto          
+         = = = = = = = = = = = = = = = = = -->
+	<macrodef name="process.proto">
+		<attribute name="source.dir" doubleexpanding="false" />
+		<attribute name="descriptor.proto.dir" default="@{source.dir}" />
+		<attribute name="target.resources.dir" doubleexpanding="false" />
+		<attribute name="target.sources.dir" default="@{target.resources.dir}" />
+		<attribute name="target.name" default="FileDescriptorSet" />
+		<attribute name="target.name.with.source.info" default="FileDescriptorSetWithSourceInfo" />
+		<attribute name="include.source.info" default="true" />
+		<attribute name="protoc.exec" />
+		<attribute name="java.out" default="false" />
+		<attribute name="fail.on.error" default="true" />
+		<sequential>
+			<local name="error.file" />
+			<property name="error.file" location="@{target.resources.dir}/errors" />
+			<mkdir dir="@{target.resources.dir}" />
+			<delete includeemptydirs="true">
+				<fileset dir="@{target.resources.dir}" includes="**/*" defaultexcludes="false" />
+			</delete>
+			<mkdir dir="@{target.sources.dir}" if:true="@{java.out}" />
+			<delete includeemptydirs="true" if:true="@{java.out}">
+				<fileset dir="@{target.sources.dir}" includes="**/*" defaultexcludes="false" />
+			</delete>
+			<local name="result.code" />
+			<local name="error.text" />
+			<apply executable="@{protoc.exec}" parallel="true" resultproperty="result.code" failonerror="@{fail.on.error}" errorproperty="error.text">
+				<arg value="-I" />
+				<arg file="@{descriptor.proto.dir}" />
+				<arg value="-I" />
+				<arg file="@{source.dir}" />
+				<arg value="--java_out=@{target.sources.dir}" if:true="@{java.out}" />
+				<arg value="-o" />
+				<arg file="@{target.resources.dir}/@{target.name}" />
+				<arg value="--include_imports" />
+				<fileset dir="@{source.dir}">
+					<include name="**/*.proto" />
+				</fileset>
+			</apply>
+			<process-error result.code="${result.code}" error.message="${error.text}" 
+				error.file="${error.file}" />
+			<local name="exec.me" />
+			<condition property="exec.me">
+				<and>
+					<not>
+						<isfailure code="${result.code}" />
+					</not>
+					<istrue value="@{include.source.info}" />
+				</and>
+			</condition>
+			<local name="result.code2" />
+			<local name="error.text2" />
+			<apply executable="@{protoc.exec}" parallel="true" resultproperty="result.code2" 
+				failonerror="@{fail.on.error}" errorproperty="error.text2" if:set="exec.me">
+				<arg value="-I" />
+				<arg file="@{descriptor.proto.dir}" />
+				<arg value="-I" />
+				<arg file="@{source.dir}" />
+				<arg value="-o" />
+				<arg file="@{target.resources.dir}/@{target.name.with.source.info}" />
+				<arg value="--include_source_info" />
+				<arg value="--include_imports" />
+				<fileset dir="@{source.dir}">
+					<include name="**/*.proto" />
+				</fileset>
+			</apply>
+			<process-error result.code="${result.code2}" error.message="${error.text2}" 
+				error.file="${error.file}" if:set="exec.me" />
+		</sequential>
+	</macrodef>
+
+	<target name="-check.uptodate">
+		<condition property="is.uptodate">
+			<and>
+				<available file="${my.generated-resources}" type="dir" />
+				<resourcecount when="greater" count="0">
+					<fileset dir="${my.generated-resources}" includes="**/*" />
+				</resourcecount>
+				<uptodate>
+					<srcfiles dir="${resources.directory}" includes="**/*.proto" />
+					<compositemapper>
+						<mapper type="merge" to="${my.generated-resources}" />
+					</compositemapper>
+				</uptodate>
+			</and>
+		</condition>
+	</target>
+	<target name="generate.protos" unless="is.uptodate" depends="-check.uptodate">
+		<process.proto protoc.exec="${com.google.protobuf.protoc.path}" 
+			source.dir="${resources.directory}/${protoc.dir}" 
+			descriptor.proto.dir="${descriptor.proto.dir}" 
+			target.resources.dir="${my.generated-resources}/${protoc.dir}" 
+			java.out="false" />
+		<process.proto protoc.exec="${com.google.protobuf.protoc.path}" 
+			source.dir="${resources.directory}/${protoc-misc.dir}" 
+			descriptor.proto.dir="${descriptor.proto.dir}" 
+			target.resources.dir="${my.generated-resources}/${protoc-misc.dir}" 
+			java.out="false"  fail.on.error="false" />
+		<process.proto protoc.exec="${com.google.protobuf.protoc.path}" 
+			source.dir="${resources.directory}/${protoc-errors.dir}" 
+			descriptor.proto.dir="${descriptor.proto.dir}" 
+			target.resources.dir="${my.generated-resources}/${protoc-errors.dir}" 
+			java.out="false" fail.on.error="false" />
+	</target>
+</project>

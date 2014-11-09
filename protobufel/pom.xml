@@ -46,10 +46,12 @@
 		<dependency>
 			<groupId>com.github.protobufel</groupId>
 			<artifactId>protobufel-protobuf-test-protos</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>com.github.protobufel</groupId>
 			<artifactId>protobufel-test-protos</artifactId>
+			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>${project.groupId}</groupId>

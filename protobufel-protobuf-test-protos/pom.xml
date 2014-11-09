@@ -12,11 +12,9 @@
 	<description>Internal original Google Protocol Buffers' test .proto files as shared resources</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<my.generated-resources>${project.build.directory}/generated-resources/protoc</my.generated-resources>
-		<my.generated-sources>${project.build.directory}/generated-sources/protoc</my.generated-sources>
+		<my.generated-resources>${basedir}/src/main/protoc/resources</my.generated-resources>
+		<my.generated-sources>${project.build.sourceDirectory}</my.generated-sources>
 		<resources.directory>${basedir}/src/main/resources</resources.directory>
-		<google.protobuf.directory>${resources.directory}/google/protobuf</google.protobuf.directory>
-		<com.google.protobuf.directory>${resources.directory}/com/google/protobuf</com.google.protobuf.directory>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -26,62 +24,6 @@
 	</dependencies>
 	<build>
 		<plugins>
- 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>generate-proto-sources-and-resources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<failOnError>true</failOnError>
-							<target>
-								<ant antfile="${basedir}/antrun-build.xml" target="generate.protos" />
-							</target>		
-						</configuration>
-						<goals>
-							<goal>run</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>build-helper-maven-plugin</artifactId>
-        <executions>
-          <execution>
-            <id>add-source</id>
-            <phase>generate-sources</phase>
-            <goals>
-              <goal>add-source</goal>
-            </goals>
-            <configuration>
-            	<sources>
-            		<source>${my.generated-sources}</source>
-            	</sources>
-            </configuration>
-          </execution>
-          <execution>
-            <id>add-resource</id>
-            <phase>generate-resources</phase>
-            <goals>
-              <goal>add-resource</goal>
-            </goals>
-            <configuration>
-            	<resources>
-								<resource>
-									<targetPath>META-INF/</targetPath>
-									<includes>
-										<include>FileDescriptorSet</include>
-										<include>FileDescriptorSetWithSourceInfo</include>
-									</includes>
-									<directory>${my.generated-resources}</directory>
-								</resource>
-            	</resources>
-            </configuration>
-          </execution>
-        </executions>
-			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -117,6 +59,53 @@
 				</includes>
 				<directory>${resources.directory}</directory>
 			</resource>
+			<resource>
+				<targetPath>META-INF/</targetPath>
+				<includes>
+					<include>**/*</include>
+				</includes>
+				<directory>${my.generated-resources}</directory>
+			</resource>
 		</resources>
 	</build>
+	<profiles>
+		<profile>
+			<id>protoc</id>
+			<activation>
+				<property>
+					<name>activate-protoc</name>
+					<value>true</value>
+				</property>
+				<file>
+					<exists>${env.PROTOC_EXEC}</exists>
+				</file>
+			</activation>
+			<properties>
+				<com.google.protobuf.protoc.path>${env.PROTOC_EXEC}</com.google.protobuf.protoc.path>
+			</properties>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-antrun-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>generate-proto-sources-and-resources</id>
+								<phase>generate-sources</phase>
+								<configuration>
+									<failOnError>true</failOnError>
+									<target>
+										<ant antfile="${basedir}/antrun-build.xml" target="generate.protos" />
+									</target>
+								</configuration>
+								<goals>
+									<goal>run</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>

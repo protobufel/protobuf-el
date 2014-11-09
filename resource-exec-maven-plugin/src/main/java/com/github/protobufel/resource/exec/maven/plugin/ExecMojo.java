@@ -470,8 +470,7 @@ public class ExecMojo extends AbstractMojo {
     this._allowDirs = allowDirs;
   }
 
-  //TODO change to private after testing!
-  // private static final class ResourceVisitor extends SimpleFileVisitor<Path> {
+  //TODO replace with common-files-v7
   static final class ResourceVisitor extends SimpleFileVisitor<Path> {
     private final IFileSetMatcher matcher;
     private final boolean allowDuplicates;
