@@ -25,6 +25,5 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-File errorsFile = new File( basedir, "target/test-classes/protoc-errors/errors.txt" );
-
-assert errorsFile.isFile()
+File testDir = new File(basedir, "target/test-classes/protoc-errors/");
+assert testDir.listFiles().length == 0
