@@ -25,5 +25,9 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-File testDir = new File(basedir, "target/test-classes/protoc-errors/");
-assert !testDir.listFiles().findAll({file -> file.toString().endsWith("exclude1.proto")}).isEmpty()  
+File testDir = new File(basedir, "target/test-me/protoc-errors/");
+assert !testDir.listFiles().findAll({file -> 
+  !file.isDirectory() && file.toString().endsWith("exclude1.proto")}).isEmpty()
+assert testDir.listFiles().findAll({file -> 
+  !file.isDirectory() && !file.toString().endsWith("exclude1.proto")}).isEmpty()
+

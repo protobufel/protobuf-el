@@ -82,8 +82,14 @@ public class ExecMojo extends AbstractMojo {
   @Parameter(property = "execLocationAsIs", name = "execLocationAsIs", defaultValue = "true")
   private boolean _execLocationAsIs;
 
+  @Parameter(property = "systemCommand", name = "systemCommand", defaultValue = "false")
+  private boolean _systemCommand;
+
+  @Parameter(property = "argQuote", name = "argQuote", defaultValue = "\"")
+  private String _argQuote;
+
   @Parameter(property = "args", name = "args", defaultValue = "")
-  private List<String> _args;
+  private List<String> _args = Collections.emptyList();
 
   @Parameter(property = "workDir", name = "workDir", defaultValue = "${basedir}")
   private File _workDir;
@@ -152,7 +158,7 @@ public class ExecMojo extends AbstractMojo {
     //
     // Say hello to the world, my little constructor injected component!
     //
-    component.hello();
+    //component.hello();
 
     final List<String> command = new ArrayList<>();
     command.add(getCanonicalPath(_execLocation, "exec"));
@@ -165,12 +171,16 @@ public class ExecMojo extends AbstractMojo {
 
     if (!_fileSets.isEmpty()) {
       getLog().debug(String.format("fileSets=%s", _fileSets));
-      command.addAll(getResourceFiles(_fileSets, _followLinks, _allowDuplicates, _allowFiles,
-          _allowDirs));
+      quoteList(getResourceFiles(_fileSets, _followLinks, _allowDuplicates, _allowFiles, 
+          _allowDirs), 
+          command);
+    }
+
+    if (_systemCommand) {
+      convertToSystemCommandArgs(command, _argQuote);
     }
 
     getLog().debug(String.format("command=%s", command));
-
     Redirect errorRedirect;
 
     // if (!getCanonicalPath(_errorFile, "_errorFile").isEmpty()) {
@@ -210,6 +220,56 @@ public class ExecMojo extends AbstractMojo {
             _redirectErrorStream);
   }
 
+  private void convertToSystemCommandArgs(final List<String> command, final CharSequence quote) {
+    if (System.getProperty("os.name").toLowerCase().indexOf("win") != -1) {
+      // for Windows construct "cmd" "/c" ""arg1" "arg2" ... "arg<N>""
+      final StringBuilder sb = new StringBuilder();
+      appendArgs(sb, command, "\"", true);
+      command.clear();
+      command.add("cmd");
+      command.add("/c");
+      command.add(sb.toString());
+    } else {
+      // for any other OS construct "bash" "-c" "Qarg1Q Qarg1Q Qarg2Q ... Qarg<N>Q", where Q={'|"}
+      final StringBuilder sb = new StringBuilder();
+      appendArgs(sb, command, quote, false);
+      command.clear();
+      command.add("/bin/bash");
+      command.add("-c");
+      command.add(sb.toString());
+    }
+  }
+
+  private StringBuilder appendArgs(final StringBuilder sb, final List<? extends CharSequence> args,
+      final CharSequence quote, final boolean testDoubleQuoteOnly) {
+    for (final CharSequence arg : args) {
+      appendArg(sb, arg, quote, testDoubleQuoteOnly).append(" ");
+    }
+
+    sb.setLength(sb.length() - 1);
+    return sb;
+  }
+
+  private StringBuilder appendArg(final StringBuilder sb, final CharSequence arg,
+      final CharSequence quote, final boolean testDoubleQuoteOnly) {
+    if ((arg.charAt(0) == '"') || (!testDoubleQuoteOnly && (arg.charAt(0) == '\''))) {
+      sb.append(arg);
+    } else {
+      sb.append(quote).append(arg).append(quote);
+    }
+
+    return sb;
+  }
+
+  private void quoteList(final Iterable<String> source, final List<String> target) {
+    final String quote =
+        (System.getProperty("os.name").toLowerCase().indexOf("win") != -1) ? "'" : "\"";
+
+    for (final String s : source) {
+      target.add(quote + s + quote);
+    }
+  }
+
   Collection<String> getResourceFiles(final Iterable<? extends FileSet> fileSets,
       final boolean followLinks, final boolean allowDuplicates, final boolean allowFiles,
       final boolean allowDirs) throws MojoExecutionException {
@@ -221,9 +281,9 @@ public class ExecMojo extends AbstractMojo {
       for (final String file : files) {
         if (!result.add(file) && !allowDuplicates) {
           getLog()
-          .error(
-              String.format("a duplicate file %s under directory %s", file,
-                  fileSet.getDirectory()));
+              .error(
+                  String.format("a duplicate file %s under directory %s", file,
+                      fileSet.getDirectory()));
           throw new MojoExecutionException(String.format("a duplicate file %s under directory %s",
               file, fileSet.getDirectory()));
         }
@@ -235,29 +295,29 @@ public class ExecMojo extends AbstractMojo {
 
   private Collection<String> getResourceFiles(final FileSet fileSet, final boolean followLinks,
       final boolean allowDuplicates, final boolean allowFiles, final boolean allowDirs)
-          throws MojoExecutionException {
+      throws MojoExecutionException {
     final Path dirPath = Paths.get(Objects.requireNonNull(fileSet).getDirectory());
     final FileSetPathMatcher matcher =
         new FileSetPathMatcher(fileSet.getIncludes(), fileSet.getExcludes(), dirPath);
     final EnumSet<FileVisitOption> options =
         followLinks ? EnumSet.of(FileVisitOption.FOLLOW_LINKS) : EnumSet
             .noneOf(FileVisitOption.class);
-        final Set<String> result = new LinkedHashSet<>();
+    final Set<String> result = new LinkedHashSet<>();
 
-        try {
-          final ResourceVisitor resourceVisitor =
-              new ResourceVisitor(matcher, allowDuplicates, allowFiles, allowDirs, result, getLog());
-          Files.walkFileTree(dirPath, options, Integer.MAX_VALUE, resourceVisitor);
+    try {
+      final ResourceVisitor resourceVisitor =
+          new ResourceVisitor(matcher, allowDuplicates, allowFiles, allowDirs, result, getLog());
+      Files.walkFileTree(dirPath, options, Integer.MAX_VALUE, resourceVisitor);
 
-          if (resourceVisitor.getErrorMessage() != null) {
-            throw new MojoExecutionException(resourceVisitor.getErrorMessage());
-          }
-        } catch (final IOException e) {
-          getLog().error("fileSet caused error", e);
-          throw new MojoExecutionException("fileSet caused error", e);
-        }
+      if (resourceVisitor.getErrorMessage() != null) {
+        throw new MojoExecutionException(resourceVisitor.getErrorMessage());
+      }
+    } catch (final IOException e) {
+      getLog().error("fileSet caused error", e);
+      throw new MojoExecutionException("fileSet caused error", e);
+    }
 
-        return result;
+    return result;
   }
 
   private String getCanonicalPath(final String _execLocation, final String propName)
@@ -290,7 +350,7 @@ public class ExecMojo extends AbstractMojo {
       final boolean redirectErrorStream) {
     final ProcessBuilder processBuilder =
         new ProcessBuilder(command).redirectErrorStream(redirectErrorStream)
-        .redirectError(errorRedirect).redirectOutput(outRedirect).directory(directory);
+            .redirectError(errorRedirect).redirectOutput(outRedirect).directory(directory);
 
     if ((environment != null) && !environment.isEmpty()) {
       processBuilder.environment().putAll(environment);
@@ -310,13 +370,13 @@ public class ExecMojo extends AbstractMojo {
     return -1;
   }
 
-  public Jsr330Component getComponent() {
-    return component;
-  }
-
-  public void setComponent(final Jsr330Component component) {
-    this.component = component;
-  }
+//  public Jsr330Component getComponent() {
+//    return component;
+//  }
+//
+//  public void setComponent(final Jsr330Component component) {
+//    this.component = component;
+//  }
 
   public String getExecLocation() {
     return _execLocation;
@@ -332,6 +392,22 @@ public class ExecMojo extends AbstractMojo {
 
   public void setExecLocationAsIs(final boolean execLocationAsIs) {
     _execLocationAsIs = execLocationAsIs;
+  }
+
+  public boolean isSystemCommand() {
+    return _systemCommand;
+  }
+
+  public void setSystemCommand(final boolean systemCommand) {
+    _systemCommand = systemCommand;
+  }
+
+  public String getArgQuote() {
+    return _argQuote;
+  }
+
+  public void setArgQuote(final String argQuote) {
+    _argQuote = argQuote;
   }
 
   public List<String> getArgs() {
@@ -794,7 +870,8 @@ public class ExecMojo extends AbstractMojo {
       final Path sanitizedPath;
 
       if (!isSanitized) {
-        // we should succeed relativizing, otherwise it's a user error for applying a wrong matcher!
+        // we should succeed relativizing, otherwise it's a user error
+        // for applying a wrong matcher!
         sanitizedPath = dir.relativize(path.toAbsolutePath());
       } else {
         sanitizedPath = path;

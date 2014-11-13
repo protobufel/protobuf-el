@@ -25,5 +25,5 @@
 // SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 //
 
-File testDir = new File(basedir, "target/test-classes/protoc-errors/");
+File testDir = new File(basedir, "target/test-me/dir1/");
 assert testDir.listFiles().length == 0

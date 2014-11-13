@@ -30,17 +30,7 @@ package com.github.protobufel.common.files;
 import static com.github.protobufel.common.verifications.Verifications.assertNonNull;
 import static com.github.protobufel.common.verifications.Verifications.verifyNonNull;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.allOf;
-import static org.hamcrest.Matchers.anyOf;
-import static org.hamcrest.Matchers.both;
-import static org.hamcrest.Matchers.endsWith;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.everyItem;
-import static org.hamcrest.Matchers.hasToString;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.startsWith;
+import static org.hamcrest.Matchers.*;
 import static org.junit.Assume.assumeThat;
 
 import java.io.File;
@@ -107,7 +97,7 @@ public class GlobFilterTheoriesTest {
         .add(MatchData.of("glob:*", false, false, false, true, 
             assertNonNull(equalTo(Arrays.asList("dir1", "dir2")))))
         .add(MatchData.of("glob:*", false, false, true, false, 
-            assertNonNull(equalTo(subFiles))))
+            assertNonNull(hasItems(subFiles.toArray(new String[0])))))
         .add(MatchData.of("glob:dir2", false, false, true, true, 
             assertNonNull(everyItem(equalTo("dir2")))))
         .add(MatchData.of("glob:dir2/**/dir22?/dir*/*.*", false, false, true, false,  

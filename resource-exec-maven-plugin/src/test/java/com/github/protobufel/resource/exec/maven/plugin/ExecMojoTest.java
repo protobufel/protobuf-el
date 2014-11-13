@@ -84,7 +84,7 @@ public class ExecMojoTest {
       "file4");
   private static final String GLOB_ALL = "**/*";
   private static final List<String> BAD_ARGS = Arrays.asList(
-      // "dir1/file1", // good WEIRD: Windows del won't report error in presence of any good file!
+  // "dir1/file1", // good WEIRD: Windows del won't report error in presence of any good file!
       "dir1/non.existent.file" // bad
       );
 
@@ -97,13 +97,13 @@ public class ExecMojoTest {
 
   @Rule
   public final TestRule chain = RuleChain.outerRule(expected).around(new MockitoJUnitRule(this))
-  .around(temp).around(softly);
+      .around(temp).around(softly);
 
   private File outFile;
   private File errorFile;
   private List<String> args;
   private String execLocation;
-  private List<String> execOptions;
+  private List<String> execArgs;
   private ExecMojo mojo;
   private final Map<String, String> environment = Collections.emptyMap();
   private File workDir;
@@ -122,12 +122,7 @@ public class ExecMojoTest {
     }
 
     execLocation = properties.getProperty("plugin.test.exec");
-
-    final String execOptionsText = properties.getProperty("plugin.test.exec.options").trim();
-    execOptions =
-        execOptionsText.isEmpty() ? new ArrayList<String>() : Arrays.asList(execOptionsText
-            .split("\\s*,"));
-    assertThat(execOptions.get(1)).isIn("rm", "del");
+    assertThat(execLocation).isIn("rm", "del");
 
     // errorFile = temp.newFile("errors.txt");
     errorFile = new File(temp.getRoot(), "errors.txt");
@@ -138,11 +133,13 @@ public class ExecMojoTest {
 
     rootDir = workDir.toPath();
     glob = GLOB_ALL;
-    args = new ArrayList<>(execOptions);
+    args = new ArrayList<>();
 
     mojo = new ExecMojo(component);
     mojo.setExecLocation(execLocation);
     mojo.setExecLocationAsIs(true);
+    mojo.setSystemCommand(true);
+    mojo.setArgQuote("\"");
     mojo.setEnvironment(environment);
     mojo.setErrorFile(errorFile);
     mojo.setRedirectErrorStream(false);
@@ -205,7 +202,7 @@ public class ExecMojoTest {
         mojo.getResourceFiles(getFileSets(rootDir), mojo.isFollowLinks(), true, true, false);
 
     assertThat(actualFiles).isNotNull().doesNotContainNull().hasSameSizeAs(expectedFiles)
-    .containsOnlyElementsOf(expectedFiles);
+        .containsOnlyElementsOf(expectedFiles);
 
     // the following is the same as above, but easy to compare
     // final ArrayList<String> actualSortedFiles = new ArrayList<String>(actualFiles);
@@ -298,7 +295,7 @@ public class ExecMojoTest {
     }
 
     // weirdly, Windows del command okay with duplicate files as args
-    //assertThat(contentOf(errorFile)).as("the errorFile's contents").matches(".*file4.*");
+    // assertThat(contentOf(errorFile)).as("the errorFile's contents").matches(".*file4.*");
     assertThat(contentOf(errorFile)).as("the errorFile is empty").hasSize(0);
     assertDeepEmpty(rootDir);
   }
