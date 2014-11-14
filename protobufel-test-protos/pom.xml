@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
@@ -70,20 +71,21 @@
 		</resources>
 	</build>
 	<profiles>
-		<profile>
-			<id>protoc</id>
-			<activation>
-				<property>
-					<name>activate-protoc</name>
-					<value>true</value>
-				</property>
-				<file>
-					<exists>${env.PROTOC_EXEC}</exists>
-				</file>
-			</activation>
-			<properties>
-				<com.google.protobuf.protoc.path>${env.PROTOC_EXEC}</com.google.protobuf.protoc.path>
-			</properties>
+    <profile>
+      <id>env-protoc</id>
+      <activation>
+        <activeByDefault>false</activeByDefault>
+        <property>
+          <name>env</name>
+          <value>protoc</value>
+        </property>
+        <file>
+          <exists>${env.PROTOC_EXEC}</exists>
+        </file>
+      </activation>
+      <properties>
+        <com.google.protobuf.protoc.path>${env.PROTOC_EXEC}</com.google.protobuf.protoc.path>
+      </properties>
 			<build>
 				<plugins>
 					<plugin>
@@ -104,6 +106,27 @@
 								</goals>
 							</execution>
 						</executions>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+		<profile>
+			<id>env-prod</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>env</name>
+					<value>prod</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
 					</plugin>
 				</plugins>
 			</build>

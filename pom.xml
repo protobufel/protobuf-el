@@ -16,11 +16,11 @@
 	<url>https://github.com/protobufel/protobuf-el/</url>
 	<inceptionYear>2014</inceptionYear>
 	<distributionManagement>
-    <site>
-      <id>gh-pages</id>
-      <name>Deployment through GitHub's site deployment plugin</name>
-      <url>${project.version}/</url>
-    </site>
+		<site>
+			<id>gh-pages</id>
+			<name>Deployment through GitHub's site deployment plugin</name>
+			<url>${project.version}/</url>
+		</site>
 	</distributionManagement>
 	<licenses>
 		<license>
@@ -32,14 +32,14 @@
 	<scm>
 		<connection>scm:git:git@github.com:protobufel/protobuf-el.git</connection>
 		<developerConnection>scm:git:git@github.com:protobufel/protobuf-el.git</developerConnection>
-<!-- 		<url>git@github.com:protobufel/protobuf-el.git</url> -->
+		<!-- <url>git@github.com:protobufel/protobuf-el.git</url> -->
 		<url>https://github.com/protobufel/protobuf-el/</url>
 		<tag>HEAD</tag>
 	</scm>
-  <issueManagement>
-    <system>GitHub Issues</system>
-    <url>https://github.com/protobufel/protobuf-el/issues/</url>
-  </issueManagement>
+	<issueManagement>
+		<system>GitHub Issues</system>
+		<url>https://github.com/protobufel/protobuf-el/issues/</url>
+	</issueManagement>
 	<developers>
 		<developer>
 			<id>protobufel</id>
@@ -55,7 +55,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<legal.owner>David Tesler (https://github.com/protobufel)</legal.owner>
-<!-- 		<github.global.server>github</github.global.server> -->
+		<!-- <github.global.server>github</github.global.server> -->
 		<mavenVersion>3.2.3</mavenVersion>
 		<mavenPluginPluginVersion>3.3</mavenPluginPluginVersion>
 		<powermock.version>1.5.6</powermock.version>
@@ -321,26 +321,26 @@
 							<requireJavaVersion>
 								<version>1.7</version>
 							</requireJavaVersion>
-<!--                <requirePluginVersions> -->
-<!--                   <message>Best Practice is to always define plugin versions!</message> -->
-<!--                </requirePluginVersions> -->
-<!--                <requireSameVersions> -->
-<!--                   <message>Maven Test Plugins should all have the same versions!</message> -->
-<!--                  <plugins> -->
-<!--                    <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin> -->
-<!--                    <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin> -->
-<!--                    <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin> -->
-<!--                  </plugins> -->
-<!--                </requireSameVersions> -->
-<!--                <requireSameVersions> -->
-<!-- 									<message>Antlr4 runtime and plugin should all have the same versions!</message> -->
-<!-- 									<dependencies> -->
-<!-- 										<dependency>org.antlr:antlr4-runtime</dependency> -->
-<!-- 									</dependencies> -->
-<!-- 									<plugins> -->
-<!-- 										<plugin>org.antlr:antlr4-maven-plugin</plugin> -->
-<!-- 									</plugins> -->
-<!--                </requireSameVersions> -->
+							<!-- <requirePluginVersions> -->
+							<!-- <message>Best Practice is to always define plugin versions!</message> -->
+							<!-- </requirePluginVersions> -->
+							<!-- <requireSameVersions> -->
+							<!-- <message>Maven Test Plugins should all have the same versions!</message> -->
+							<!-- <plugins> -->
+							<!-- <plugin>org.apache.maven.plugins:maven-surefire-plugin</plugin> -->
+							<!-- <plugin>org.apache.maven.plugins:maven-failsafe-plugin</plugin> -->
+							<!-- <plugin>org.apache.maven.plugins:maven-surefire-report-plugin</plugin> -->
+							<!-- </plugins> -->
+							<!-- </requireSameVersions> -->
+							<!-- <requireSameVersions> -->
+							<!-- <message>Antlr4 runtime and plugin should all have the same versions!</message> -->
+							<!-- <dependencies> -->
+							<!-- <dependency>org.antlr:antlr4-runtime</dependency> -->
+							<!-- </dependencies> -->
+							<!-- <plugins> -->
+							<!-- <plugin>org.antlr:antlr4-maven-plugin</plugin> -->
+							<!-- </plugins> -->
+							<!-- </requireSameVersions> -->
 						</rules>
 					</configuration>
 				</plugin>
@@ -348,6 +348,11 @@
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-install-plugin</artifactId>
 					<version>2.5.2</version>
+				</plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-release-plugin</artifactId>
+					<version>2.5.1</version>
 				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
@@ -379,9 +384,9 @@
 						<verbose>true</verbose>
 						<keywords>true</keywords>
 						<show>protected</show>
-					<links>
-						<link>http://docs.oracle.com/javase/7/docs/api/</link>
-					</links>
+						<links>
+							<link>http://docs.oracle.com/javase/7/docs/api/</link>
+						</links>
 					</configuration>
 					<executions>
 						<execution>
@@ -457,11 +462,11 @@
 					<artifactId>maven-surefire-plugin</artifactId>
 					<version>2.17</version>
 				</plugin>
-	      <plugin>
-	        <groupId>org.apache.maven.plugins</groupId>
-	        <artifactId>maven-surefire-report-plugin</artifactId>
-	        <version>2.17</version>
-	      </plugin>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-surefire-report-plugin</artifactId>
+					<version>2.17</version>
+				</plugin>
 				<plugin>
 					<groupId>org.apache.maven.plugins</groupId>
 					<artifactId>maven-failsafe-plugin</artifactId>
@@ -557,6 +562,11 @@
 					</dependencies>
 				</plugin>
 				<plugin>
+					<groupId>org.sonatype.plugins</groupId>
+					<artifactId>nexus-staging-maven-plugin</artifactId>
+					<version>1.6.5</version>
+				</plugin>
+				<plugin>
 					<groupId>org.codehaus.mojo</groupId>
 					<artifactId>build-helper-maven-plugin</artifactId>
 					<version>1.9.1</version>
@@ -611,7 +621,7 @@
 							<id>license-header-format</id>
 							<phase>process-resources</phase>
 							<goals>
-			<!-- 					<goal>check</goal> -->
+								<!-- <goal>check</goal> -->
 								<goal>format</goal>
 							</goals>
 						</execution>
@@ -623,7 +633,7 @@
 					<version>1.7</version>
 					<configuration>
 						<licenseName>bsd_3</licenseName>
-<!-- 						<copyrightOwners>${legal.owner}</copyrightOwners> -->
+						<!-- <copyrightOwners>${legal.owner}</copyrightOwners> -->
 						<organizationName>${legal.owner}</organizationName>
 						<addJavaLicenseAfterPackage>false</addJavaLicenseAfterPackage>
 						<dryRun>false</dryRun>
@@ -647,7 +657,7 @@
 							</goals>
 							<configuration>
 								<licensesConfigFile>licenses.xml</licensesConfigFile>
-							</configuration>	
+							</configuration>
 						</execution>
 						<execution>
 							<id>third-party-report</id>
@@ -672,21 +682,20 @@
 					<artifactId>site-maven-plugin</artifactId>
 					<version>0.10</version>
 					<configuration>
-						<message>Creating Maven site for ${project.artifactId}:${project.version}</message>
-<!-- 						<dryRun>true</dryRun> -->
+						<message>Creating Maven site for
+							${project.artifactId}:${project.version}</message>
+						<!-- <dryRun>true</dryRun> -->
 						<lineLength>100</lineLength>
 						<noJekyll>true</noJekyll>
 						<server>github</server>
-<!-- 						<path>${site.path}</path> -->
-            <path>${project.distributionManagement.site.url}</path>
+						<!-- <path>${site.path}</path> -->
+						<path>${project.distributionManagement.site.url}</path>
 						<repositoryOwner>protobufel</repositoryOwner>
 						<repositoryName>protobuf-el</repositoryName>
-            <merge>true</merge>
-<!--             <excludes>
-              <exclude>xref-test/**</exclude>
-              <exclude>testapidocs/**</exclude>
-            </excludes>
- -->					</configuration>
+						<merge>true</merge>
+						<!-- <excludes> <exclude>xref-test/**</exclude> <exclude>testapidocs/**</exclude> 
+							</excludes> -->
+					</configuration>
 					<executions>
 						<execution>
 							<id>github</id>
@@ -723,22 +732,22 @@
 				<reportSets>
 					<reportSet>
 						<reports>
-              <report>index</report>
-              <report>dependencies</report>
-              <report>dependency-convergence</report>
-              <report>dependency-management</report>
-              <report>dependency-info</report>
-              <report>distribution-management</report>
-              <report>project-team</report>
-              <report>mailing-list</report>
-              <report>plugin-management</report>
-              <report>plugins</report>
-              <report>issue-tracking</report>
-              <report>license</report>
-              <report>scm</report>
-              <report>summary</report>
-              <!-- doesn't allow module filtering! -->
-              <report>modules</report>
+							<report>index</report>
+							<report>dependencies</report>
+							<report>dependency-convergence</report>
+							<report>dependency-management</report>
+							<report>dependency-info</report>
+							<report>distribution-management</report>
+							<report>project-team</report>
+							<report>mailing-list</report>
+							<report>plugin-management</report>
+							<report>plugins</report>
+							<report>issue-tracking</report>
+							<report>license</report>
+							<report>scm</report>
+							<report>summary</report>
+							<!-- doesn't allow module filtering! -->
+							<report>modules</report>
 						</reports>
 					</reportSet>
 				</reportSets>
@@ -756,11 +765,11 @@
 					<links>
 						<link>http://docs.oracle.com/javase/7/docs/api/</link>
 					</links>
-<!-- 					<subpackages>com.github.protobufel</subpackages> -->
-<!-- 					<excludePackageNames>com.github.protobufel.util:com.github.protobufel.test.util</excludePackageNames> -->
+					<!-- <subpackages>com.github.protobufel</subpackages> -->
+					<!-- <excludePackageNames>com.github.protobufel.util:com.github.protobufel.test.util</excludePackageNames> -->
 					<sourceFileIncludes>
 						<sourceFileInclude>com/github/protobufel/**/*</sourceFileInclude>
-					</sourceFileIncludes>	
+					</sourceFileIncludes>
 					<sourceFileExcludes>
 						<sourceFileExclude>com/github/protobufel/benchmarks/**/*</sourceFileExclude>
 						<sourceFileExclude>com/github/protobufel/util/**/*</sourceFileExclude>
@@ -786,44 +795,44 @@
 					</reportSet>
 				</reportSets>
 			</plugin>
-<!-- 			<plugin> -->
-<!-- 				<groupId>org.apache.maven.plugins</groupId> -->
-<!-- 				<artifactId>maven-jxr-plugin</artifactId> -->
-<!-- 				<configuration> -->
-<!-- 					<skip>true</skip> -->
-<!-- 					<linkJavadoc>true</linkJavadoc> -->
-<!-- 					<includes> -->
-<!-- 						<include>com/github/protobufel/**/*</include> -->
-<!-- 					</includes>	 -->
-<!-- 					<excludes> -->
-<!-- 						<exclude>com/github/protobufel/benchmarks/**/*</exclude> -->
-<!-- 						<exclude>com/github/protobufel/util/**/*</exclude> -->
-<!-- 						<exclude>com/github/protobufel/test/util/**/*</exclude> -->
-<!-- 						<exclude>com/github/protobufel/grammar/ProtoParser*.java</exclude> -->
-<!-- 					</excludes> -->
-<!-- 				</configuration> -->
-<!-- 				<reportSets> -->
-<!-- 					<reportSet> -->
-<!-- 						<reports> -->
-<!-- 							<report>jxr</report> -->
-<!-- 						</reports> -->
-<!-- 					</reportSet> -->
-<!-- 					<reportSet> -->
-<!-- 						<id>aggregate</id> -->
-<!-- 						<inherited>false</inherited> -->
-<!-- 						<reports> -->
-<!-- 							<report>aggregate</report> -->
-<!-- 						</reports> -->
-<!-- 					</reportSet> -->
-<!-- 				</reportSets> -->
-<!-- 			</plugin> -->
-      <plugin>
-        <groupId>org.apache.maven.plugins</groupId>
-        <artifactId>maven-surefire-report-plugin</artifactId>
-        <configuration>
-        	<aggregate>true</aggregate>
-        </configuration>
-      </plugin>
+			<!-- <plugin> -->
+			<!-- <groupId>org.apache.maven.plugins</groupId> -->
+			<!-- <artifactId>maven-jxr-plugin</artifactId> -->
+			<!-- <configuration> -->
+			<!-- <skip>true</skip> -->
+			<!-- <linkJavadoc>true</linkJavadoc> -->
+			<!-- <includes> -->
+			<!-- <include>com/github/protobufel/**/*</include> -->
+			<!-- </includes> -->
+			<!-- <excludes> -->
+			<!-- <exclude>com/github/protobufel/benchmarks/**/*</exclude> -->
+			<!-- <exclude>com/github/protobufel/util/**/*</exclude> -->
+			<!-- <exclude>com/github/protobufel/test/util/**/*</exclude> -->
+			<!-- <exclude>com/github/protobufel/grammar/ProtoParser*.java</exclude> -->
+			<!-- </excludes> -->
+			<!-- </configuration> -->
+			<!-- <reportSets> -->
+			<!-- <reportSet> -->
+			<!-- <reports> -->
+			<!-- <report>jxr</report> -->
+			<!-- </reports> -->
+			<!-- </reportSet> -->
+			<!-- <reportSet> -->
+			<!-- <id>aggregate</id> -->
+			<!-- <inherited>false</inherited> -->
+			<!-- <reports> -->
+			<!-- <report>aggregate</report> -->
+			<!-- </reports> -->
+			<!-- </reportSet> -->
+			<!-- </reportSets> -->
+			<!-- </plugin> -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-report-plugin</artifactId>
+				<configuration>
+					<aggregate>true</aggregate>
+				</configuration>
+			</plugin>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>license-maven-plugin</artifactId>
@@ -858,10 +867,12 @@
 	</modules>
 	<profiles>
 		<profile>
-			<id>protoc</id>
+			<id>env-protoc</id>
 			<activation>
+				<activeByDefault>false</activeByDefault>
 				<property>
-					<name>activate-protoc</name>
+					<name>env</name>
+					<value>protoc</value>
 				</property>
 				<file>
 					<exists>${env.PROTOC_EXEC}</exists>
@@ -872,10 +883,12 @@
 			</properties>
 		</profile>
 		<profile>
-			<id>licensing-profile</id>
+			<id>env-license</id>
 			<activation>
+			   <activeByDefault>false</activeByDefault>
 				<property>
-					<name>release</name>
+					<name>env</name>
+					<value>license</value>
 				</property>
 			</activation>
 			<build>
@@ -892,7 +905,7 @@
 			</build>
 		</profile>
 		<profile>
-			<id>staging-profile</id>
+			<id>env-staging</id>
 			<activation>
 				<property>
 					<name>staging-active</name>
@@ -916,16 +929,23 @@
 			</dependencyManagement>
 		</profile>
 		<profile>
-			<id>site-test-profile</id>
+			<id>release</id>
 			<activation>
+				<activeByDefault>false</activeByDefault>
 				<property>
-					<name>site-test-active</name>
-					<value>true</value>
+					<name>env</name>
+					<value>prod</value>
 				</property>
 			</activation>
-<!-- 			<properties> -->
-<!-- 				<project.distributionManagement.site.url>${project.build.directory}/staging/</project.distributionManagement.site.url> -->
-<!-- 			</properties> -->
+      <properties>
+      <project.scm.id>github</project.scm.id>
+      </properties>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+			</distributionManagement>
 			<dependencyManagement>
 				<dependencies>
 					<dependency>
@@ -941,48 +961,89 @@
 					</dependency>
 				</dependencies>
 			</dependencyManagement>
-			<distributionManagement>
-				<site>
-		      <id>gh-pages</id>
-					<name>test parent site</name>
-<!-- 					<url>${project.build.directory}/staging/</url> -->
-					<url>${project.url}</url>
-				</site>
-			</distributionManagement>
 			<build>
-				<pluginManagement>
-					<plugins>
-						<plugin>
-							<groupId>org.apache.maven.plugins</groupId>
-							<artifactId>maven-site-plugin</artifactId>
-							<version>3.4</version>
-							<configuration>
-								<lineLength>100</lineLength>
-<!-- 								<topSiteURL>${project.build.directory}/staging/</topSiteURL> -->
-								<skipDeploy>true</skipDeploy>
-							</configuration>
-							<dependencies>
-								<dependency>
-									<groupId>org.apache.maven.doxia</groupId>
-									<artifactId>doxia-module-markdown</artifactId>
-									<version>1.6</version>
-								</dependency>
-							</dependencies>
-						</plugin>
-					</plugins>
-				</pluginManagement>
+				<plugins>
+					<plugin>
+						<groupId>org.sonatype.plugins</groupId>
+						<artifactId>nexus-staging-maven-plugin</artifactId>
+						<extensions>true</extensions>
+						<configuration>
+							<serverId>ossrh</serverId>
+							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+							<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
+							<autoReleaseAfterClose>false</autoReleaseAfterClose>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-release-plugin</artifactId>
+						<configuration>
+							<autoVersionSubmodules>true</autoVersionSubmodules>
+							<useReleaseProfile>false</useReleaseProfile>
+<!-- 							<releaseProfiles>env-prod,env-license</releaseProfiles> -->
+              <releaseProfiles>release</releaseProfiles>
+							<goals>deploy</goals>
+						</configuration>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-source-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-sources</id>
+								<goals>
+									<goal>jar-no-fork</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-javadoc-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>attach-javadocs</id>
+								<goals>
+									<goal>jar</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-gpg-plugin</artifactId>
+						<executions>
+							<execution>
+								<id>sign-artifacts</id>
+								<phase>verify</phase>
+								<goals>
+									<goal>sign</goal>
+								</goals>
+							</execution>
+						</executions>
+					</plugin>
+				</plugins>
 			</build>
 		</profile>
 		<profile>
-			<id>dev-profile</id>
+			<id>production-maven-deploy</id>
 			<activation>
 				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>activate-production-maven-deploy</name>
+					<value>true-but-dont-use-me!</value>
+				</property>
 			</activation>
-			<properties>
-				<maven.test.failure.ignore>true</maven.test.failure.ignore>
-				<maven.compiler.failOnError>false</maven.compiler.failOnError>
-				<maven.compiler.debuglevel>lines,vars,source</maven.compiler.debuglevel>
-			</properties>
+			<distributionManagement>
+				<snapshotRepository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+				</snapshotRepository>
+				<repository>
+					<id>ossrh</id>
+					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+				</repository>
+			</distributionManagement>
 		</profile>
 	</profiles>
 </project>

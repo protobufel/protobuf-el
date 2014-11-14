@@ -12,7 +12,7 @@
 	<name>protobufel JMH benchmarks</name>
 	<url>https://github.com/protobufel/protobuf-el/protobufel-benchmarks/</url>
 	<description>Internal DynamicMessage JMH Benchmarks</description>
-  <packaging>jar</packaging>
+	<packaging>jar</packaging>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	</properties>
@@ -41,8 +41,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-				</configuration>
+				<configuration />
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -66,34 +65,39 @@
 					</execution>
 				</executions>
 			</plugin>
-<!-- 			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>exec-maven-plugin</artifactId>
-				<version>1.2.1</version>
-				<executions>
-					<execution>
-						<id>exec-benchmarks</id>
-						<phase>package</phase>
-						<goals>
-							<goal>exec</goal>
-						</goals>
-						<configuration>
-							<executable>java</executable>
-							<arguments>
-								<argument>-jar</argument>
-								<argument>${project.build.directory}/${project.build.finalName}.jar</argument>
-								<argument>${project.build.directory}/microbenchmarks.jar</argument>
-								<argument>org.openjdk.jmh.Main</argument>
-							</arguments>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
- -->
+			<!-- <plugin> <groupId>org.codehaus.mojo</groupId> <artifactId>exec-maven-plugin</artifactId> 
+				<version>1.2.1</version> <executions> <execution> <id>exec-benchmarks</id> 
+				<phase>package</phase> <goals> <goal>exec</goal> </goals> <configuration> 
+				<executable>java</executable> <arguments> <argument>-jar</argument> <argument>${project.build.directory}/${project.build.finalName}.jar</argument> 
+				<argument>${project.build.directory}/microbenchmarks.jar</argument> <argument>org.openjdk.jmh.Main</argument> 
+				</arguments> </configuration> </execution> </executions> </plugin> -->
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-			</plugin>	
- 		</plugins>
+			</plugin>
+		</plugins>
 	</build>
+	<profiles>
+		<profile>
+			<id>env-prod</id>
+			<activation>
+				<activeByDefault>false</activeByDefault>
+				<property>
+					<name>env</name>
+					<value>prod</value>
+				</property>
+			</activation>
+			<build>
+				<plugins>
+					<plugin>
+						<groupId>org.apache.maven.plugins</groupId>
+						<artifactId>maven-deploy-plugin</artifactId>
+						<configuration>
+							<skip>true</skip>
+						</configuration>
+					</plugin>
+				</plugins>
+			</build>
+		</profile>
+	</profiles>
 </project>
