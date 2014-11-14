@@ -585,7 +585,8 @@ class ProtoFileParser extends ProtoBaseListener {
 
   @Override
   public void exitEnumField(final EnumFieldContext ctx) {
-    final EnumValueDescriptorProto.Builder enumValueBuilder = scopes.getProtoBuilder();
+    final EnumValueDescriptorProto.Builder enumValueBuilder =
+        EnumValueDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     enumValueBuilder.setName(ctx.identifier().getText()).setNumber(
         Integer.decode(ctx.enumValue().getText()));
     scopes.popScope();
@@ -622,7 +623,8 @@ class ProtoFileParser extends ProtoBaseListener {
 
   @Override
   public void exitField(final FieldContext ctx) {
-    final FieldDescriptorProto.Builder fieldBuilder = scopes.getProtoBuilder();
+    final FieldDescriptorProto.Builder fieldBuilder =
+        FieldDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     final OptionalScalarFieldContext optionalScalarField = ctx.optionalScalarField();
 
     if (optionalScalarField != null) {
@@ -721,7 +723,8 @@ class ProtoFileParser extends ProtoBaseListener {
   public void exitBytesFieldOption(final BytesFieldOptionContext ctx) {
     if (ctx.getChildCount() == 3) {
       verifyOptionNameUnique("default", ctx.getStart());
-      final FieldDescriptorProto.Builder fieldBuilder = scopes.getProtoBuilder();
+      final FieldDescriptorProto.Builder fieldBuilder =
+          FieldDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
       final String input = ctx.getChild(2).getText();
 
       try {
@@ -739,7 +742,8 @@ class ProtoFileParser extends ProtoBaseListener {
     // TODO: what to do about '\?'
     if (ctx.getChildCount() == 3) {
       verifyOptionNameUnique("default", ctx.getStart());
-      final FieldDescriptorProto.Builder fieldBuilder = scopes.getProtoBuilder();
+      final FieldDescriptorProto.Builder fieldBuilder =
+          FieldDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
       final String input = ctx.getChild(2).getText();
 
       try {
@@ -760,7 +764,8 @@ class ProtoFileParser extends ProtoBaseListener {
   private void setFieldDefaultValue(final ParserRuleContext ctx) {
     if (ctx.getChildCount() == 3) {
       verifyOptionNameUnique("default", ctx.getStart());
-      final FieldDescriptorProto.Builder fieldBuilder = scopes.getProtoBuilder();
+      final FieldDescriptorProto.Builder fieldBuilder =
+          FieldDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
       fieldBuilder.setDefaultValue(ctx.getChild(2).getText());
     }
   }
@@ -774,7 +779,8 @@ class ProtoFileParser extends ProtoBaseListener {
 
   @Override
   public void exitService(final ServiceContext ctx) {
-    final ServiceDescriptorProto.Builder serviceBuilder = scopes.getProtoBuilder();
+    final ServiceDescriptorProto.Builder serviceBuilder =
+        ServiceDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     serviceBuilder.setName(ctx.identifier().getText());
     scopes.popScope();
   }
@@ -788,7 +794,8 @@ class ProtoFileParser extends ProtoBaseListener {
 
   @Override
   public void exitMethodStatement(final MethodStatementContext ctx) {
-    final MethodDescriptorProto.Builder methodBuilder = scopes.getProtoBuilder();
+    final MethodDescriptorProto.Builder methodBuilder =
+        MethodDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     methodBuilder.setName(ctx.identifier().getText()).setInputType(ctx.extendedId(0).getText())
         .setOutputType(ctx.extendedId(1).getText());
     scopes.popScope();
@@ -803,7 +810,8 @@ class ProtoFileParser extends ProtoBaseListener {
 
   @Override
   public void exitOneofStatement(final OneofStatementContext ctx) {
-    final OneofDescriptorProto.Builder oneofBuilder = scopes.getProtoBuilder();
+    final OneofDescriptorProto.Builder oneofBuilder =
+        OneofDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     oneofBuilder.setName(ctx.identifier().getText());
     scopes.popScope();
     scopes.verifyOneofName(oneofBuilder);
@@ -819,7 +827,8 @@ class ProtoFileParser extends ProtoBaseListener {
   // TODO: reuse exitField and this - they differ very little
   @Override
   public void exitOneofField(final OneofFieldContext ctx) {
-    final FieldDescriptorProto.Builder fieldBuilder = scopes.getProtoBuilder();
+    final FieldDescriptorProto.Builder fieldBuilder =
+        FieldDescriptorProto.Builder.class.cast(scopes.getProtoBuilder());
     final OptionalScalarFieldContext optionalScalarField = ctx.optionalScalarField();
 
     if (optionalScalarField != null) {
@@ -1103,7 +1112,7 @@ class ProtoFileParser extends ProtoBaseListener {
         final List<FieldDescriptorProto.Builder> unresolved, final ContextLookup lookup) {
       this.proto = proto;
 
-      if (unresolved == null || unresolved.isEmpty()) {
+      if ((unresolved == null) || unresolved.isEmpty()) {
         this.unresolved = Collections.emptyList();
       } else {
         if (lookup == null) {
@@ -1256,7 +1265,7 @@ class ProtoFileParser extends ProtoBaseListener {
         }
       }
 
-      if (nameContext == null && !fileProto.getMessageTypes().isEmpty()) {
+      if ((nameContext == null) && !fileProto.getMessageTypes().isEmpty()) {
         nameContext = resolveName(name, fileProto.getMessageTypes());
       }
 

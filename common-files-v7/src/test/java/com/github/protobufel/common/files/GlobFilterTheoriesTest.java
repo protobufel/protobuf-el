@@ -95,7 +95,7 @@ public class GlobFilterTheoriesTest {
   public static MatchData[] globs() {
     final ImmutableList.Builder<MatchData> builder = ImmutableList.<MatchData>builder()
         .add(MatchData.of("glob:*", false, false, false, true, 
-            assertNonNull(equalTo(Arrays.asList("dir1", "dir2")))))
+            assertNonNull(hasItems("dir1", "dir2"))))
         .add(MatchData.of("glob:*", false, false, true, false, 
             assertNonNull(hasItems(subFiles.toArray(new String[0])))))
         .add(MatchData.of("glob:dir2", false, false, true, true, 
