@@ -81,7 +81,7 @@
 		<profile>
 			<id>env-prod</id>
 			<activation>
-				<activeByDefault>false</activeByDefault>
+				<activeByDefault>true</activeByDefault>
 				<property>
 					<name>env</name>
 					<value>prod</value>
