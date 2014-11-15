@@ -21,6 +21,10 @@
 			<name>Deployment through GitHub's site deployment plugin</name>
 			<url>${project.version}/</url>
 		</site>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
 	</distributionManagement>
 	<licenses>
 		<license>
@@ -55,6 +59,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<legal.owner>David Tesler (https://github.com/protobufel)</legal.owner>
+		<project.scm.id>github</project.scm.id>
 		<!-- <github.global.server>github</github.global.server> -->
 		<mavenVersion>3.2.3</mavenVersion>
 		<mavenPluginPluginVersion>3.3</mavenPluginPluginVersion>
@@ -721,6 +726,28 @@
 				<groupId>com.github.github</groupId>
 				<artifactId>site-maven-plugin</artifactId>
 			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
+					<autoReleaseAfterClose>false</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-release-plugin</artifactId>
+				<configuration>
+					<autoVersionSubmodules>true</autoVersionSubmodules>
+					<useReleaseProfile>false</useReleaseProfile>
+					<!-- <releaseProfiles>env-prod,env-license</releaseProfiles> -->
+					<releaseProfiles>release</releaseProfiles>
+					<goals>deploy</goals>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<reporting>
@@ -885,7 +912,7 @@
 		<profile>
 			<id>env-license</id>
 			<activation>
-			   <activeByDefault>false</activeByDefault>
+				<activeByDefault>false</activeByDefault>
 				<property>
 					<name>env</name>
 					<value>license</value>
@@ -930,22 +957,15 @@
 		</profile>
 		<profile>
 			<id>release</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<property>
-					<name>env</name>
-					<value>prod</value>
-				</property>
-			</activation>
-      <properties>
-      <project.scm.id>github</project.scm.id>
-      </properties>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-			</distributionManagement>
+			<!-- <activation> -->
+			<!-- <activeByDefault>false</activeByDefault> -->
+			<!-- <property> -->
+			<!-- <name>env</name> -->
+			<!-- <value>prod</value> -->
+			<!-- </property> -->
+			<!-- </activation> -->
+			<properties />
+
 			<dependencyManagement>
 				<dependencies>
 					<dependency>
@@ -963,28 +983,6 @@
 			</dependencyManagement>
 			<build>
 				<plugins>
-					<plugin>
-						<groupId>org.sonatype.plugins</groupId>
-						<artifactId>nexus-staging-maven-plugin</artifactId>
-						<extensions>true</extensions>
-						<configuration>
-							<serverId>ossrh</serverId>
-							<nexusUrl>https://oss.sonatype.org/</nexusUrl>
-							<!-- <autoReleaseAfterClose>true</autoReleaseAfterClose> -->
-							<autoReleaseAfterClose>false</autoReleaseAfterClose>
-						</configuration>
-					</plugin>
-					<plugin>
-						<groupId>org.apache.maven.plugins</groupId>
-						<artifactId>maven-release-plugin</artifactId>
-						<configuration>
-							<autoVersionSubmodules>true</autoVersionSubmodules>
-							<useReleaseProfile>false</useReleaseProfile>
-<!-- 							<releaseProfiles>env-prod,env-license</releaseProfiles> -->
-              <releaseProfiles>release</releaseProfiles>
-							<goals>deploy</goals>
-						</configuration>
-					</plugin>
 					<plugin>
 						<groupId>org.apache.maven.plugins</groupId>
 						<artifactId>maven-source-plugin</artifactId>
@@ -1024,26 +1022,6 @@
 					</plugin>
 				</plugins>
 			</build>
-		</profile>
-		<profile>
-			<id>production-maven-deploy</id>
-			<activation>
-				<activeByDefault>false</activeByDefault>
-				<property>
-					<name>activate-production-maven-deploy</name>
-					<value>true-but-dont-use-me!</value>
-				</property>
-			</activation>
-			<distributionManagement>
-				<snapshotRepository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/content/repositories/snapshots</url>
-				</snapshotRepository>
-				<repository>
-					<id>ossrh</id>
-					<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-				</repository>
-			</distributionManagement>
 		</profile>
 	</profiles>
 </project>
