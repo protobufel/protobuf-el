@@ -221,18 +221,19 @@ public class ExecMojo extends AbstractMojo {
   }
 
   private void convertToSystemCommandArgs(final List<String> command, final CharSequence quote) {
+    final StringBuilder sb = new StringBuilder();
+    sb.append(command.get(0)).append(" ");
+    
     if (System.getProperty("os.name").toLowerCase().indexOf("win") != -1) {
-      // for Windows construct "cmd" "/c" ""arg1" "arg2" ... "arg<N>""
-      final StringBuilder sb = new StringBuilder();
-      appendArgs(sb, command, "\"", true);
+      // for Windows construct cmd /c "arg1 "arg2" ... "arg<N>""
+      appendArgs(sb, command.subList(1, command.size()), "\"", true);
       command.clear();
       command.add("cmd");
       command.add("/c");
       command.add(sb.toString());
     } else {
-      // for any other OS construct "bash" "-c" "Qarg1Q Qarg1Q Qarg2Q ... Qarg<N>Q", where Q={'|"}
-      final StringBuilder sb = new StringBuilder();
-      appendArgs(sb, command, quote, false);
+      // for any other OS construct /bin/bash -c "arg1 Qarg1Q Qarg2Q ... Qarg<N>Q", where Q={'|"}
+      appendArgs(sb, command.subList(1, command.size()), quote, false);
       command.clear();
       command.add("/bin/bash");
       command.add("-c");
@@ -240,8 +241,12 @@ public class ExecMojo extends AbstractMojo {
     }
   }
 
-  private StringBuilder appendArgs(final StringBuilder sb, final List<? extends CharSequence> args,
+  private StringBuilder appendArgs(final StringBuilder sb, final Collection<? extends CharSequence> args,
       final CharSequence quote, final boolean testDoubleQuoteOnly) {
+    if (args.isEmpty()) {
+      return sb;
+    }
+    
     for (final CharSequence arg : args) {
       appendArg(sb, arg, quote, testDoubleQuoteOnly).append(" ");
     }
@@ -263,7 +268,7 @@ public class ExecMojo extends AbstractMojo {
 
   private void quoteList(final Iterable<String> source, final List<String> target) {
     final String quote =
-        (System.getProperty("os.name").toLowerCase().indexOf("win") != -1) ? "'" : "\"";
+        (System.getProperty("os.name").toLowerCase().indexOf("win") == -1) ? "'" : "\"";
 
     for (final String s : source) {
       target.add(quote + s + quote);

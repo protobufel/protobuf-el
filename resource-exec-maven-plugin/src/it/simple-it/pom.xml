@@ -8,9 +8,8 @@
 	<description>A simple IT verifying the basic use case.</description>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<proto-path>${project.build.directory}/test-me</proto-path>
-<!--     <proto-files>${proto-path}/dir1/*</proto-files> -->
-    <proto-files>${proto-path}/dir1</proto-files>
+		<proto-path>${project.build.directory}${file.separator}test-me</proto-path>
+    <proto-files>${proto-path}${file.separator}dir1</proto-files>
 		<proto-result>${project.build.testOutputDirectory}/result</proto-result>
     <proto-errors>${project.build.testOutputDirectory}/errors.txt</proto-errors>
 		<exec-path>${plugin.test.exec}</exec-path>
@@ -50,8 +49,8 @@
 							<errorFile>${proto-errors}</errorFile>
 							<outFile>${proto-result}</outFile>
 							<args>
-								<arg>${proto-files}/f1.txt</arg>
-								<arg>${proto-files}/f2</arg>
+								<arg>${proto-files}${file.separator}f1.txt</arg>
+								<arg>${proto-files}${file.separator}f2</arg>
 							</args>
 						</configuration>
 						<goals>
