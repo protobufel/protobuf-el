@@ -43,9 +43,111 @@ final DynamicMessage message = builderOne.build();
 
 ```
 
-For more see the project documentation https://protobufel.github.io/protobuf-el/0.6, or jump directly to
-the JavaDoc API https://protobufel.github.io/protobuf-el/0.6/apidocs/index.html
+For more see the documentation at https://protobufel.github.io/protobuf-el/0.6 or directly the JavaDoc at https://protobufel.github.io/protobuf-el/0.6/apidocs/index.html
+
+All project's public artifacts can be found on Maven at https://search.maven.org/#search%7Cga%7C1%7Cprotobufel :
+
+##### Individual artifact Maven locations:
+
+1. CRUD operations using Java JSR-341 EL 3.0 Expression Language with Google Porotocol Buffers 2.6.1:
+    
+    - groupId:artifactId  *com.github.protobufel:protobufel-crud*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>protobufel-crud</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+2. Java JSR-341 EL 3.0 Expression Language with Google Porotocol Buffers 2.6.1:
+    
+    - groupId:artifactId  *com.github.protobufel:protobufel-el*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>protobufel-el</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+3. Enhanced DynamicMessage and DynamicMessage.Builder with Google Porotocol Buffers 2.6.1:
+    
+    - groupId:artifactId  *com.github.protobufel:protobufel*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>protobufel</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+4. Java FileDescriptor/FileDescriptorProto/FileDescriptorSet builder and .proto files parser 100% compatible with Google Porotocol Buffers 2.6.1:
+    
+    - groupId:artifactId  *com.github.protobufel:protobufel-grammar*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>protobufel-grammar</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+5. Fast Java 7 file system scanning/processing (requires Java 7+):
+    
+    - groupId:artifactId  *com.github.protobufel:common-files-v7*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>common-files-v7</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+6. Java Extended Regex with multiple excludes/includes, requiring Java 7+ (can be easily backported to Java 6):
+    
+    - groupId:artifactId  *com.github.protobufel:extended-regex*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>extended-regex</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+7. Maven Resource Exec Plugin, requiring Java 7+:
+    
+    - groupId:artifactId  *com.github.protobufel:resource-exec-maven-plugin*
+    - add this to your Maven pom:
+        ```
+        
+        <dependency>
+            <groupId>com.github.protobufel</groupId>
+            <artifactId>resource-exec-maven-plugin</artifactId>
+            <version>0.6</version>
+        </dependency>
+        ```
+
+###### Note: Maven Central provides additional instructions for the following build systems:
+
+    1. Apache Buildr
+    2. Apache Ivy
+    3. Groovy Grape
+    4. Gradle/Grails
+    5. Scala SBT
+    6. Leiningen
+    
+    For more info, search the artifact, click on its version, and see the details.
+
 
 Happy coding!
 
 David Tesler
+
+[![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
