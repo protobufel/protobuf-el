@@ -43,8 +43,8 @@ final DynamicMessage message = builderOne.build();
 
 ```
 
-For more see the project documentation https://protobufel.github.io/protobuf-el/0.6-SNAPSHOT, or jump directly to
-the JavaDoc API https://protobufel.github.io/protobuf-el/0.6-SNAPSHOT/apidocs/index.html
+For more see the project documentation https://protobufel.github.io/protobuf-el/0.6, or jump directly to
+the JavaDoc API https://protobufel.github.io/protobuf-el/0.6/apidocs/index.html
 
 Happy coding!
 
