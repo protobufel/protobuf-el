@@ -1,0 +1,9 @@
+com.github.protobufel
+com.github.protobufel.common.files
+com.github.protobufel.common.files.regex
+com.github.protobufel.common.files.resources
+com.github.protobufel.common.verifications
+com.github.protobufel.crud.el
+com.github.protobufel.el
+com.github.protobufel.grammar
+com.github.protobufel.resource.exec.maven.plugin
