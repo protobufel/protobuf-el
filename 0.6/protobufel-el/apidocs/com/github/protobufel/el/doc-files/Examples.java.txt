@@ -1,0 +1,132 @@
+//
+// Copyright © 2014, David Tesler (https://github.com/protobufel)
+// All rights reserved.
+//
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are met:
+// * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+// * Redistributions in binary form must reproduce the above copyright
+// notice, this list of conditions and the following disclaimer in the
+// documentation and/or other materials provided with the distribution.
+// * Neither the name of the <organization> nor the
+// names of its contributors may be used to endorse or promote products
+// derived from this software without specific prior written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+// ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+// WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+// DISCLAIMED. IN NO EVENT SHALL <COPYRIGHT HOLDER> BE LIABLE FOR ANY
+// DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+// (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+// LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND
+// ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+// SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+//
+
+package com.github.protobufel.el;
+
+import java.util.Arrays;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+import com.fictional.test.GalaxyProto.City;
+import com.fictional.test.GalaxyProto.Country;
+import com.fictional.test.GalaxyProto.Galaxy;
+import com.fictional.test.GalaxyProto.Galaxy.Builder;
+import com.fictional.test.GalaxyProto.Galaxy.Color;
+import com.fictional.test.GalaxyProto.Galaxy.Star;
+import com.fictional.test.GalaxyProto.Planet;
+import com.fictional.test.GalaxyProto.Tag;
+
+public class Examples {
+  private static final Logger log = LoggerFactory.getLogger(ProtoElTest.class);
+  private final List<String> expressions = Arrays.asList(
+      "builder.star.getBuilders().stream().forEach(b->(b.name = b.name += '*')); builder.build()",
+      "builder.star[0].clone().build()", "builder.star[0].name = 'Star1*'; builder.build()",
+      "builder.star.getBuilders().stream().flatMap(b->b.planet.getBuilders().stream())"
+          + ".filter(b->(b.country.size() > 0)).forEach(b->b.country.remove(0)).toList();"
+          + " builder.build()", "list=builder.star[0].keyword.add('***1').getList()",
+      "builder.keyword.add('***1').getList()",
+      "starBuilder=builder.star; starBuilder.add().name='New Star2';"
+          + "starBuilder.getList().stream().map(e->e.name).toList()",
+      "builder.getStarBuilder(0).setName('Star1*'); builder.build()");
+
+  public static void main(final String[] args) {
+    final Examples examples = new Examples();
+    final Galaxy galaxy = newGalaxy();
+
+    for (final String expression : examples.expressions) {
+      examples.evaluateMe(galaxy, expression);
+    }
+  }
+
+  public void evaluateMe(final Galaxy galaxy, final String expression) {
+    final ProtoELProcessorEx protoElp = new ProtoELProcessorEx();
+
+    final Builder builder = galaxy.toBuilder();
+    protoElp.defineBean("builder", builder);
+
+    final Object result = protoElp.eval(expression);
+    log.info("result of expression '{}' is '{}'", expression, result);
+  }
+
+  public static Galaxy newGalaxy() {
+    return Galaxy
+        .newBuilder()
+        .setName("Galaxy1")
+        .addCode(1)
+        .addCode(2)
+        .addCode(100)
+        .addKeyword("keyword 1")
+        .addKeyword("keyword 2")
+        .addKeyword("keyword 3")
+        .addKeyword("keyword 4")
+        .setColor(Color.BLUE)
+        .addStar(
+            Star.newBuilder()
+                .setName("Star1")
+                .setColor(Color.GREEN)
+                .setTag(Tag.newBuilder().setTag("tag1"))
+                .addPlanet(
+                    Planet
+                        .newBuilder()
+                        .setName("Planet1")
+                        .setColor(Color.YELLOW)
+                        .addCountry(
+                            Country.newBuilder().setName("Country1")
+                                .addCity(City.newBuilder().setName("City1"))))
+                .addPlanet(
+                    Planet
+                        .newBuilder()
+                        .setName("Planet2")
+                        .setColor(Color.RED)
+                        .addCountry(
+                            Country.newBuilder().setName("Country1")
+                                .addCity(City.newBuilder().setName("City1")))
+                        .addCountry(
+                            Country.newBuilder().setName("Country2")
+                                .addCity(City.newBuilder().setName("City1"))
+                                .addCity(City.newBuilder().setName("City2")))))
+        .addStar(
+            Star.newBuilder()
+                .setName("Star2")
+                .setColor(Color.GREEN)
+                .setTag(Tag.newBuilder().setTag("tag2"))
+                .addPlanet(Planet.newBuilder().setName("Planet1").setColor(Color.GREEN))
+                .addPlanet(
+                    Planet
+                        .newBuilder()
+                        .setName("Planet2")
+                        .addCountry(
+                            Country.newBuilder().setName("Country1")
+                                .addCity(City.newBuilder().setName("City1")))
+                        .addCountry(
+                            Country.newBuilder().setName("Country2")
+                                .addCity(City.newBuilder().setName("City1"))
+                                .addCity(City.newBuilder().setName("City2"))))).build();
+  }
+}
