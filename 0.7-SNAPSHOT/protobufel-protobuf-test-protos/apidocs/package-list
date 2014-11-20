@@ -1,0 +1,8 @@
+
+com.google.protobuf
+com.google.protobuf.test
+google.protobuf.no_generic_services_test
+proto2_test_check_utf8
+proto2_test_check_utf8_size
+protobuf_unittest
+protobuf_unittest.lite_equals_and_hash
