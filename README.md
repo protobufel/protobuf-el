@@ -1,5 +1,6 @@
 [![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
 
+----
 1. Google Protocol Buffers' (ProtoBuf) Java Parser
 2. JSR-341 Expression Language 3.0 with ProtoBuf
 3. CRUD and JSR-341 Expression Language 3.0 with ProtoBuf 
@@ -8,12 +9,15 @@
 5. Fast Java PathMatcher and File Navigation
 6. Maven Resource Execution Plugin
 
+----
+
+
 At present, there are no fully compliant Google Protocol Buffers 2.6.1 Java parsers of .proto files, at least known to me.
 The one and only golden standard for this task is the original Google's ``protoc`` C++ implementation. It produces two major 
 type of artifacts:
 
-    1. the source code in the target language along with the embedded Message definitions, i.e. `Descriptor`s, and/or 
-    2. FileDescriptorSet, which is the collection of all FileDescriporProto(-s) corresponding to the original .proto files.
+1. the source code in the target language along with the embedded Message definitions, i.e. `Descriptor`s, and/or 
+2. FileDescriptorSet, which is the collection of all FileDescriporProto(-s) corresponding to the original .proto files.
     
 The first kind of artifacts is all one needs to get a highly performant set of generated ProtoBuf `Message`s and `Builder`s, based on GeneratedMessage and GeneratedMessage.Builder. 
 
