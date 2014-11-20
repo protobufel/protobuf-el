@@ -39,9 +39,6 @@ import javax.el.ELManager;
 import javax.el.ELProcessor;
 import javax.el.ValueExpression;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import com.github.protobufel.DynamicMessage;
 import com.github.protobufel.IDynamicMessageProvider;
 import com.github.protobufel.ProtoInterfaces.IBuilder2;
@@ -57,11 +54,30 @@ import com.google.protobuf.MessageOrBuilder;
 /**
  * Processes queries, lists of objects, using the EL 3.0 language, including validation and error
  * reporting.
+ * <p>
+ * Also, it allows you to specify your own JavaBeans to be used within the expression, in addition
+ * to the predefined ones:
+ * <ol>
+ * <li>{@code records} - the immutable List<Message> of the original records
+ * <li>{@code results} - the immutable List<Message> of the results being produced
+ * <li>{@code record} - the current row's Message.Builder, will be in the {@code results}
+ * <li>{@code index} - the current row's index in the results
+ * </ol>
+ * <p>
+ * You can also specify the so called empty expression to the {@link Builder} to produce the
+ * original records.
+ * <p>
+ * In addition, you can add your own {@link ValidationListener} and {@link QueryResultListener}.
+ * <p>
+ * If your expression returns {@code null}, the current result will be skipped, so this is the way
+ * to remove the original record from the results. The {@link QueryResultListener#resultAdded(int)}
+ * allows you to keep track of the being produced results. Initially, the {@code results} list is
+ * empty; and the result producing loop follows the original records. So, the originals vs the
+ * results diffs can be easily and efficiently calculated.
  * 
  * @author protobufel@gmail.com David Tesler
  */
 public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message> {
-  private static final Logger log = LoggerFactory.getLogger(ProtoMessageQueryProcessor.class);
   private static final DefaultValidationListener DEFAULT_VALIDATION_LISTENER =
       new DefaultValidationListener();
   private static final ProtoMessageQueryProcessor EMPTY_INSTANCE = new ProtoMessageQueryProcessor();
@@ -94,11 +110,11 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
   public int hashCode() {
     final int prime = 31;
     int result = 1;
-    result = prime * result + (expression == null ? 0 : expression.hashCode());
-    result = prime * result + (emptyExpression == null ? 0 : emptyExpression.hashCode());
-    result = prime * result + (type == null ? 0 : type.hashCode());
-    result = prime * result + (resultListener == null ? 0 : resultListener.hashCode());
-    result = prime * result + (validationListener == null ? 0 : validationListener.hashCode());
+    result = (prime * result) + (expression == null ? 0 : expression.hashCode());
+    result = (prime * result) + (emptyExpression == null ? 0 : emptyExpression.hashCode());
+    result = (prime * result) + (type == null ? 0 : type.hashCode());
+    result = (prime * result) + (resultListener == null ? 0 : resultListener.hashCode());
+    result = (prime * result) + (validationListener == null ? 0 : validationListener.hashCode());
     return result;
   }
 
@@ -180,14 +196,14 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
       final IDynamicMessageProvider messageProvider) {
     if (originalList == null) {
       throw new NullPointerException();
-    } else if (originalList.isEmpty() ? emptyExpression == null || emptyExpression.isEmpty()
-        : expression == null || expression.isEmpty()) {
+    } else if (originalList.isEmpty() ? (emptyExpression == null) || emptyExpression.isEmpty()
+        : (expression == null) || expression.isEmpty()) {
       return Collections.emptyList();
     }
 
     final ELProcessor elp = newELProcessor();
 
-    if (beans != null && !beans.isEmpty()) {
+    if ((beans != null) && !beans.isEmpty()) {
       for (final Entry<String, Object> entry : beans.entrySet()) {
         elp.defineBean(entry.getKey(), entry.getValue());
       }
@@ -286,7 +302,7 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
       final IDynamicMessageProvider messageProvider) {
     if (message == null) {
       return null;
-    } else if (message instanceof GeneratedMessage || message instanceof IBuilder2) {
+    } else if ((message instanceof GeneratedMessage) || (message instanceof IBuilder2)) {
       return message.toBuilder();
     } else {
       return messageProvider.newBuilder(message);
@@ -305,7 +321,7 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
 
   /**
    * A query builder and EL 3.0 Language processor with ProtoBuf.
-   * 
+   *
    * @author protobufel@gmail.com David Tesler
    */
   public static final class QueryBuilder implements IQueryProcessor<Message> {
@@ -331,7 +347,7 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
      * set. This is done to prevent the inadvertent original builder's {@code beans} mutation. If
      * needed, this can be accomplished explicitly via {@link #setBeans(Map)} or
      * {@link #addBean(String, Object)} methods.
-     * 
+     *
      * @param builder a template QueryBuilder to copy from
      */
     public QueryBuilder(final QueryBuilder builder) {
@@ -368,7 +384,7 @@ public final class ProtoMessageQueryProcessor implements IQueryProcessor<Message
 
     /**
      * Sets this QueryBuilder's beans to the shallow copy of the parameter.
-     * 
+     *
      * @param beans a map of a bean name and its value to be copied over
      */
     public QueryBuilder setBeans(final Map<String, Object> beans) {

@@ -270,7 +270,7 @@ We can play with it in EL like this:
   }
 ```
 
-Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedMessage/Builder, will be treated conveniently and intuitivly, not unlike the regular JavaBean/POJO. Here are some examples:
+Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedMessage/Builder, will be treated conveniently and intuitively, not unlike the regular JavaBean/POJO. Here are some examples:
 
 -  `galaxy.name` 
 -  `galaxy['name']`
@@ -288,10 +288,35 @@ Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedM
 -  `galaxyBuilder.star.getList()` - returns list of Stars
 -  `galaxyBuilder.keyword[0] == 'my keyword'` 
 
+###### Use `com.github.protobufel.crud.el` for CRUD queries with EL 3.0 and Protocol Buffers:
+
+```java
+
+
+  public List<Message> mutateRecordWithEnum(final List<Message> originalCityList) {
+    return ProtoMessageQueryProcessor.builder()
+        .setExpression("(index==0) ? (record.color='RED') : null; record")
+        .process(originalCityList);
+  }
+
+```  
+
+`ProtoMessageQueryProcessor` allows you to add your own JavaBeans to be used within your expression, and also  
+ defines its own JavaBeans available in the expression:
+    1. `records` - the immutable `List<Message>` of the original records
+    2. `results` - the immutable `List<Message>` of the results being produced
+    3. `record` - the current row's Message.Builder, will be in `results`
+    4. `index` - the current row's index in the results
+    
+You can also specify the so called `empty expression` to the `ProtoMessageQueryProcessor.Builder` to produce the original records.
+
+In addition, you can add your own `ValidationListener` to the `ProtoMessageQueryProcessor.Builder`, and the `QueryResultListener`. If your expression returns `null`, the current result will be skipped, so this is the way to remove the original record from the results. 
+
+The `QueryResultListener.resultAdded(originalRecordIndex)` allows you to keep track of the being produced results. Initially, the `results` list is empty; and the result producing loop follows the original records. So, the originals versus the results diffs can be easily and efficiently calculated.          
 
 ##### Fast File System Resources Scanning/Processing on Java 7
 
-The JDK 7 PathMatcher API is very limited and simplistic. It allows for filtering single directories, not the file system's trees and forests. Here comes `com.github.protobufel.common.files` package. It allows for multi-root resource processing, and doing it fast and efficient. Multiple includes/excludes in the Java 7 defined glob/regex syntax are supported. Entire sub-trees will be skipped if these conditions are not satisfied, so its orders of magnitude faster than the regular scans with regexes, which only test the tree leafs. And hrere is how:
+The JDK 7 PathMatcher API is very limited and simplistic. It allows for filtering single directories, not the file system's trees and forests. Here comes `com.github.protobufel.common.files` package. It allows for multi-root resource processing, and doing it fast and efficient. Multiple includes/excludes in the Java 7 defined glob/regex syntax are supported. Entire sub-trees will be skipped if these conditions are not satisfied, so its orders of magnitude faster than the regular scans with regexes, which only test the tree leafs. And here is how:
 
 ```java
 
