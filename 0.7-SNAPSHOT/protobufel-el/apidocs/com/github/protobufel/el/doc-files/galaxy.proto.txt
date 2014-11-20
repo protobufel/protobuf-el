@@ -1,0 +1,85 @@
+package com.fictional.test;
+
+option java_package = "com.fictional.test";
+option java_outer_classname = "GalaxyProto";
+option optimize_for = SPEED;
+option java_generate_equals_and_hash = true;
+
+message Galaxy {
+	required string name = 6;
+	optional Color color = 1;
+	optional Tag tag = 2;
+	repeated string keyword = 3;
+	repeated Star star = 4;
+	repeated int32 code = 5;
+	optional Data data = 7;
+	optional Galaxy satellite = 8;
+	optional string nickname = 9;
+
+	enum Color {
+		RED = 0;
+		GREEN = 1;
+		YELLOW = 2;
+		BLUE = 3;
+	}
+
+	message Star {
+		required string name = 1;
+		optional Color color = 2;
+		optional Tag tag = 3;
+		repeated string keyword = 4;
+		repeated Planet planet = 5;
+		repeated int32 code = 6;
+		optional Data data = 7;
+	}
+}
+
+message Country {
+	required string name = 1;
+	optional Galaxy.Color color = 2;
+	optional Tag tag = 3;
+	repeated string keyword = 4;
+	repeated City city = 5;
+	repeated int32 code = 6;
+	optional Data data = 7;
+	repeated Country vassal = 8;
+}
+
+message City {
+	required string name = 1 [default = "Unknown"];
+	optional Galaxy.Color color = 2;
+	optional Tag tag = 3;
+	repeated string keyword = 4;
+	repeated City city = 5;
+	repeated int32 code = 6;
+	optional Data data = 7;
+
+}
+
+
+message Data {
+	required Size size = 1;
+	optional double mass = 2;
+	optional float volume = 3;
+
+	enum Size {
+		TINY = 0;
+		SMALL = 1;
+		MEDIUM = 2;
+		LARGE = 3;
+	}
+}
+
+message Tag {
+	required string tag = 1;
+}
+
+
+message Planet {
+	required string name = 1;
+	optional Galaxy.Color color = 2;
+	optional Tag tag = 3;
+	repeated string keyword = 4;
+	repeated Country country = 5;
+	repeated int32 code = 6;
+}
