@@ -38,6 +38,7 @@ import java.util.List;
 
 import javax.el.ELContext;
 import javax.el.ELResolver;
+import javax.el.MapELResolver;
 import javax.el.MethodNotFoundException;
 import javax.el.PropertyNotFoundException;
 import javax.el.PropertyNotWritableException;
@@ -49,8 +50,17 @@ import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
 
 /**
- * ProtoBuf Builder ELResolver.
+ * ProtoBuf Builder ELResolver, like MapELResolver with field name or FieldDescriptor as a key.
+ * <ul>
+ * <li>the field can be either a String, or a FieldDescriptor
+ * <li>{@link #getValue} returns a special wrapper for the repeated field, either 
+ * {@link IRepeatedFieldValueBuilder} for a primitive field, or {@link IRepeatedFieldMessageBuilder} 
+ * for a Message type field; and delegates to the underlying Message.Builder in case of a singular 
+ * field 
+ * <li>{@link #setValue} delegates to to the underlying Message.Builder   
  *
+ * @see ProtoLists
+ * @see MapELResolver
  * @see ELResolver
  * @author protobufel@gmail.com David Tesler
  */
@@ -108,7 +118,7 @@ public class BuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && resolveType(base)) {
+    if ((property != null) && resolveType(base)) {
       context.setPropertyResolved(true);
       return getFieldClass(getPropertyFieldDescriptor((MessageOrBuilder) base, property), true);
     }
@@ -158,7 +168,7 @@ public class BuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && resolveType(base)) {
+    if ((property != null) && resolveType(base)) {
       context.setPropertyResolved(base, property);
       final Message.Builder builder = (Message.Builder) base;
       final FieldDescriptor field = getPropertyFieldDescriptor(builder, property);
@@ -184,7 +194,7 @@ public class BuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && resolveType(base)) {
+    if ((property != null) && resolveType(base)) {
       context.setPropertyResolved(base, property);
 
       if (isReadOnly(context, base, property)) {
@@ -212,7 +222,7 @@ public class BuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && resolveType(base)) {
+    if ((property != null) && resolveType(base)) {
       context.setPropertyResolved(true);
       return isReadOnly;
     }

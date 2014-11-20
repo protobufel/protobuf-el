@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
+
 1. Google Protocol Buffers' (ProtoBuf) Java Parser
 2. JSR-341 Expression Language 3.0 with ProtoBuf
 3. Enhanced ProtoBuf DynamicMessage and Builder
@@ -268,11 +270,24 @@ We can play with it in EL like this:
   }
 ```
 
-Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedMessage/Builder, will be treated in convenient and intuitive way, not unlike the regular JavaBean/POJO. Here are the rules:
-    1. Any ProtoBuf field is accessed by its name, and behaves as a regular EL bean property; 
-    2. If the field is repeated, add/remove/indexed access is available
-    3. all Message/Builder methods exposed; however, the overloaded methods with the equal number of arguments are not deterministic, and should be avoided!
-    4. the returned value(-s) is determined by the expression context, and can be either DynamicMessage/Builder or GeneratedMessage/Builder.
+Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedMessage/Builder, will be treated conveniently and intuitivly, not unlike the regular JavaBean/POJO. Here are some examples:
+
+-  `galaxy.name` 
+-  `galaxy['name']`
+-  `galaxyBuilder.name = 'Silky Way'`
+-  `galaxyBuilder['name'] = 'E Bay'`
+-  `galaxy.star` - returns the list of Star(-s) 
+-  `galaxy.star[1].name` 
+-  `galaxyBuilder.star` - returns the repeated field Star's special wrapper
+-  `galaxyBuilder.star[0].name`
+-  `galaxyBuilder.star.add()` - returns the new empty star added to the Star field
+-  `sun=galaxyBuilder.star.newInstance(); sun.name='Sun'; galaxyBuilder.star.add(1, sun).size()`
+-  `galaxyBuilder.star.remove(1).getLast()`
+-  `galaxyBuilder.star.remove(1).toParent().color = 'RED'` - galaxy color set to RED
+-  `galaxyBuilder.star.getBuilders()`
+-  `galaxyBuilder.star.getList()` - returns list of Stars
+-  `galaxyBuilder.keyword[0] == 'my keyword'` 
+
 
 ##### Fast File System Resources Scanning/Processing on Java 7
 
@@ -289,7 +304,7 @@ The JDK 7 PathMatcher API is very limited and simplistic. It allows for filterin
 
 ```
 
-For more see the documentation at https://protobufel.github.io/protobuf-el/0.6 or directly the JavaDoc at https://protobufel.github.io/protobuf-el/0.6/apidocs/index.html
+For more, see the documentation at https://protobufel.github.io/protobuf-el/0.7-SNAPSHOT or directly the JavaDoc at https://protobufel.github.io/protobuf-el/0.7-SNAPSHOT/apidocs/index.html
 
 All project's public artifacts can be found on Maven at https://search.maven.org/#search%7Cga%7C1%7Cprotobufel :
 
@@ -395,5 +410,3 @@ All project's public artifacts can be found on Maven at https://search.maven.org
 Happy coding!
 
 David Tesler
-
-[![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)

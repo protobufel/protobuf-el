@@ -60,7 +60,7 @@ public class MessageELResolver extends BuilderELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && base instanceof Message) {
+    if ((property != null) && (base instanceof Message)) {
       context.setPropertyResolved(base, property);
       final Message msg = (Message) base;
       final FieldDescriptor field = getPropertyFieldDescriptor(msg, property);

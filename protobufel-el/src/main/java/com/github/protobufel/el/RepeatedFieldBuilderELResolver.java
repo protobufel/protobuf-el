@@ -27,6 +27,7 @@
 
 package com.github.protobufel.el;
 
+import static com.github.protobufel.el.ELSupport.*;
 import static com.github.protobufel.el.ProtoLists.getFieldClass;
 import static com.github.protobufel.el.ProtoLists.verifyAndConvertFieldSingleValue;
 
@@ -43,9 +44,11 @@ import com.github.protobufel.el.ProtoLists.IRepeatedFieldValueBuilder;
 import com.google.protobuf.MessageOrBuilder;
 
 /**
- * A ProtoBuf RepeatedFieldBuilder ELResolver.
+ * A ProtoBuf RepeatedFieldBuilder ELResolver, similar to ListELResolver and ArrayELResolver.
+ * Supports only {@code index} as its property.
  *
- * @see ELResolver
+ * @see ListELResolver
+ * @see ELResolver 
  * @author protobufel@gmail.com David Tesler
  */
 public class RepeatedFieldBuilderELResolver extends ELResolver {
@@ -65,12 +68,12 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (base != null && base instanceof IRepeatedFieldValueBuilder) {
+    if ((base != null) && (base instanceof IRepeatedFieldValueBuilder)) {
       context.setPropertyResolved(true);
       final IRepeatedFieldValueBuilder<?> repeatedBuilder = (IRepeatedFieldValueBuilder<?>) base;
       final int index = toInteger(property);
 
-      if (index < 0 || index >= repeatedBuilder.size()) {
+      if ((index < 0) || (index >= repeatedBuilder.size())) {
         throw new PropertyNotFoundException();
       }
 
@@ -86,12 +89,12 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && base instanceof IRepeatedFieldValueBuilder) {
+    if ((property != null) && (base instanceof IRepeatedFieldValueBuilder)) {
       context.setPropertyResolved(base, property);
       final IRepeatedFieldValueBuilder<?> repeatedBuilder = (IRepeatedFieldValueBuilder<?>) base;
       final int index = toInteger(property);
 
-      if (index < 0 || index >= repeatedBuilder.size()) {
+      if ((index < 0) || (index >= repeatedBuilder.size())) {
         return null;
       }
 
@@ -108,7 +111,7 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && base instanceof IRepeatedFieldValueBuilder) {
+    if ((property != null) && (base instanceof IRepeatedFieldValueBuilder)) {
       context.setPropertyResolved(base, property);
 
       if (isReadOnly) {
@@ -127,7 +130,7 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
         } else {
           @SuppressWarnings("unchecked")
           final IRepeatedFieldValueBuilder<Object> repeatedBuilder =
-          (IRepeatedFieldValueBuilder<Object>) base;
+              (IRepeatedFieldValueBuilder<Object>) base;
           repeatedBuilder.set(index,
               verifyAndConvertFieldSingleValue(val, repeatedBuilder.getFieldDescriptor()));
         }
@@ -151,12 +154,12 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
       throw new NullPointerException();
     }
 
-    if (property != null && base instanceof IRepeatedFieldValueBuilder) {
+    if ((property != null) && (base instanceof IRepeatedFieldValueBuilder)) {
       context.setPropertyResolved(true);
       final IRepeatedFieldValueBuilder<?> repeatedBuilder = (IRepeatedFieldValueBuilder<?>) base;
       final int index = toInteger(property);
 
-      if (index < 0 || index >= repeatedBuilder.size()) {
+      if ((index < 0) || (index >= repeatedBuilder.size())) {
         throw new PropertyNotFoundException();
       }
 
@@ -179,21 +182,5 @@ public class RepeatedFieldBuilderELResolver extends ELResolver {
     }
 
     return null;
-  }
-
-  private int toInteger(final Object p) {
-    if (p instanceof Integer) {
-      return ((Integer) p).intValue();
-    }
-    if (p instanceof Character) {
-      return ((Character) p).charValue();
-    }
-    if (p instanceof Number) {
-      return ((Number) p).intValue();
-    }
-    if (p instanceof String) {
-      return Integer.parseInt((String) p);
-    }
-    throw new IllegalArgumentException();
   }
 }

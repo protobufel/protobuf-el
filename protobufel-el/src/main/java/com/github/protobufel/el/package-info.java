@@ -30,62 +30,75 @@
  * <p>
  * Use ProtoELProcessorEx in place of the original ELProcessor for processing both regular objects
  * and ProtoBuf Messages and Builders.
- * <p>
- * Support for EL-friendly ProtoBuf Attribute/Builder/Message Lists. Provides a special object when
- * a repeated field is requested on a protoBuf Builder. This object has the following methods and
- * EL/JavaBean properties:
+ * <p>The following rules apply to any ProtoBuf {@link Message} and {@link Builder}: 
  * <ol>
- * <li>getMessages()/messages - immutable list/view of Messages
- * <li>getBuilders()/builders - immutable list/view of Builders
- * <li>add() - adds a new default/empty Builder and returns it
- * <li>addMessage(index, Message) - adds the Message and returns its Builder
- * <li>addBuilder(index, Builder)
- * <li>setMessage(index, Message)
- * <li>setBuilder(index, Builder)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
- * </ol>
- * <p>
- * Sub-alternative:
+ * <li>all non-overloaded and distinct overloaded public methods are available as-is
+ * <li>overloaded methods with the same number of arguments should be avoided, as the common EL rule
+ * <li>the fields are treated similarly to EL map properties, by name or FieldDescriptor as the key
+ * <li>the repeated fields, like EL lists, can be accessed by index
+ * <li>in addition, Builder's repeated fields have all the additional methods of
+ * <li>{@link ProtoLists.IRepeatedFieldMessageBuilder} - for the Message type repeated field:
  * <ol>
- * <li>getMessages()/messages - immutable list/view of Messages
- * <li>getBuilders()/builders - immutable list/view of Builders
- * <li>add() - adds a new default/empty Builder and returns it
- * <li>add(index, Message) - adds the Message and returns back to the object
- * <li>add(index, Builder)
- * <li>set(index, Message)
- * <li>set(index, Builder)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
+ * <li>add() - adds and returns the empty field Builder 
+ * <li>add(value) - adds the MessageOrBuilder value and returns the builder
+ * <li>add(index, value) - adds the MessageOrBuilder value at index and returns the builder
+ * <li>addAll(Collection<? extends T> values) - adds all MessageOrBuilder values and returns the builder 
+ * <li>set(index, value) - sets the MessageOrBuilder value at index and returns the builder
+ * <li>remove(index) - removes the item at index and returns the builder 
+ * <li>clear() - clears the repeated field and returns the builder
+ * <li>getParent() - returns this builder's parent, if any 
+ * <li>newInstance() - returns a new empty standalone Builder for the field's MessageType
+ * <li>size() - returns the size of the field
+ * <li>get(index) - returns a field Builder at index
+ * <li>getChangedIndex() - returns the last changed item's index
+ * <li>getChanged(index) - returns the field Builder at index if it changed recently, or null otherwise 
+ * <li>getLast() - returns the last field Builder
+ * <li>getList() - returns the entire field's Message list
+ * <li>getFieldDescriptor() - returns the field's FieldDescriptor
+ * <li>getType() - returns JavaType.Message
+ * <li>getBuilders() - returns the entire field's Builder list , for the Builder only
+ * <li>getMessage(index) - returns the Message at index
  * </ol>
- * Requires handling overloaded methods, but is more concise and consistent with attribute lists
- * which have the following:
+ * <li>{@link ProtoLists.IRepeatedFieldValueBuilder} - for any other repeated field
  * <ol>
- * <li>add() - adds the default value for the type
- * <li>add(index, value) - adds the value and returns back to the object
- * <li>set(index, value)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
+ * <li>add() - adds a default value and returns it
+ * <li>add(value) - adds the value and returns the builder
+ * <li>add(index, value) - adds the value at index and returns the builder
+ * <li>addAll(Collection<? extends T> values) - adds all values and returns the builder 
+ * <li>set(index, value) - sets the value at index and returns the builder
+ * <li>remove(index) - removes the item at index and returns the builder 
+ * <li>clear() - clears the repeated field and returns the builder
+ * <li>getParent() - returns this builder's parent, if any 
+ * <li>newInstance() - returns a new default value of the field type
+ * <li>size() - returns the size of the field
+ * <li>get(index) - returns the item at index
+ * <li>getChangedIndex() - returns the last changed item's index
+ * <li>getChanged(index) - returns the item at index if it changed recently, or null otherwise 
+ * <li>getLast() - returns the last item
+ * <li>getList() - returns the entire field's list of items
+ * <li>getFieldDescriptor() - returns the field's FieldDescriptor
+ * <li>getType() - returns the JavaType of the field
  * </ol>
- * <p>
- * As an alternative, the above features could have been implemented on a top of the returned
- * attribute, Builder, or Message list. However, the current EL collection operations don't support
- * mutation, so this would not be very beneficial, apart from being more concise. Also, this would
- * confuse what type of collection being returned - for a Message base object it must be a list of
- * Messages, but for Builder base - could be either a list of Builders or Messages, and how to get
- * the other type? And the last, it would complicate implementation a little bit.
- * <p>
- * The provided main approach leaves door open for incorporation of the mutation methods directly
- * into the lists.
+ * </ol>
+ * <p>Examples of usage in EL expressions: 
+ * <ol>
+ * <li>{@code galaxy.name}
+ * <li>{@code galaxy['name']}
+ * <li>{@code galaxyBuilder.name = 'Silky Way'}
+ * <li>{@code galaxyBuilder['name'] = 'E Bay'}
+ * <li>{@code galaxy.star} - returns the list of Star(-s) 
+ * <li>{@code galaxy.star[1].name} 
+ * <li>{@code galaxyBuilder.star} - returns the repeated field Star's special wrapper
+ * <li>{@code galaxyBuilder.star[0].name}
+ * <li>{@code galaxyBuilder.star.add()} - returns the new empty star added to the Star field
+ * <li>{@code sun=galaxyBuilder.star.newInstance(); sun.name='Sun'; galaxyBuilder.star.add(1, sun)
+ * .size()}
+ * <li>{@code galaxyBuilder.star.remove(1).getLast()}
+ * <li>{@code galaxyBuilder.star.remove(1).toParent().color = 'RED'} - galaxy color set to RED
+ * <li>{@code galaxyBuilder.star.getBuilders()}
+ * <li>{@code galaxyBuilder.star.getList()} - returns list of {@code Star}s
+ * <li>{@code galaxyBuilder.keyword[0] == 'my keyword'} 
+ * </ol>
  *
  * @see <a href="doc-files/Examples.java.txt">Examples.java</a>
  * @see <a href="doc-files/galaxy.proto.txt">galaxy.proto sample</a>
@@ -96,4 +109,3 @@
  * @author protobufel@gmail.com David Tesler
  */
 package com.github.protobufel.el;
-

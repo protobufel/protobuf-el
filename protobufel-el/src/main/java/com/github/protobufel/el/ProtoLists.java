@@ -42,64 +42,14 @@ import com.google.protobuf.Message;
 import com.google.protobuf.MessageOrBuilder;
 
 /**
- * Support for EL-friendly ProtoBuf Attribute/Builder/Message Lists. Provides a special object when
- * a repeated field is requested on a protoBuf Builder. This object has the following methods and
- * EL/JavaBean properties:
- * <ol>
- * <li>getMessages()/messages - immutable list/view of Messages
- * <li>getBuilders()/builders - immutable list/view of Builders
- * <li>add() - adds a new default/empty Builder and returns it
- * <li>addMessage(index, Message) - adds the Message and returns its Builder
- * <li>addBuilder(index, Builder)
- * <li>setMessage(index, Message)
- * <li>setBuilder(index, Builder)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
- * </ol>
+ * Support for EL-friendly ProtoBuf Attribute/Builder/Message Lists. Provides a special wrapper for
+ * the repeated fields, {@link IRepeatedFieldMessageBuilder} for Message fields,
+ * {@link IRepeatedFieldValueBuilder} otherwise.
  * <p>
- * Sub-alternative:
- * <ol>
- * <li>getMessages()/messages - immutable list/view of Messages
- * <li>getBuilders()/builders - immutable list/view of Builders
- * <li>add() - adds a new default/empty Builder and returns it
- * <li>add(index, Message) - adds the Message and returns back to the object
- * <li>add(index, Builder)
- * <li>set(index, Message)
- * <li>set(index, Builder)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
- * </ol>
- * Requires handling overloaded methods, but is more concise and consistent with attribute lists
- * which have the following:
- * <ol>
- * <li>add() - adds the default value for the type
- * <li>add(index, value) - adds the value and returns back to the object
- * <li>set(index, value)
- * <li>remove(index)
- * <li>clear()
- * <li>getParent()/parent
- * <li>getChanged()/changed
- * <li>getChangedIndex()/changedIndex
- * </ol>
- * <p>
- * As an alternative, the above features could have been implemented on a top of the returned
- * attribute, Builder, or Message list. However, the current EL collection operations don't support
- * mutation, so this would not be very beneficial, apart from being more concise. Also, this would
- * confuse what type of collection being returned - for a Message base object it must be a list of
- * Messages, but for Builder base - could be either a list of Builders or Messages, and how to get
- * the other type? And the last, it would complicate implementation a little bit.
- * <p>
- * The provided main approach leaves door open for incorporation of the mutation methods directly
- * into the lists.
+ * In concert with {@link RepeatedFieldBuilderELResolver} exposes all the wrapper's methods and the
+ * array-like indexed access to its elements.
  *
  * @author protobufel@gmail.com David Tesler
- *
  */
 public class ProtoLists {
   private ProtoLists() {}
@@ -141,7 +91,7 @@ public class ProtoLists {
   }
 
   public interface IRepeatedFieldMessageBuilder extends
-  IRepeatedFieldValueBuilder<MessageOrBuilder> {
+      IRepeatedFieldValueBuilder<MessageOrBuilder> {
     @Override
     public Message.Builder add();
 
@@ -197,7 +147,7 @@ public class ProtoLists {
   }
 
   public interface IRepeatedMessageOrBuilderList<T extends MessageOrBuilder> extends
-  IRepeatedList<MessageOrBuilder> {
+      IRepeatedList<MessageOrBuilder> {
     @Override
     public Message.Builder add();
 
@@ -356,7 +306,7 @@ public class ProtoLists {
   }
 
   public static class RepeatedFieldValueBuilder<P extends Message.Builder, E> implements
-  IRepeatedFieldValueBuilder<E> {
+      IRepeatedFieldValueBuilder<E> {
     protected final P parent;
     protected final FieldDescriptor field;
     protected int changedIndex = -1;
@@ -406,7 +356,8 @@ public class ProtoLists {
       @SuppressWarnings("unchecked")
       final List<E> list = (List<E>) parent.getField(field);
 
-      if (list == null && index != 0 || index < 0 || list != null && index > list.size()) {
+      if (((list == null) && (index != 0)) || (index < 0)
+          || ((list != null) && (index > list.size()))) {
         throw new IndexOutOfBoundsException();
       }
 
@@ -422,7 +373,7 @@ public class ProtoLists {
       @SuppressWarnings("unchecked")
       final List<E> list = (List<E>) parent.getField(field);
 
-      if (list == null || index < 0 || index >= list.size()) {
+      if ((list == null) || (index < 0) || (index >= list.size())) {
         throw new IndexOutOfBoundsException();
       }
 
@@ -452,13 +403,13 @@ public class ProtoLists {
 
     @Override
     public E getChanged(final int index) {
-      return changedIndex == -1 ? null : get(changedIndex);
+      return (changedIndex == -1) ? null : get(changedIndex);
     }
 
     @Override
     public E getLast() {
       final int size = size();
-      return size == 0 ? null : get(size - 1);
+      return (size == 0) ? null : get(size - 1);
     }
 
     @SuppressWarnings("unchecked")
@@ -488,8 +439,8 @@ public class ProtoLists {
   }
 
   public static abstract class AbstractRepeatedFieldMessageBuilder<P extends Message.Builder>
-  extends RepeatedFieldValueBuilder<P, MessageOrBuilder> implements
-  IRepeatedFieldMessageBuilder {
+      extends RepeatedFieldValueBuilder<P, MessageOrBuilder> implements
+      IRepeatedFieldMessageBuilder {
     protected Class<? extends Message.Builder> elementBuilderType;
 
     public AbstractRepeatedFieldMessageBuilder(final P parent, final FieldDescriptor field) {
@@ -603,7 +554,7 @@ public class ProtoLists {
   }
 
   public static class DynamicRepeatedFieldMessageBuilder extends
-  AbstractRepeatedFieldMessageBuilder<IBuilder2> {
+      AbstractRepeatedFieldMessageBuilder<IBuilder2> {
 
     public DynamicRepeatedFieldMessageBuilder(final IBuilder2 parent, final FieldDescriptor field) {
       super(parent, field);
@@ -641,7 +592,7 @@ public class ProtoLists {
   }
 
   public static class GeneratedRepeatedFieldMessageBuilder<P extends GeneratedMessage.Builder<P>>
-  extends AbstractRepeatedFieldMessageBuilder<P> {
+      extends AbstractRepeatedFieldMessageBuilder<P> {
     private final IGeneratedBuilderReflectionSupport<P> reflection;
 
     @SuppressWarnings("unchecked")
@@ -703,7 +654,7 @@ public class ProtoLists {
   }
 
   public static class GeneratedBuilderReflectionSupport<P extends GeneratedMessage.Builder<P>>
-  implements IGeneratedBuilderReflectionSupport<P> {
+      implements IGeneratedBuilderReflectionSupport<P> {
     private Method methodAddBuilder;
     private Method methodRemove;
     private Method methodSetBuilder;
@@ -826,7 +777,7 @@ public class ProtoLists {
       String name = field.getName();
       name =
           new StringBuilder(methodPrefix).append(name.substring(0, 1).toUpperCase())
-          .append(name.substring(1)).append(methodSuffix).toString();
+              .append(name.substring(1)).append(methodSuffix).toString();
       Method method;
 
       try {

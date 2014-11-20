@@ -72,7 +72,7 @@ public class BeanELResolverEx extends BeanELResolver {
   @Override
   public Object invoke(final ELContext context, final Object base, final Object method,
       Class<?>[] paramTypes, final Object[] params) {
-    if (base == null || method == null) {
+    if ((base == null) || (method == null)) {
       return null;
     }
 
@@ -89,7 +89,7 @@ public class BeanELResolverEx extends BeanELResolver {
 
   public Object invokeOnInterface(final ELContext context, final Class<?> baseInterface,
       final Object base, final Object method, final Class<?>[] paramTypes, final Object[] params) {
-    if (base == null || method == null || baseInterface == null) {
+    if ((base == null) || (method == null) || (baseInterface == null)) {
       return null;
     }
 
@@ -99,7 +99,7 @@ public class BeanELResolverEx extends BeanELResolver {
 
   public Object invokeIfBeanInfoOnly(final ELContext context, final Object base,
       final Object method, final Class<?>[] paramTypes, final Object[] params) {
-    if (base == null || method == null) {
+    if ((base == null) || (method == null)) {
       return null;
     }
 
@@ -112,7 +112,7 @@ public class BeanELResolverEx extends BeanELResolver {
   public Object invokeIfBeanInfoOnly(final ELContext context, final Object base,
       final Object method, final Class<?>[] paramTypes, final Object[] params,
       final Map<String, List<MethodDescriptor>> methodDescriptors) {
-    if (base == null || method == null) {
+    if ((base == null) || (method == null)) {
       return null;
     }
 
@@ -175,7 +175,7 @@ public class BeanELResolverEx extends BeanELResolver {
     } else {
       for (final Method method : klass.getMethods()) {
         if (isMethodCandidate(method, methodName, params, staticOnly, false)) {
-          if (candidate == null || suitableMethodComparator.compare(method, candidate) < 0) {
+          if ((candidate == null) || (suitableMethodComparator.compare(method, candidate) < 0)) {
             candidate = method;
           }
         }
@@ -207,8 +207,8 @@ public class BeanELResolverEx extends BeanELResolver {
         final Method method = mDescriptor.getMethod();
 
         if (isMethodValid(method, staticOnly)
-            && (method.isVarArgs() && (method.getParameterTypes().length - paramCount <= 1) 
-            || (method.getParameterTypes().length == paramCount))) {
+            && ((method.isVarArgs() && ((method.getParameterTypes().length - paramCount) <= 1)) || (method
+                .getParameterTypes().length == paramCount))) {
           return method;
         }
       }
@@ -224,8 +224,8 @@ public class BeanELResolverEx extends BeanELResolver {
         final Method method = mDescriptor.getMethod();
 
         if (isMethodValid(method, staticOnly)
-            && (method.isVarArgs() && method.getParameterTypes().length - paramCount <= 1 || method
-            .getParameterTypes().length == paramCount)) {
+            && ((method.isVarArgs() && ((method.getParameterTypes().length - paramCount) <= 1)) || (method
+                .getParameterTypes().length == paramCount))) {
           return method;
         }
       }
@@ -237,7 +237,7 @@ public class BeanELResolverEx extends BeanELResolver {
   public static enum StaticMethodCompareStrategy {
     STATIC_IS_MORE(true, true, false), STATIC_IS_LESS(false, true, false), STATIC_IS_MORE_IF_EQUAL(
         true, false, true), STATIC_IS_LESS_IF_EQUAL(false, false, true), STATIC_IGNORED(false,
-            false, false);
+        false, false);
 
     private boolean checkBefore;
     private boolean checkAfter;
@@ -315,9 +315,9 @@ public class BeanELResolverEx extends BeanELResolver {
 
     final Class<?>[] mParamTypes = method.getParameterTypes();
 
-    if (params == null || params.length == 0) {
+    if ((params == null) || (params.length == 0)) {
       return method.isVarArgs() ? mParamTypes.length <= 1 : mParamTypes.length == 0;
-    } else if (method.isVarArgs() ? mParamTypes.length - params.length > 1
+    } else if (method.isVarArgs() ? (mParamTypes.length - params.length) > 1
         : mParamTypes.length != params.length) {
       return false;
     }
@@ -395,7 +395,7 @@ public class BeanELResolverEx extends BeanELResolver {
 
   private Object invoke(final ELContext context, final Object base, final Method method,
       final Object[] params) {
-    if (base == null || method == null || method == null) {
+    if ((base == null) || (method == null) || (method == null)) {
       return null;
     }
 

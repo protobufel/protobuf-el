@@ -47,7 +47,7 @@ public final class ELUtil {
     Object[] parameters = null;
 
     if (parameterTypes.length > 0) {
-      if (m.isVarArgs() && params.length < parameterTypes.length - 1) {
+      if (m.isVarArgs() && (params.length < (parameterTypes.length - 1))) {
         throw new ELException(new IllegalArgumentException("wrong number of arguments"));
       }
 
@@ -59,7 +59,7 @@ public final class ELUtil {
         parameters[i] = context.convertToType(params[i], parameterTypes[i]);
       }
 
-      if (m.isVarArgs() && params.length > normalParamLength) {
+      if (m.isVarArgs() && (params.length > normalParamLength)) {
         final Class<?> varArgsType = parameterTypes[normalParamLength];
 
         for (int i = normalParamLength; i < params.length; i++) {

@@ -107,7 +107,7 @@ final class BuilderBeanInfo extends SimpleBeanInfo {
     } catch (final IntrospectionException e) {
       e.printStackTrace();
     }// GEN-HEADEREND:Properties
-    // Here you can add code for customizing the properties array.
+     // Here you can add code for customizing the properties array.
 
     return properties;
   }// GEN-LAST:Properties
@@ -297,7 +297,7 @@ final class BuilderBeanInfo extends SimpleBeanInfo {
       methods[METHOD_toRoot35].setDisplayName("");
     } catch (final Exception e) {
     }// GEN-HEADEREND:Methods
-    // Here you can add code for customizing the methods array.
+     // Here you can add code for customizing the methods array.
 
     return methods;
   }// GEN-LAST:Methods

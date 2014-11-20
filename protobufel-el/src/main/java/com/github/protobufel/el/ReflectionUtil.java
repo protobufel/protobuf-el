@@ -100,7 +100,7 @@ public final class ReflectionUtil {
   }
 
   private static class DecoratorInvocationHandler<T, I, E extends IDecorator<T, I>> implements
-  InvocationHandler {
+      InvocationHandler {
     private final Class<I> interfaceClass;
     private final E interfaceImpl;
 
@@ -146,8 +146,8 @@ public final class ReflectionUtil {
     public Object invoke(final Object proxy, final Method method, final Object[] args)
         throws Throwable {
       if (!method.getDeclaringClass().isAssignableFrom(original.getClass())
-          || handler instanceof ConditionalInvocationHandler
-          && ((ConditionalInvocationHandler) handler).isApplicable(original, method, args)) {
+          || ((handler instanceof ConditionalInvocationHandler) && ((ConditionalInvocationHandler) handler)
+              .isApplicable(original, method, args))) {
         return handler.invoke(original, method, args);
       } else {
         return method.invoke(original, args);
