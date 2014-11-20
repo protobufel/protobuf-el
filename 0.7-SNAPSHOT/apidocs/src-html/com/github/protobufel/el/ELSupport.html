@@ -1,0 +1,147 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head>
+<title>Source code</title>
+<link rel="stylesheet" type="text/css" href="../../../../../stylesheet.css" title="Style">
+</head>
+<body>
+<div class="sourceContainer">
+<pre><span class="sourceLineNo">001</span>/*<a name="line.1"></a>
+<span class="sourceLineNo">002</span> * DO NOT ALTER OR REMOVE COPYRIGHT NOTICES OR THIS HEADER.<a name="line.2"></a>
+<span class="sourceLineNo">003</span> *<a name="line.3"></a>
+<span class="sourceLineNo">004</span> * Copyright (c) 1997-2010 Oracle and/or its affiliates. All rights reserved.<a name="line.4"></a>
+<span class="sourceLineNo">005</span> *<a name="line.5"></a>
+<span class="sourceLineNo">006</span> * The contents of this file are subject to the terms of either the GNU General Public License<a name="line.6"></a>
+<span class="sourceLineNo">007</span> * Version 2 only ("GPL") or the Common Development and Distribution License("CDDL") (collectively,<a name="line.7"></a>
+<span class="sourceLineNo">008</span> * the "License"). You may not use this file except in compliance with the License. You can obtain a<a name="line.8"></a>
+<span class="sourceLineNo">009</span> * copy of the License at https://glassfish.dev.java.net/public/CDDL+GPL_1_1.html or<a name="line.9"></a>
+<span class="sourceLineNo">010</span> * packager/legal/LICENSE.txt. See the License for the specific language governing permissions and<a name="line.10"></a>
+<span class="sourceLineNo">011</span> * limitations under the License.<a name="line.11"></a>
+<span class="sourceLineNo">012</span> *<a name="line.12"></a>
+<span class="sourceLineNo">013</span> * When distributing the software, include this License Header Notice in each file and include the<a name="line.13"></a>
+<span class="sourceLineNo">014</span> * License file at packager/legal/LICENSE.txt.<a name="line.14"></a>
+<span class="sourceLineNo">015</span> *<a name="line.15"></a>
+<span class="sourceLineNo">016</span> * GPL Classpath Exception: Oracle designates this particular file as subject to the "Classpath"<a name="line.16"></a>
+<span class="sourceLineNo">017</span> * exception as provided by Oracle in the GPL Version 2 section of the License file that accompanied<a name="line.17"></a>
+<span class="sourceLineNo">018</span> * this code.<a name="line.18"></a>
+<span class="sourceLineNo">019</span> *<a name="line.19"></a>
+<span class="sourceLineNo">020</span> * Modifications: If applicable, add the following below the License Header, with the fields<a name="line.20"></a>
+<span class="sourceLineNo">021</span> * enclosed by brackets [] replaced by your own identifying information:<a name="line.21"></a>
+<span class="sourceLineNo">022</span> * "Portions Copyright [year] [name of copyright owner]"<a name="line.22"></a>
+<span class="sourceLineNo">023</span> *<a name="line.23"></a>
+<span class="sourceLineNo">024</span> * Contributor(s): If you wish your version of this file to be governed by only the CDDL or only the<a name="line.24"></a>
+<span class="sourceLineNo">025</span> * GPL Version 2, indicate your decision by adding "[Contributor] elects to include this software in<a name="line.25"></a>
+<span class="sourceLineNo">026</span> * this distribution under the [CDDL or GPL Version 2] license." If you don't indicate a single<a name="line.26"></a>
+<span class="sourceLineNo">027</span> * choice of license, a recipient has the option to distribute your version of this file under<a name="line.27"></a>
+<span class="sourceLineNo">028</span> * either the CDDL, the GPL Version 2 or to extend the choice of license to its licensees as<a name="line.28"></a>
+<span class="sourceLineNo">029</span> * provided above. However, if you add GPL Version 2 code and therefore, elected the GPL Version 2<a name="line.29"></a>
+<span class="sourceLineNo">030</span> * license, then the option applies only if the new code is made subject to such option by the<a name="line.30"></a>
+<span class="sourceLineNo">031</span> * copyright holder.<a name="line.31"></a>
+<span class="sourceLineNo">032</span> *<a name="line.32"></a>
+<span class="sourceLineNo">033</span> *<a name="line.33"></a>
+<span class="sourceLineNo">034</span> * This file incorporates work covered by the following copyright and permission notice:<a name="line.34"></a>
+<span class="sourceLineNo">035</span> *<a name="line.35"></a>
+<span class="sourceLineNo">036</span> * Copyright 2004 The Apache Software Foundation<a name="line.36"></a>
+<span class="sourceLineNo">037</span> *<a name="line.37"></a>
+<span class="sourceLineNo">038</span> * Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except<a name="line.38"></a>
+<span class="sourceLineNo">039</span> * in compliance with the License. You may obtain a copy of the License at<a name="line.39"></a>
+<span class="sourceLineNo">040</span> *<a name="line.40"></a>
+<span class="sourceLineNo">041</span> * http://www.apache.org/licenses/LICENSE-2.0<a name="line.41"></a>
+<span class="sourceLineNo">042</span> *<a name="line.42"></a>
+<span class="sourceLineNo">043</span> * Unless required by applicable law or agreed to in writing, software distributed under the License<a name="line.43"></a>
+<span class="sourceLineNo">044</span> * is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express<a name="line.44"></a>
+<span class="sourceLineNo">045</span> * or implied. See the License for the specific language governing permissions and limitations under<a name="line.45"></a>
+<span class="sourceLineNo">046</span> * the License.<a name="line.46"></a>
+<span class="sourceLineNo">047</span> * <a name="line.47"></a>
+<span class="sourceLineNo">048</span> * "Portions Copyright [2014] [David Tesler (https://github.com/protobufel)]"<a name="line.48"></a>
+<span class="sourceLineNo">049</span> */<a name="line.49"></a>
+<span class="sourceLineNo">050</span>package com.github.protobufel.el;<a name="line.50"></a>
+<span class="sourceLineNo">051</span><a name="line.51"></a>
+<span class="sourceLineNo">052</span>/**<a name="line.52"></a>
+<span class="sourceLineNo">053</span> * Useful utility methods, taken from javax.el package in the modified and unmodified form. <a name="line.53"></a>
+<span class="sourceLineNo">054</span> *  <a name="line.54"></a>
+<span class="sourceLineNo">055</span> * @author protobufel@gmail.com David Tesler<a name="line.55"></a>
+<span class="sourceLineNo">056</span> */<a name="line.56"></a>
+<span class="sourceLineNo">057</span>public final class ELSupport {<a name="line.57"></a>
+<span class="sourceLineNo">058</span>  private ELSupport() {}<a name="line.58"></a>
+<span class="sourceLineNo">059</span>  <a name="line.59"></a>
+<span class="sourceLineNo">060</span>  public static int toInteger(final Object p) {<a name="line.60"></a>
+<span class="sourceLineNo">061</span>    if (p instanceof Integer) {<a name="line.61"></a>
+<span class="sourceLineNo">062</span>      return ((Integer) p).intValue();<a name="line.62"></a>
+<span class="sourceLineNo">063</span>    }<a name="line.63"></a>
+<span class="sourceLineNo">064</span>    if (p instanceof Character) {<a name="line.64"></a>
+<span class="sourceLineNo">065</span>      return ((Character) p).charValue();<a name="line.65"></a>
+<span class="sourceLineNo">066</span>    }<a name="line.66"></a>
+<span class="sourceLineNo">067</span>    if (p instanceof Number) {<a name="line.67"></a>
+<span class="sourceLineNo">068</span>      return ((Number) p).intValue();<a name="line.68"></a>
+<span class="sourceLineNo">069</span>    }<a name="line.69"></a>
+<span class="sourceLineNo">070</span>    if (p instanceof String) {<a name="line.70"></a>
+<span class="sourceLineNo">071</span>      return Integer.parseInt((String) p);<a name="line.71"></a>
+<span class="sourceLineNo">072</span>    }<a name="line.72"></a>
+<span class="sourceLineNo">073</span>    throw new IllegalArgumentException();<a name="line.73"></a>
+<span class="sourceLineNo">074</span>  }<a name="line.74"></a>
+<span class="sourceLineNo">075</span>}<a name="line.75"></a>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</pre>
+</div>
+</body>
+</html>
