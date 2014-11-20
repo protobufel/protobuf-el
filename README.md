@@ -11,6 +11,7 @@
 At present, there are no fully compliant Google Protocol Buffers 2.6.1 Java parsers of .proto files, at least known to me.
 The one and only golden standard for this task is the original Google's ``protoc`` C++ implementation. It produces two major 
 type of artifacts:
+
     1. the source code in the target language along with the embedded Message definitions, i.e. `Descriptor`s, and/or 
     2. FileDescriptorSet, which is the collection of all FileDescriporProto(-s) corresponding to the original .proto files.
     
