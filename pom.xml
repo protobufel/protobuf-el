@@ -685,7 +685,7 @@
 							${project.artifactId}:${project.version}</message>
 						<!-- <dryRun>true</dryRun> -->
 						<lineLength>100</lineLength>
-						<noJekyll>true</noJekyll>
+						<noJekyll>false</noJekyll>
 						<server>github</server>
 						<!-- <path>${site.path}</path> -->
 						<path>${project.distributionManagement.site.url}</path>
