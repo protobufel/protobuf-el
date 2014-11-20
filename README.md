@@ -309,6 +309,7 @@ Any ProtoBuf Message or Builder, including DynamicMessage/Builder and GeneratedM
 
 `ProtoMessageQueryProcessor` allows you to add your own JavaBeans to be used within your expression, and also  
  defines its own JavaBeans available in the expression:
+ 
     1. `records` - the immutable `List<Message>` of the original records
     2. `results` - the immutable `List<Message>` of the results being produced
     3. `record` - the current row's Message.Builder, will be in `results`
