@@ -453,8 +453,8 @@ If you interested in the ProtoBuf Java Parser and Builder, look at the `/protobu
 It tests the source against *ALL* ProtoBuf 2.6.1 original `.proto`s, comparing the bulk results!
 There are minor differences between the original results produced by `protoc` and the source:
 
-1. 'protoc' converts all primitive fields'' default values to decimal format, contrary to the spec; we don't. However, the resulting `FileDescriptor` and any its descriptors will have the identical values. See https://github.com/google/protobuf/issues/61
-2. `protoc` allows the maximum extension range of 536870912 when message_set_wire_format = true; we don't. See https://github.com/google/protobuf/issues/26
+1. `protoc` converts all primitive fields' default values to decimal format, contrary to the spec; we don't. However, the resulting `FileDescriptor` and any its descriptors will have the identical values. See https://github.com/google/protobuf/issues/61
+2. `protoc` allows the maximum extension range of `536870912` when `message_set_wire_format = true`; we don't. See https://github.com/google/protobuf/issues/26
 3. `protoc` serializes custom options differently then Java API. However, the deserialization produces the identical results, i.e. these two forms are equivalent with reguard to deserialization. As the consequence, our Java Parser/Builder is identical to any manual FileDescriptorProto construction in Java. Regardless, the resulting `FileDecsriptor`s are equal in function in both cases. See https://github.com/google/protobuf/issues/59   
 
 
