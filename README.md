@@ -447,10 +447,10 @@ All project's public artifacts can be found on Maven at https://search.maven.org
     2. define environment variable `PROTOC_EXEC` and set it to the `protoc` path
     3. run Maven with `env-protoc` profile and `env=protoc`
 
-Again, the re-generation of the Java sources and FileDescriptorSet(-) is not necessary; only in the case of the Protocol Buffers' version differing from 2.6.1.
+Again, the re-generation of the Java sources and FileDescriptorSet(-s) is not necessary; only in the case of the Protocol Buffers' version differing from 2.6.1.
 
-If you interested in the ProtoBuf Java Parser and Builder, look at the `/protobufel-grammar/src/test/java/com/github/protobufel/grammar/CompareWithOriginalsTest.java`.
-It tests the source against *ALL* ProtoBuf 2.6.1 original `.proto`s, comparing the bulk results!
+If you are interested in the ProtoBuf Java Parser and Builder, look at the `/protobufel-grammar/src/test/java/com/github/protobufel/grammar/CompareWithOriginalsTest.java`.
+It tests the source against *ALL* ProtoBuf 2.6.1 original test `.proto`s, comparing the bulk results!
 There are minor differences between the original results produced by `protoc` and the source:
 
 1. `protoc` converts all primitive fields' default values to decimal format, contrary to the spec; we don't. However, the resulting `FileDescriptor` and any its descriptors will have the identical values. See https://github.com/google/protobuf/issues/61
