@@ -1,5 +1,5 @@
 [![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
-
+[![Maven Central](https://img.shields.io/maven-central/v/com.github.protobufel/protobufel-el.svg?style=plastic)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22protobufel-el%22)
 ----
 1. Google Protocol Buffers' (ProtoBuf) Java Parser
 2. JSR-341 Expression Language 3.0 with ProtoBuf
