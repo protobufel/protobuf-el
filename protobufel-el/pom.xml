@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>com.github.protobufel</groupId>
 		<artifactId>protobufel-parent</artifactId>
-		<version>0.7-SNAPSHOT</version>
+		<version>0.7</version>
 	</parent>
 	<artifactId>protobufel-el</artifactId>
 	<name>ProtoBuf integration with EL 3.0</name>
