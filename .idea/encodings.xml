@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="Encoding">
+    <file url="file://$PROJECT_DIR$" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-files-v7" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/common-verifications" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/extended-regex" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/globs" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-benchmarks" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-crud" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-el" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-grammar" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-protobuf-test-protos" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-test-protos" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-test-protos2" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/protobufel-test-util" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/regex-support" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/regex-support-interfaces" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resource-exec-maven-plugin" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resource-exec-maven-plugin/src/it/simple-it" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/resource-exec-maven-plugin/src/it/simple-it2" charset="UTF-8" />
+  </component>
+</project>

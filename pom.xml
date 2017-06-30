@@ -60,7 +60,7 @@
 		<legal.owner>David Tesler (https://github.com/protobufel)</legal.owner>
 		<project.scm.id>github</project.scm.id>
 		<!-- <github.global.server>github</github.global.server> -->
-		<mavenVersion>3.2.5</mavenVersion>
+		<mavenVersion>3.3.9</mavenVersion>
 		<mavenPluginPluginVersion>3.3</mavenPluginPluginVersion>
 		<powermock.version>1.5.6</powermock.version>
 	</properties>
