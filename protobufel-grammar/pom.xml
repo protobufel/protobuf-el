@@ -30,6 +30,12 @@
 			<scope>compile</scope>
 		</dependency>
 		<dependency>
+			<groupId>org.antlr</groupId>
+			<artifactId>antlr4</artifactId>
+			<classifier>complete</classifier>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.google.protobuf</groupId>
 			<artifactId>protobuf-java</artifactId>
 			<scope>compile</scope>
@@ -256,7 +262,7 @@
 						<configuration>
 							<!-- <classpathScope>test</classpathScope> -->
 							<!-- <workingDirectory>${project.build.outputDirectory}/tmp</workingDirectory> -->
-							<mainClass>org.antlr.v4.runtime.misc.TestRig</mainClass>
+							<mainClass>org.antlr.v4.gui.TestRig</mainClass>
 							<arguments>
 								<argument>${grammar-package}.${grammar-name}</argument>
 								<argument>${grammar-start-rule}</argument>
@@ -290,7 +296,7 @@
 						</executions>
 						<configuration>
 							<!-- <workingDirectory>${project.build.outputDirectory}/tmp</workingDirectory> -->
-							<mainClass>org.antlr.v4.runtime.misc.TestRig</mainClass>
+							<mainClass>org.antlr.v4.gui.TestRig</mainClass>
 							<arguments>
 								<argument>${grammar-package}.${grammar-name}</argument>
 								<argument>tokens</argument>

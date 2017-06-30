@@ -29,7 +29,7 @@ package com.github.protobufel.grammar;
 
 import java.io.File;
 
-import org.antlr.v4.runtime.misc.TestRig;
+import org.antlr.v4.gui.TestRig;
 
 public class GUITestRig1 {
   private static final int ARGS_INPUT_FILE_INDEX = 0;

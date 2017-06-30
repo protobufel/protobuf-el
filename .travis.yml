@@ -3,8 +3,8 @@ sudo: false
 jdk:
   - oraclejdk8
 # jacoco maven plugin crashes on java 7
-#  - oraclejdk7
-#  - openjdk7
+  - oraclejdk7
+  - openjdk7
 
 after_success:
   - bash <(curl -s https://codecov.io/bash)
