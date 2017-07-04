@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="CompilerConfiguration">
+    <annotationProcessing>
+      <profile name="Maven default annotation processors profile" enabled="true">
+        <sourceOutputDir name="target/generated-sources/annotations" />
+        <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
+        <module name="common-files-v7" />
+        <module name="common-verifications" />
+        <module name="extended-regex" />
+        <module name="globs" />
+        <module name="protobufel" />
+        <module name="protobufel-benchmarks" />
+        <module name="protobufel-crud" />
+        <module name="protobufel-el" />
+        <module name="protobufel-grammar" />
+        <module name="protobufel-protobuf-test-protos" />
+        <module name="protobufel-test-protos" />
+        <module name="protobufel-test-protos2" />
+        <module name="protobufel-test-util" />
+        <module name="regex-support" />
+        <module name="regex-support-interfaces" />
+        <module name="resource-exec-maven-plugin" />
+        <module name="simple-it (1)" />
+        <module name="simple-it (2)" />
+      </profile>
+    </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="common-files-v7" target="1.7" />
+      <module name="common-verifications" target="1.7" />
+      <module name="extended-regex" target="1.7" />
+      <module name="globs" target="1.7" />
+      <module name="protobufel" target="1.7" />
+      <module name="protobufel-benchmarks" target="1.7" />
+      <module name="protobufel-crud" target="1.7" />
+      <module name="protobufel-el" target="1.7" />
+      <module name="protobufel-grammar" target="1.7" />
+      <module name="protobufel-parent" target="1.5" />
+      <module name="protobufel-protobuf-test-protos" target="1.7" />
+      <module name="protobufel-test-protos" target="1.7" />
+      <module name="protobufel-test-protos2" target="1.7" />
+      <module name="protobufel-test-util" target="1.7" />
+      <module name="regex-support" target="1.7" />
+      <module name="regex-support-interfaces" target="1.7" />
+      <module name="resource-exec-maven-plugin" target="1.7" />
+      <module name="simple-it (1)" target="1.5" />
+      <module name="simple-it (2)" target="1.5" />
+    </bytecodeTargetLevel>
+  </component>
+</project>
