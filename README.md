@@ -1,5 +1,7 @@
 [![Build Status](https://travis-ci.org/protobufel/protobuf-el.svg?branch=master)](https://travis-ci.org/protobufel/protobuf-el)
+<!--- 
 [![codecov](https://codecov.io/gh/protobufel/protobuf-el/branch/master/graph/badge.svg)](https://codecov.io/gh/protobufel/protobuf-el)
+-->
 [![Maven Central](https://img.shields.io/maven-central/v/com.github.protobufel/protobufel-el.svg?style=plastic)](https://search.maven.org/#search%7Cga%7C1%7Ca%3A%22protobufel-el%22)
 
 ----
