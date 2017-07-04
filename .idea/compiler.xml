@@ -27,23 +27,23 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="common-files-v7" target="1.7" />
-      <module name="common-verifications" target="1.7" />
-      <module name="extended-regex" target="1.7" />
+      <module name="common-files-v7" target="1.8" />
+      <module name="common-verifications" target="1.8" />
+      <module name="extended-regex" target="1.8" />
       <module name="globs" target="1.7" />
-      <module name="protobufel" target="1.7" />
-      <module name="protobufel-benchmarks" target="1.7" />
-      <module name="protobufel-crud" target="1.7" />
-      <module name="protobufel-el" target="1.7" />
-      <module name="protobufel-grammar" target="1.7" />
+      <module name="protobufel" target="1.8" />
+      <module name="protobufel-benchmarks" target="1.8" />
+      <module name="protobufel-crud" target="1.8" />
+      <module name="protobufel-el" target="1.8" />
+      <module name="protobufel-grammar" target="1.8" />
       <module name="protobufel-parent" target="1.5" />
-      <module name="protobufel-protobuf-test-protos" target="1.7" />
-      <module name="protobufel-test-protos" target="1.7" />
-      <module name="protobufel-test-protos2" target="1.7" />
-      <module name="protobufel-test-util" target="1.7" />
+      <module name="protobufel-protobuf-test-protos" target="1.8" />
+      <module name="protobufel-test-protos" target="1.8" />
+      <module name="protobufel-test-protos2" target="1.8" />
+      <module name="protobufel-test-util" target="1.8" />
       <module name="regex-support" target="1.7" />
       <module name="regex-support-interfaces" target="1.7" />
-      <module name="resource-exec-maven-plugin" target="1.7" />
+      <module name="resource-exec-maven-plugin" target="1.8" />
       <module name="simple-it (1)" target="1.5" />
       <module name="simple-it (2)" target="1.5" />
     </bytecodeTargetLevel>

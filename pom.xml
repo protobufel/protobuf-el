@@ -8,12 +8,10 @@
     </parent>
     <groupId>com.github.protobufel</groupId>
     <artifactId>protobufel-parent</artifactId>
-    <version>0.7</version>
+    <version>0.7-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Parent Project of PROTOBUF-EL Repository</name>
-    <description>The parent project of Google Protocol Buffers enhancements and EL 3.0, Fast Directory Scanning, and
-        Resource Friendly Maven Exec Plugin
-    </description>
+    <description>The parent project of Google Protocol Buffers enhancements and EL 3.0, Fast Directory Scanning, and Resource Friendly Maven Exec Plugin</description>
     <url>https://github.com/protobufel/protobuf-el/</url>
     <inceptionYear>2014</inceptionYear>
     <distributionManagement>
@@ -39,7 +37,7 @@
         <developerConnection>scm:git:git@github.com:protobufel/protobuf-el.git</developerConnection>
         <!-- <url>git@github.com:protobufel/protobuf-el.git</url> -->
         <url>https://github.com/protobufel/protobuf-el/</url>
-        <tag>v0.7</tag>
+        <tag>protobufel-parent-0.7-SNAPSHOT</tag>
     </scm>
     <issueManagement>
         <system>GitHub Issues</system>
@@ -62,9 +60,8 @@
         <legal.owner>David Tesler (https://github.com/protobufel)</legal.owner>
         <project.scm.id>github</project.scm.id>
         <!-- <github.global.server>github</github.global.server> -->
-        <mavenVersion>3.5.0</mavenVersion>
-        <mavenPluginPluginVersion>3.5</mavenPluginPluginVersion>
-        <antlr.version>4.7</antlr.version>
+        <mavenVersion>3.2.5</mavenVersion>
+        <mavenPluginPluginVersion>3.3</mavenPluginPluginVersion>
         <powermock.version>1.5.6</powermock.version>
     </properties>
     <dependencyManagement>
@@ -72,14 +69,7 @@
             <dependency>
                 <groupId>org.antlr</groupId>
                 <artifactId>antlr4-runtime</artifactId>
-                <version>${antlr.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.antlr</groupId>
-                <artifactId>antlr4</artifactId>
-                <classifier>complete</classifier>
-                <version>${antlr.version}</version>
-                <scope>test</scope>
+                <version>4.5</version>
             </dependency>
             <dependency>
                 <groupId>org.apache.maven</groupId>
@@ -107,7 +97,7 @@
             <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
-                <version>4.12</version>
+                <version>[4.12-beta-3, 4.13]</version>
                 <scope>test</scope>
             </dependency>
             <dependency>
@@ -330,7 +320,7 @@
                     <configuration>
                         <rules>
                             <requireMavenVersion>
-                                <version>3.2.5</version>
+                                <version>3.2.3</version>
                             </requireMavenVersion>
                             <requireJavaVersion>
                                 <version>1.7</version>
@@ -366,7 +356,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-release-plugin</artifactId>
-                    <version>2.5.3</version>
+                    <version>2.5.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
@@ -376,7 +366,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-compiler-plugin</artifactId>
-                    <version>3.6.1</version>
+                    <version>3.2</version>
                     <configuration>
                         <source>1.7</source>
                         <target>1.7</target>
@@ -390,7 +380,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-javadoc-plugin</artifactId>
-                    <version>2.10.4</version>
+                    <version>2.10.1</version>
                     <configuration>
                         <docfilessubdirs>true</docfilessubdirs>
                         <detectLinks>false</detectLinks>
@@ -452,7 +442,7 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-gpg-plugin</artifactId>
-                    <version>1.6</version>
+                    <version>1.5</version>
                     <configuration>
                         <skip>false</skip>
                     </configuration>
@@ -551,17 +541,17 @@
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-antrun-plugin</artifactId>
-                    <version>1.8</version>
+                    <version>1.7</version>
                     <dependencies>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant</artifactId>
-                            <version>1.10.1</version>
+                            <version>1.9.4</version>
                         </dependency>
                         <dependency>
                             <groupId>org.apache.ant</groupId>
                             <artifactId>ant-launcher</artifactId>
-                            <version>1.10.1</version>
+                            <version>1.9.4</version>
                         </dependency>
                         <dependency>
                             <groupId>ant-contrib</groupId>
@@ -573,22 +563,22 @@
                 <plugin>
                     <groupId>org.sonatype.plugins</groupId>
                     <artifactId>nexus-staging-maven-plugin</artifactId>
-                    <version>1.6.8</version>
+                    <version>1.6.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>build-helper-maven-plugin</artifactId>
-                    <version>3.0.0</version>
+                    <version>1.9.1</version>
                 </plugin>
                 <plugin>
                     <groupId>org.antlr</groupId>
                     <artifactId>antlr4-maven-plugin</artifactId>
-                    <version>${antlr.version}</version>
+                    <version>4.5</version>
                 </plugin>
                 <plugin>
                     <groupId>org.codehaus.mojo</groupId>
                     <artifactId>exec-maven-plugin</artifactId>
-                    <version>1.6.0</version>
+                    <version>1.3.2</version>
                 </plugin>
                 <plugin>
                     <groupId>org.eclipse.sisu</groupId>
@@ -677,6 +667,11 @@
                     </executions>
                 </plugin>
                 <plugin>
+                    <groupId>org.jacoco</groupId>
+                    <artifactId>jacoco-maven-plugin</artifactId>
+                    <version>0.7.2.201409121644</version>
+                </plugin>
+                <plugin>
                     <groupId>org.assertj</groupId>
                     <artifactId>assertj-assertions-generator-maven-plugin</artifactId>
                     <version>1.5.0</version>
@@ -684,11 +679,10 @@
                 <plugin>
                     <groupId>com.github.github</groupId>
                     <artifactId>site-maven-plugin</artifactId>
-                    <version>0.12</version>
+                    <version>0.10</version>
                     <configuration>
                         <message>Creating Maven site for
-                            ${project.artifactId}:${project.version}
-                        </message>
+                            ${project.artifactId}:${project.version}</message>
                         <!-- <dryRun>true</dryRun> -->
                         <lineLength>100</lineLength>
                         <noJekyll>false</noJekyll>
@@ -711,25 +705,6 @@
                         </execution>
                     </executions>
                 </plugin>
-                <!--<plugin>-->
-                    <!--<groupId>org.jacoco</groupId>-->
-                    <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                    <!--<version>0.7.9</version>-->
-                    <!--<executions>-->
-                        <!--<execution>-->
-                            <!--<goals>-->
-                                <!--<goal>prepare-agent</goal>-->
-                            <!--</goals>-->
-                        <!--</execution>-->
-                        <!--<execution>-->
-                            <!--<id>report</id>-->
-                            <!--<phase>test</phase>-->
-                            <!--<goals>-->
-                                <!--<goal>report</goal>-->
-                            <!--</goals>-->
-                        <!--</execution>-->
-                    <!--</executions>-->
-                <!--</plugin>-->
             </plugins>
         </pluginManagement>
         <plugins>
@@ -761,31 +736,12 @@
                 <artifactId>maven-release-plugin</artifactId>
                 <configuration>
                     <autoVersionSubmodules>true</autoVersionSubmodules>
-                    <tagNameFormat>v@{project.version}</tagNameFormat>
                     <useReleaseProfile>false</useReleaseProfile>
                     <!-- <releaseProfiles>env-prod,env-license</releaseProfiles> -->
                     <releaseProfiles>release</releaseProfiles>
                     <goals>deploy</goals>
                 </configuration>
             </plugin>
-            <!--<plugin>-->
-                <!--<groupId>org.jacoco</groupId>-->
-                <!--<artifactId>jacoco-maven-plugin</artifactId>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>prepare-agent</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                    <!--<execution>-->
-                        <!--<id>report</id>-->
-                        <!--<phase>test</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>report</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
         </plugins>
     </build>
     <reporting>
@@ -832,8 +788,6 @@
                     </links>
                     <!-- <subpackages>com.github.protobufel</subpackages> -->
                     <!-- <excludePackageNames>com.github.protobufel.util:com.github.protobufel.test.util</excludePackageNames> -->
-
-<!--
                     <sourceFileIncludes>
                         <sourceFileInclude>com/github/protobufel/**/*</sourceFileInclude>
                     </sourceFileIncludes>
@@ -846,9 +800,6 @@
                         <sourceFileExclude>com/github/protobufel/grammar/ProtoListener.java</sourceFileExclude>
                         <sourceFileExclude>com/github/protobufel/grammar/ProtoBaseListener.java</sourceFileExclude>
                     </sourceFileExcludes>
--->
-
-
                 </configuration>
                 <reportSets>
                     <reportSet>
@@ -975,6 +926,30 @@
             </build>
         </profile>
         <profile>
+            <id>env-staging</id>
+            <activation>
+                <property>
+                    <name>staging-active</name>
+                    <value>true</value>
+                </property>
+            </activation>
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.antlr</groupId>
+                        <artifactId>antlr4-runtime</artifactId>
+                        <version>4.3</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.abego.treelayout</groupId>
+                                <artifactId>org.abego.treelayout.core</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
+        </profile>
+        <profile>
             <id>release</id>
             <!-- <activation> -->
             <!-- <activeByDefault>false</activeByDefault> -->
@@ -985,6 +960,21 @@
             <!-- </activation> -->
             <properties />
 
+            <dependencyManagement>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.antlr</groupId>
+                        <artifactId>antlr4-runtime</artifactId>
+                        <version>4.3</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.abego.treelayout</groupId>
+                                <artifactId>org.abego.treelayout.core</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </dependencyManagement>
             <build>
                 <plugins>
                     <plugin>
